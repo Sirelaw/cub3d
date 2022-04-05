@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/18 06:25:49 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/05 15:26:39 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/04/05 15:59:11 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,14 +75,15 @@ char	**input_rows(int argc, char **argv)
 
 	input = NULL;
 	fd = check_input_get_fd(argc, argv);
-	map_row = get_next_line(fd);
+	map_row = get_line(fd);
 	input = add_to_arr(&input, map_row);
 	while (map_row)
 	{
-		map_row = get_next_line(fd);
+		map_row = get_line(fd);
 		if (map_row)
 			input = add_to_arr(&input, map_row);
-	}	
-	check_valid(input);
+	}
+	if (input)
+		check_valid(input);
 	return (input);
 }

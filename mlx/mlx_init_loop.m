@@ -80,10 +80,18 @@ void *mlx_init()
       i += 4;
     }
 
+
+#ifdef	STRINGPUTX11
+  new_mlx->font->vertexes[2] = FONT_WIDTH/1.4;
+  new_mlx->font->vertexes[4] = FONT_WIDTH/1.4;
+  new_mlx->font->vertexes[5] = (-FONT_HEIGHT-1)/1.4;
+  new_mlx->font->vertexes[7] = (-FONT_HEIGHT-1)/1.4;
+#else
   new_mlx->font->vertexes[2] = FONT_WIDTH;
   new_mlx->font->vertexes[4] = FONT_WIDTH;
   new_mlx->font->vertexes[5] = -FONT_HEIGHT-1;
   new_mlx->font->vertexes[7] = -FONT_HEIGHT-1;
+#endif
 
   return ((void *)new_mlx);
 }
@@ -91,9 +99,9 @@ void *mlx_init()
 
 void mlx_loop(mlx_ptr_t *mlx_ptr)
 {
+
   CFRunLoopObserverRef observer;
   CFRunLoopObserverContext ocontext = {.version = 0, .info = mlx_ptr, .retain = NULL, .release = NULL, .copyDescription = NULL};
-
   mlx_ptr->main_loop_active = 1;
 
   observer = CFRunLoopObserverCreate(NULL, kCFRunLoopBeforeTimers, true, 0, do_loop_flush, &ocontext);

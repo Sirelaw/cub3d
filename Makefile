@@ -6,7 +6,7 @@
 #    By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 20:23:06 by oipadeol          #+#    #+#              #
-#    Updated: 2022/04/05 15:23:41 by oipadeol         ###   ########.fr        #
+#    Updated: 2022/04/05 15:38:36 by oipadeol         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,8 +32,8 @@ INC_DIR = ./includes/
 LIBFT_DIR = ./libft/
 
 # Source files and object files
-SRC_FILES =	main.c edited_get_next_line/edited_get_next_line.c\
-		input_handling/input_handling.c input_handling/input_handling_2.c\
+SRC_FILES =	main.c get_line/get_line.c input_handling/input_handling.c\
+		input_handling/input_handling_2.c\
 
 OBJ_FILES = $(SRC_FILES:.c=.o)
 
@@ -46,7 +46,7 @@ all: obj $(LIBFT) $(NAME)
 
 obj:
 	@mkdir -p $(OBJ_DIR)
-	@mkdir -p $(OBJ_DIR)edited_get_next_line
+	@mkdir -p $(OBJ_DIR)get_line
 	@mkdir -p $(OBJ_DIR)input_handling
 	@mkdir -p $(OBJ_DIR)utils
 

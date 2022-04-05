@@ -9,7 +9,7 @@
 # include <limits.h>
 # include "../mlx/mlx.h"
 # include "../libft/libft.h"
-# include "get_next_line.h"
+# include "get_line.h"
 
 typedef struct s_vars
 {
@@ -25,6 +25,7 @@ typedef struct s_vars
 }t_vars;
 
 char	**input_rows(int argc, char **argv);
+int		check_valid(char **input);
 void	ft_error(void);
 
 

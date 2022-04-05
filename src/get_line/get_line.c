@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_line.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/19 13:06:57 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/05 15:14:29 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/04/05 15:40:07 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/get_next_line.h"
+#include "../includes/get_line.h"
 
 void	free_ret(char **ret)
 {
@@ -89,7 +89,7 @@ int	check_static(char **ret, char stat[BUFFER_SIZE + 1])
 	return (0);
 }
 
-char	*get_next_line(int fd)
+char	*get_line(int fd)
 {
 	static char	stat[BUFFER_SIZE + 1];
 	char		*ret;
