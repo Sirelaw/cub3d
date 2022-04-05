@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/19 18:51:48 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/05 18:56:11 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/04/05 23:06:02 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	ft_error(void)
 
 void	check_first_and_last_line(char *str)
 {
+	while (*str == ' ')
+		str++;
 	while (*str)
 	{
 		if (*str != '1' && *str != ' ')
@@ -49,16 +51,14 @@ void	check_surround(char *str, char *up, char *down, size_t i)
 	}
 }
 
-void	check_other_line(char *str, char *up, char *down)
+void	check_other_line(char *str, char *up, char *down, char *orient)
 {
 	size_t	i;
-	int		str_len;
-	
+
 	i = 0;
-	str_len = ft_strlen(str);
 	while (str[i] == ' ')
 		i++;
-	if (str[i] != '1' || str[str_len - 1] != '1')
+	if (str[i] != '1' || str[ft_strlen(str) - 1] != '1')
 		ft_error();	
 	while (str[i])
 	{
@@ -68,11 +68,20 @@ void	check_other_line(char *str, char *up, char *down)
 				ft_error();
 			check_surround(str, up, down, i);
 		}
+		else if (str[i] == 'N' || str[i] == 'S' || str[i] == 'E'
+				|| str[i] == 'W')
+		{
+			if (*orient)
+				ft_error();
+			*orient = str[i];
+		}
+		else if (str[i] != '1' && str[i] != ' ')
+			ft_error();
 		i++;
 	}
 }
 
-int	check_valid(char** input)
+int	check_valid(char** input, char *orient)
 {
 	int		i;
 	int		arr_len;
@@ -86,7 +95,7 @@ int	check_valid(char** input)
 		if ((i == 0) || (i == arr_len - 1))
 			check_first_and_last_line(input[i]);
 		else
-			check_other_line(input[i], input[i - 1], input[i + 1]);
+			check_other_line(input[i], input[i - 1], input[i + 1], orient);
 		i++;
 	}
 	return (0);	
