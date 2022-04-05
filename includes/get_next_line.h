@@ -1,32 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input_handling_2.c                                 :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/19 18:51:48 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/05 15:35:47 by oipadeol         ###   ########.fr       */
+/*   Created: 2021/12/19 13:01:20 by oipadeol          #+#    #+#             */
+/*   Updated: 2022/01/08 11:45:27 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
+# include <unistd.h>
+# include <stdlib.h>
 
-void	ft_error(void)
-{
-	write(STDERR_FILENO, "Error\n", 6);
-	exit(1);
-}
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 1000
+# endif
 
-int	check_valid(char** input)
-{
-	int	i;
-	int	j;
-	int	arr_len;
+char	*get_next_line(int fd);
 
-	arr_len = 0;
-	while (input && input[arr_len])
-		arr_len++;
-	
-	
-}
+#endif

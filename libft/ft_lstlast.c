@@ -1,32 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input_handling_2.c                                 :+:      :+:    :+:   */
+/*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/19 18:51:48 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/05 15:35:47 by oipadeol         ###   ########.fr       */
+/*   Created: 2021/09/13 11:18:23 by oipadeol          #+#    #+#             */
+/*   Updated: 2021/09/21 17:37:22 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "libft.h"
 
-void	ft_error(void)
+t_list	*ft_lstlast(t_list *lst)
 {
-	write(STDERR_FILENO, "Error\n", 6);
-	exit(1);
-}
+	t_list	*p;
 
-int	check_valid(char** input)
-{
-	int	i;
-	int	j;
-	int	arr_len;
-
-	arr_len = 0;
-	while (input && input[arr_len])
-		arr_len++;
-	
-	
+	if (lst == NULL)
+		return (NULL);
+	p = lst;
+	while (p->next != NULL)
+		p = p->next;
+	return (p);
 }

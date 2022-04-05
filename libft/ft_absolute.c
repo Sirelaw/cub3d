@@ -1,32 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input_handling_2.c                                 :+:      :+:    :+:   */
+/*   ft_absolute.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/19 18:51:48 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/05 15:35:47 by oipadeol         ###   ########.fr       */
+/*   Created: 2022/01/05 14:48:01 by oipadeol          #+#    #+#             */
+/*   Updated: 2022/01/05 14:59:30 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
-
-void	ft_error(void)
+int	ft_absolute(int n)
 {
-	write(STDERR_FILENO, "Error\n", 6);
-	exit(1);
-}
-
-int	check_valid(char** input)
-{
-	int	i;
-	int	j;
-	int	arr_len;
-
-	arr_len = 0;
-	while (input && input[arr_len])
-		arr_len++;
-	
-	
+	if ((n < 0) && (n != -2147483648))
+		return (-1 * n);
+	else
+		return (n);
 }

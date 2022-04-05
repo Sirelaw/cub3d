@@ -1,32 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input_handling_2.c                                 :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/19 18:51:48 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/05 15:35:47 by oipadeol         ###   ########.fr       */
+/*   Created: 2021/11/12 13:09:01 by oipadeol          #+#    #+#             */
+/*   Updated: 2022/01/06 20:24:40 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "libft.h"
 
-void	ft_error(void)
+int	ft_strcmp(const char *string1, const char *string2)
 {
-	write(STDERR_FILENO, "Error\n", 6);
-	exit(1);
-}
+	size_t				i;
+	const unsigned char	*str1;
+	const unsigned char	*str2;
 
-int	check_valid(char** input)
-{
-	int	i;
-	int	j;
-	int	arr_len;
-
-	arr_len = 0;
-	while (input && input[arr_len])
-		arr_len++;
-	
-	
+	str1 = (unsigned char *) string1;
+	str2 = (unsigned char *) string2;
+	i = 0;
+	while ((str1[i] == str2[i]) && (str1[i] != '\0'))
+		i++;
+	if ((str1[i] == str2[i]) && (str1[i] == '\0'))
+		return (0);
+	else
+		return ((int) str1[i] - (int) str2[i]);
 }

@@ -1,32 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input_handling_2.c                                 :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/19 18:51:48 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/05 15:35:47 by oipadeol         ###   ########.fr       */
+/*   Created: 2021/09/03 20:42:32 by oipadeol          #+#    #+#             */
+/*   Updated: 2021/09/21 18:23:57 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "libft.h"
 
-void	ft_error(void)
+char	*ft_strchr(const char *s, int c)
 {
-	write(STDERR_FILENO, "Error\n", 6);
-	exit(1);
-}
+	int				i;
+	unsigned char	uc;
 
-int	check_valid(char** input)
-{
-	int	i;
-	int	j;
-	int	arr_len;
-
-	arr_len = 0;
-	while (input && input[arr_len])
-		arr_len++;
-	
-	
+	uc = (unsigned char) c;
+	i = 0;
+	while ((s[i] != uc) && (s[i] != '\0'))
+		i++;
+	if (s[i] == uc)
+		return ((char *) &s[i]);
+	else
+		return (NULL);
 }

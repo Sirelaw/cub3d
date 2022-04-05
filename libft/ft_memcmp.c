@@ -1,32 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input_handling_2.c                                 :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/19 18:51:48 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/05 15:35:47 by oipadeol         ###   ########.fr       */
+/*   Created: 2021/09/04 19:48:00 by oipadeol          #+#    #+#             */
+/*   Updated: 2021/09/22 12:38:21 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "libft.h"
 
-void	ft_error(void)
+int	ft_memcmp(const char *string1, const char *string2, size_t n)
 {
-	write(STDERR_FILENO, "Error\n", 6);
-	exit(1);
-}
+	size_t			i;
+	unsigned char	*str1;
+	unsigned char	*str2;
 
-int	check_valid(char** input)
-{
-	int	i;
-	int	j;
-	int	arr_len;
-
-	arr_len = 0;
-	while (input && input[arr_len])
-		arr_len++;
-	
-	
+	str1 = (unsigned char *)string1;
+	str2 = (unsigned char *)string2;
+	i = 0;
+	if (n == 0)
+		return (0);
+	while ((str1[i] == str2[i]) && (i < (n - 1)))
+		i++;
+	if (str1[i] == str2[i])
+		return (0);
+	else
+		return (str1[i] - str2[i]);
 }

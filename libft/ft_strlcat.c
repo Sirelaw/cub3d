@@ -1,32 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input_handling_2.c                                 :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/19 18:51:48 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/05 15:35:47 by oipadeol         ###   ########.fr       */
+/*   Created: 2021/09/03 20:12:22 by oipadeol          #+#    #+#             */
+/*   Updated: 2021/09/18 19:18:32 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "libft.h"
 
-void	ft_error(void)
+size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 {
-	write(STDERR_FILENO, "Error\n", 6);
-	exit(1);
-}
+	size_t	i;
+	size_t	j;
 
-int	check_valid(char** input)
-{
-	int	i;
-	int	j;
-	int	arr_len;
-
-	arr_len = 0;
-	while (input && input[arr_len])
-		arr_len++;
-	
-	
+	i = ft_strlen(dst);
+	j = ft_strlen(src);
+	if (dstsize < i + 1)
+		return (dstsize + j);
+	j = 0;
+	while ((src[j] != '\0') && ((i + j) < (dstsize - 1)))
+	{
+		dst[i + j] = src[j];
+		j++;
+	}
+	dst[i + j] = '\0';
+	j = ft_strlen(src);
+	return (i + j);
 }

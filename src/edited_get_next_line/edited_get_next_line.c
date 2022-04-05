@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/19 13:06:57 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/01/08 11:34:41 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/04/05 15:14:29 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	new_line_found(char **ret, char stat[BUFFER_SIZE + 1], int i, int j)
 		temp[i + j] = stat[j];
 		j++;
 	}
-	temp[i + j] = '\n';
+	temp[i + j] = '\0';
 	temp[i + j + 1] = '\0';
 	i = 0;
 	while (stat[j++])

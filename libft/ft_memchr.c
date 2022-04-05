@@ -1,32 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input_handling_2.c                                 :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/19 18:51:48 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/05 15:35:47 by oipadeol         ###   ########.fr       */
+/*   Created: 2021/09/04 19:39:13 by oipadeol          #+#    #+#             */
+/*   Updated: 2021/09/21 18:25:43 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "libft.h"
 
-void	ft_error(void)
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	write(STDERR_FILENO, "Error\n", 6);
-	exit(1);
-}
+	size_t					i;
+	unsigned char			uc;
+	const unsigned char		*string;		
 
-int	check_valid(char** input)
-{
-	int	i;
-	int	j;
-	int	arr_len;
-
-	arr_len = 0;
-	while (input && input[arr_len])
-		arr_len++;
-	
-	
+	string = (unsigned char *) s;
+	uc = (unsigned char) c;
+	if (n <= 0)
+		return (NULL);
+	i = 0;
+	while ((string[i] != uc) && (i < (n - 1)))
+		i++;
+	if (string[i] == uc)
+		return ((void *)(string + i));
+	else
+		return (NULL);
 }

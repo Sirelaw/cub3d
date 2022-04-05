@@ -1,32 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input_handling_2.c                                 :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/19 18:51:48 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/05 15:35:47 by oipadeol         ###   ########.fr       */
+/*   Created: 2021/09/05 14:25:07 by oipadeol          #+#    #+#             */
+/*   Updated: 2021/09/17 17:26:51 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "libft.h"
 
-void	ft_error(void)
+void	*ft_calloc(size_t count, size_t size)
 {
-	write(STDERR_FILENO, "Error\n", 6);
-	exit(1);
-}
+	char		*ptr;
+	size_t		i;
 
-int	check_valid(char** input)
-{
-	int	i;
-	int	j;
-	int	arr_len;
-
-	arr_len = 0;
-	while (input && input[arr_len])
-		arr_len++;
-	
-	
+	i = 0;
+	ptr = malloc(count * size);
+	if (ptr == NULL)
+		return (NULL);
+	while (i < (count * size))
+	{
+		ptr[i] = 0;
+		i++;
+	}
+	return ((void *)ptr);
 }

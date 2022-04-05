@@ -1,32 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input_handling_2.c                                 :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/19 18:51:48 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/05 15:35:47 by oipadeol         ###   ########.fr       */
+/*   Created: 2021/09/06 15:22:52 by oipadeol          #+#    #+#             */
+/*   Updated: 2021/09/12 22:21:21 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "libft.h"
 
-void	ft_error(void)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	write(STDERR_FILENO, "Error\n", 6);
-	exit(1);
-}
+	int		i;
+	int		j;
+	int		k;
+	int		l;
+	char	*newstr;
 
-int	check_valid(char** input)
-{
-	int	i;
-	int	j;
-	int	arr_len;
-
-	arr_len = 0;
-	while (input && input[arr_len])
-		arr_len++;
-	
-	
+	k = 0;
+	l = 0;
+	i = ft_strlen(s1);
+	j = ft_strlen(s2);
+	newstr = (char *) malloc(i + j + 1);
+	if (newstr == NULL)
+		return (NULL);
+	while (s1[k])
+	{
+		newstr[k] = s1[k];
+		k++;
+	}
+	while (s2[l])
+	{
+		newstr[k + l] = s2[l];
+		l++;
+	}
+	newstr[k + l] = '\0';
+	return (newstr);
 }

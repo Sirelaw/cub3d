@@ -1,32 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input_handling_2.c                                 :+:      :+:    :+:   */
+/*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/19 18:51:48 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/05 15:35:47 by oipadeol         ###   ########.fr       */
+/*   Created: 2021/09/06 21:02:13 by oipadeol          #+#    #+#             */
+/*   Updated: 2021/09/22 11:38:06 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "libft.h"
 
-void	ft_error(void)
+char	*ft_strtrim(char const *s1, char const *set)
 {
-	write(STDERR_FILENO, "Error\n", 6);
-	exit(1);
-}
+	int		i;
+	char	*newstr;
 
-int	check_valid(char** input)
-{
-	int	i;
-	int	j;
-	int	arr_len;
-
-	arr_len = 0;
-	while (input && input[arr_len])
-		arr_len++;
-	
-	
+	if (s1 == NULL || set == NULL)
+		return (NULL);
+	while ((ft_strchr(set, *s1)) && s1[0] != '\0')
+		s1++;
+	if (s1[0] == '\0')
+		return (ft_strdup("\0"));
+	i = ft_strlen(s1);
+	while (ft_strchr(set, s1[i - 1]))
+		i--;
+	newstr = ft_substr(s1, 0, i);
+	return (newstr);
 }

@@ -1,32 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input_handling_2.c                                 :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/19 18:51:48 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/05 15:35:47 by oipadeol         ###   ########.fr       */
+/*   Created: 2021/09/05 21:09:31 by oipadeol          #+#    #+#             */
+/*   Updated: 2021/09/18 14:53:22 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "libft.h"
 
-void	ft_error(void)
+char	*ft_strdup(const char *string1)
 {
-	write(STDERR_FILENO, "Error\n", 6);
-	exit(1);
-}
+	char	*string2;
+	int		i;
 
-int	check_valid(char** input)
-{
-	int	i;
-	int	j;
-	int	arr_len;
-
-	arr_len = 0;
-	while (input && input[arr_len])
-		arr_len++;
-	
-	
+	i = 0;
+	while (string1[i] != '\0')
+		i++;
+	string2 = (char *) malloc(i + 1);
+	if (string2 == NULL)
+		return (NULL);
+	i = 0;
+	while (string1[i])
+	{
+		string2[i] = string1[i];
+		i++;
+	}
+	string2[i] = '\0';
+	return (string2);
 }

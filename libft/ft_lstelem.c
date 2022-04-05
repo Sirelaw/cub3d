@@ -1,32 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input_handling_2.c                                 :+:      :+:    :+:   */
+/*   ft_lstelem.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/19 18:51:48 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/05 15:35:47 by oipadeol         ###   ########.fr       */
+/*   Created: 2021/11/09 21:24:32 by oipadeol          #+#    #+#             */
+/*   Updated: 2021/12/06 15:37:22 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "libft.h"
 
-void	ft_error(void)
+t_list	*ft_lstelem(t_list *lst, int n)
 {
-	write(STDERR_FILENO, "Error\n", 6);
-	exit(1);
-}
+	t_list	*p;
+	int		i;
 
-int	check_valid(char** input)
-{
-	int	i;
-	int	j;
-	int	arr_len;
-
-	arr_len = 0;
-	while (input && input[arr_len])
-		arr_len++;
-	
-	
+	i = 0;
+	p = lst;
+	while ((p != NULL) && (i < n))
+	{
+		p = p->next;
+		i++;
+	}
+	if (i == n)
+		return (p);
+	else
+		return (NULL);
 }

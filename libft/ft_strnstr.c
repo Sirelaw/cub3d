@@ -1,32 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input_handling_2.c                                 :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/19 18:51:48 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/05 15:35:47 by oipadeol         ###   ########.fr       */
+/*   Created: 2021/09/04 20:15:50 by oipadeol          #+#    #+#             */
+/*   Updated: 2021/09/18 23:09:52 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "libft.h"
 
-void	ft_error(void)
+char	*ft_strnstr(const char *haystack, const char *needle, size_t n)
 {
-	write(STDERR_FILENO, "Error\n", 6);
-	exit(1);
-}
+	size_t	i;
+	size_t	j;
 
-int	check_valid(char** input)
-{
-	int	i;
-	int	j;
-	int	arr_len;
-
-	arr_len = 0;
-	while (input && input[arr_len])
-		arr_len++;
-	
-	
+	i = 0;
+	if (needle[0] == '\0')
+		return ((char *) haystack);
+	while ((haystack[i] != '\0') && (i < n))
+	{
+		j = 0;
+		while ((haystack[i + j] == needle[j]) && ((i + j) < n))
+		{
+			if (needle[j + 1] == '\0')
+				return ((char *) &haystack[i]);
+			j++;
+		}
+		i++;
+	}
+	return (NULL);
 }

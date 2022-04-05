@@ -1,32 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input_handling_2.c                                 :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/19 18:51:48 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/05 15:35:47 by oipadeol         ###   ########.fr       */
+/*   Created: 2021/09/03 16:23:53 by oipadeol          #+#    #+#             */
+/*   Updated: 2021/09/20 16:06:26 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include <stdlib.h>
 
-void	ft_error(void)
+void	*ft_memcpy(void *dest, const void *source, size_t n)
 {
-	write(STDERR_FILENO, "Error\n", 6);
-	exit(1);
-}
+	size_t				i;
+	unsigned char		*ptrd;
+	const unsigned char	*ptrs;
 
-int	check_valid(char** input)
-{
-	int	i;
-	int	j;
-	int	arr_len;
-
-	arr_len = 0;
-	while (input && input[arr_len])
-		arr_len++;
-	
-	
+	if ((dest == NULL) && (source == NULL))
+		return (NULL);
+	i = 0;
+	ptrd = dest;
+	ptrs = source;
+	while (i < n)
+	{
+		ptrd[i] = ptrs[i];
+		i++;
+	}
+	return (dest);
 }

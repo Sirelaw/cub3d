@@ -1,32 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input_handling_2.c                                 :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/19 18:51:48 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/05 15:35:47 by oipadeol         ###   ########.fr       */
+/*   Created: 2021/09/03 17:14:06 by oipadeol          #+#    #+#             */
+/*   Updated: 2021/09/22 12:28:51 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "libft.h"
 
-void	ft_error(void)
+void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	write(STDERR_FILENO, "Error\n", 6);
-	exit(1);
-}
+	size_t				i;
+	unsigned char		*lastd;
+	const unsigned char	*lasts;
 
-int	check_valid(char** input)
-{
-	int	i;
-	int	j;
-	int	arr_len;
-
-	arr_len = 0;
-	while (input && input[arr_len])
-		arr_len++;
-	
-	
+	i = 0;
+	lastd = dst + len - 1;
+	lasts = src + len - 1;
+	if (src == NULL && dst == NULL)
+		return (NULL);
+	if (dst < src)
+		ft_memcpy(dst, src, len);
+	else
+	{
+		while (i < len)
+		{
+			lastd[0 - i] = lasts[0 - i];
+			i++;
+		}
+	}
+	return (dst);
 }

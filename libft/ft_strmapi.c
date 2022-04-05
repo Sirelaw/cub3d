@@ -1,32 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input_handling_2.c                                 :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/19 18:51:48 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/05 15:35:47 by oipadeol         ###   ########.fr       */
+/*   Created: 2021/09/11 18:11:34 by oipadeol          #+#    #+#             */
+/*   Updated: 2021/09/22 12:52:38 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "libft.h"
 
-void	ft_error(void)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	write(STDERR_FILENO, "Error\n", 6);
-	exit(1);
-}
+	char	*newstr;
+	int		i;
+	int		strlen;
 
-int	check_valid(char** input)
-{
-	int	i;
-	int	j;
-	int	arr_len;
-
-	arr_len = 0;
-	while (input && input[arr_len])
-		arr_len++;
-	
-	
+	if (s == NULL)
+		return (NULL);
+	i = 0;
+	strlen = ft_strlen(s);
+	newstr = malloc((strlen + 1) * sizeof(char));
+	if (newstr == NULL)
+		return (NULL);
+	while (i < strlen)
+	{
+		newstr[i] = f(i, s[i]);
+		i++;
+	}
+	newstr[strlen] = '\0';
+	return (newstr);
 }

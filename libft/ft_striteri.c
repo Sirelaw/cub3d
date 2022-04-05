@@ -1,32 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input_handling_2.c                                 :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/19 18:51:48 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/05 15:35:47 by oipadeol         ###   ########.fr       */
+/*   Created: 2021/09/11 19:51:09 by oipadeol          #+#    #+#             */
+/*   Updated: 2021/12/15 22:16:44 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "libft.h"
 
-void	ft_error(void)
-{
-	write(STDERR_FILENO, "Error\n", 6);
-	exit(1);
-}
-
-int	check_valid(char** input)
+void	ft_striteri(char *s, void (*f)(unsigned int, char *))
 {
 	int	i;
-	int	j;
-	int	arr_len;
+	int	strlen;
 
-	arr_len = 0;
-	while (input && input[arr_len])
-		arr_len++;
-	
-	
+	if (s == NULL)
+		return ;
+	i = 0;
+	strlen = ft_strlen(s);
+	while (i < strlen)
+	{
+		f(i, &s[i]);
+		i ++;
+	}
 }
