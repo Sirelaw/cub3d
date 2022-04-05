@@ -21,8 +21,9 @@ static void	set_startvalues(t_vars *game, int lines, int rows)
 {
 	game->enemy = 0;
 	game->count = 0;
-	game->fi_x = 65;
-	game->fi_y = 65;
+	game->sizer = 6; // size of small map
+	game->fi_x = 6;
+	game->fi_y = 6;
 	game->wi_x = rows;
 	game->he_y = lines;
 	game->collect = 0;

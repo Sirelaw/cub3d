@@ -15,8 +15,8 @@ int	main(int argc, char **argv)
 		i = 1;
 		while (argv[1][i] != '.')
 			i++;
-		if (argv[1][i + 1] == 'b' && argv[1][i + 2] == 'e'
-			&& argv[1][i + 3] == 'r' && argv[1][i + 4] == '\0')
+		if (argv[1][i + 1] == 'c' && argv[1][i + 2] == 'u'
+			&& argv[1][i + 3] == 'b' && argv[1][i + 4] == '\0')
 		{
 			fd = open(argv[1], O_RDONLY);
 			if (fd < 0)

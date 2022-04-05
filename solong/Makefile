@@ -1,6 +1,7 @@
 CC = gcc
 NAME = cub3D
 FLAGS = -Wall -Wextra -Werror -Lmini_mlx -lmlx -framework OpenGL -framework AppKit -lz
+FLAGSNO = -Lmini_mlx -lmlx -framework OpenGL -framework AppKit -lz
 PATHMLX = mini_mlx/
 SRC = 	so_game_maker.c so_killer.c so_long.c so_lstadd_front.c so_lstlast.c so_mapmaker_parts.c\
 		so_mykey_hook.c so_put_counter.c so_strdup.c so_strlen.c so_imghadler.c so_load_fields.c\
@@ -14,6 +15,9 @@ mlx:
 
 $(NAME): mlx
 	$(CC) -o $(NAME) $(FLAGS) $(SRC) -I./mini_mlx/
+
+no: mlx
+	$(CC) -o $(NAME) $(FLAGSNO) $(SRC) -I./mini_mlx/
 
 clean:
 	@make -C $(PATHMLX) clean
@@ -41,7 +45,7 @@ play:
 	./$(NAME) $(ARG)
 
 1:
-	./$(NAME) "./maps/map01.ber"
+	./$(NAME) "./maps/map18.cub"
 2:
 	./$(NAME) "./maps/map02.ber"
 3:

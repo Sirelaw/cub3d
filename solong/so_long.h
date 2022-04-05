@@ -85,6 +85,7 @@ typedef struct s_vars
 	int		b2_y;
 	int		wi_x;
 	int		he_y;
+	int 	sizer;
 }				t_vars;
 
 //utils
