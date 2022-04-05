@@ -6,7 +6,7 @@
 #    By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 20:23:06 by oipadeol          #+#    #+#              #
-#    Updated: 2022/04/05 15:38:36 by oipadeol         ###   ########.fr        #
+#    Updated: 2022/04/05 19:03:20 by oipadeol         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,7 +52,7 @@ obj:
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@gcc $(FLAGS) -I $(LIBFT_DIR) -I $(INC_DIR) -o $@ -c $<
-	@echo "\r$(BLUE)updated $@$(RESET)"
+	@echo "$(BLUE)updated $@$(RESET)"
 
 $(LIBFT):
 	@make -C $(LIBFT_DIR)
