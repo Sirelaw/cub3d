@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/19 18:51:48 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/05 23:06:02 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/04/06 11:41:31 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	check_other_line(char *str, char *up, char *down, char *orient)
 	while (str[i] == ' ')
 		i++;
 	if (str[i] != '1' || str[ft_strlen(str) - 1] != '1')
-		ft_error();	
+		ft_error();
 	while (str[i])
 	{
 		if (str[i] == '0')
@@ -68,8 +68,7 @@ void	check_other_line(char *str, char *up, char *down, char *orient)
 				ft_error();
 			check_surround(str, up, down, i);
 		}
-		else if (str[i] == 'N' || str[i] == 'S' || str[i] == 'E'
-				|| str[i] == 'W')
+		else if (ft_strchr("NEWS", str[i]))
 		{
 			if (*orient)
 				ft_error();
@@ -81,7 +80,7 @@ void	check_other_line(char *str, char *up, char *down, char *orient)
 	}
 }
 
-int	check_valid(char** input, char *orient)
+int	check_valid(char **input, char *orient)
 {
 	int		i;
 	int		arr_len;
@@ -98,5 +97,10 @@ int	check_valid(char** input, char *orient)
 			check_other_line(input[i], input[i - 1], input[i + 1], orient);
 		i++;
 	}
-	return (0);	
+	if (!*orient)
+	{
+		write(STDERR_FILENO, "Map must include one player position.\n", 38);
+		ft_error();
+	}
+	return (0);
 }
