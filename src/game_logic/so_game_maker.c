@@ -6,7 +6,7 @@
 /*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:54:13 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/04/06 17:24:06 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/04/06 18:51:00 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ void	game_starter(t_vars *game, int lines, int rows)
 {
 
 	game->mlx = mlx_init();
-	game->win = mlx_new_window(game->mlx, rows * 65, lines * 65,
-			"42 Surviver Game");
+	game->win = mlx_new_window(game->mlx, 20 * 65, 15 * 65,
+			"42 cube3D");
 	mlx_hook(game->win, 2, 1L << 2, close1, game);
 	mlx_hook(game->win, 17, 1L << 17, close12, game);
 	img_handler(game);

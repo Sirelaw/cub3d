@@ -6,7 +6,7 @@
 #    By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 20:23:06 by oipadeol          #+#    #+#              #
-#    Updated: 2022/04/06 17:43:00 by ttokesi          ###   ########.fr        #
+#    Updated: 2022/04/06 17:50:47 by ttokesi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,8 @@ obj:
 	@mkdir -p $(OBJ_DIR)game_logic
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
-	@gcc $(FLAGS) -I $(LIBFT_DIR) -I $(INC_DIR) -o $@ -c $<
+	@gcc -I $(LIBFT_DIR) -I $(INC_DIR) -o $@ -c $<
+# @gcc $(FLAGS) -I $(LIBFT_DIR) -I $(INC_DIR) -o $@ -c $<
 	@echo "$(BLUE)updated $@$(RESET)"
 
 $(LIBFT):
@@ -63,6 +64,12 @@ $(LIBFT):
 $(NAME): $(OBJ) $(INC_DIR)/*.h
 	@echo "$(YELLOW)\n      -> Building $(NAME) ...$(RESET)"
 	@$(CC) $(FLAGS) $(OBJ) $(LIBFT) -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+	@echo "$(BLUE)......linking updated .o"
+	@echo "$(GREEN)***   Project $(NAME) successfully compiled   ***\n$(RESET)"
+
+no: $(OBJ) $(INC_DIR)/*.h
+	@echo "$(YELLOW)\n      -> Building $(NAME) ...$(RESET)"
+	@$(CC) $(OBJ) $(LIBFT) -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 	@echo "$(BLUE)......linking updated .o"
 	@echo "$(GREEN)***   Project $(NAME) successfully compiled   ***\n$(RESET)"
 

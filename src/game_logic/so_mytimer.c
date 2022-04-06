@@ -6,7 +6,7 @@
 /*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:48:49 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/04/06 13:49:11 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/04/06 18:49:51 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int	st_p(t_vars *g, int x, int y)
 {
 	if ((g->map)[y / g->sizer][x / g->sizer] == '1' ||
-		(g->map)[y / g->sizer][x / g->sizer] == 'C' || (g->map)[y / g->sizer][x / g->sizer] == 'E')
+		(g->map)[y / g->sizer][x / g->sizer] == 'C' /* || (g->map)[y / g->sizer][x / g->sizer] == 'E' */)
 		return (0);
 	return (1);
 }

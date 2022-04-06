@@ -6,7 +6,7 @@
 /*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 19:02:23 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/06 17:42:20 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/04/06 18:14:10 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,13 @@
 enum e_images
 {
 	FIG1 = 0,
+	NONE = 1,
 	FLOOR = 4,
 	BH1 = 5,
 	WALL = 9,
 	GOVER = 17,
 	WIN = 18
 };
-
-// ----input ----
-// typedef struct s_vars
-// {
-// 	void	*mlx;
-// 	void	*win;
-// 	void	*img;
-// }	t_vars;
 
 // -----game-------
 typedef struct s_img

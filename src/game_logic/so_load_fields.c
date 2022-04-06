@@ -6,7 +6,7 @@
 /*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:52:25 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/04/06 17:29:13 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/04/06 18:09:25 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	side_one(t_vars *g, char *temp2, int i, int j)
 	if (*temp2 == '1')
 		mlx_put_image_to_window(g->mlx, g->win, g->im[WALL].l, j * g->sizer, i * g->sizer);
 	if (*temp2 == ' ')
-		mlx_put_image_to_window(g->mlx, g->win, g->im[WALL].l, j * g->sizer, i * g->sizer);
+		mlx_put_image_to_window(g->mlx, g->win, g->im[NONE].l, j * g->sizer, i * g->sizer);
 	if (*temp2 == 'P')
 		mlx_put_image_to_window(g->mlx, g->win, g->im[4].l, j * g->sizer, i * g->sizer);
 	if (*temp2 == '0')

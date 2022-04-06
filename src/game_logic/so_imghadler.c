@@ -6,7 +6,7 @@
 /*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:53:35 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/04/06 16:58:27 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/04/06 18:09:05 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static void	p_img(t_vars *g)
 {
 	g->im[FLOOR].p = "./img/floor.xpm";
+	g->im[NONE].p = "./img/none.xpm";
 	g->im[WALL].p = "./img/wall.xpm";
 	g->im[FIG1].p = "./img/fig1.xpm";
 	g->im[BH1].p = "./img/bh1.xpm";
@@ -60,6 +61,7 @@ static void	load_img(t_vars *g)
 
 	g->im[FLOOR].l = mlx_xpm_file_to_image(g->mlx, g->im[FLOOR].p, &w, &h);
 	g->im[FIG1].l = mlx_xpm_file_to_image(g->mlx, g->im[FIG1].p, &w, &h);
+	g->im[NONE].l = mlx_xpm_file_to_image(g->mlx, g->im[NONE].p, &w, &h);
 	g->im[WALL].l = mlx_xpm_file_to_image(g->mlx, g->im[WALL].p, &w, &h);
 	g->im[BH1].l = mlx_xpm_file_to_image(g->mlx, g->im[BH1].p, &w, &h);
 	g->im[GOVER].l = mlx_xpm_file_to_image(g->mlx, g->im[GOVER].p, &w, &h);
