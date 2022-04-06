@@ -1,4 +1,16 @@
-#include "so_long.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   so_mykey_hook.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/06 13:50:50 by ttokesi           #+#    #+#             */
+/*   Updated: 2022/04/06 17:31:32 by ttokesi          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../includes/cub3d.h"
 
 static int	st_p(t_vars *g, int x, int y)
 {
@@ -20,12 +32,13 @@ static int	st_p(t_vars *g, int x, int y)
 
 static int	move_up_down(t_vars *g, int key, int r)
 {
+
 	if (key == 126 || key == 13)
 	{
 		mlx_put_image_to_window(g->mlx, g->win, g->im[FLOOR].l, g->fi_x, g->fi_y);
 		if (g->fi_y > 6 && st_p(g, g->fi_x, g->fi_y - 6))
 			g->fi_y -= 6;
-		mlx_put_image_to_window(g->mlx, g->win, g->im[FIG1].l, g->fi_x, g->fi_y);
+		mlx_put_image_to_window(g->mlx, g->win, g->im[r].l, g->fi_x, g->fi_y);
 	}
 	if (key == 125 || key == 1)
 	{

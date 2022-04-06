@@ -24,6 +24,7 @@ int	main(int argc, char **argv)
 
 	init_vars(&vars);
 	vars.input = input_rows(argc, argv, &vars.start_orientation);
+	// game_starter(&vars, 15, 38);
 	print_str_arr(vars.input);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_handling.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/18 06:25:49 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/05 22:34:04 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/04/06 13:33:29 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	check_input_get_fd(int argc, char **argv)
 		write(1, "*****************************************\n", 42);
 		write(1, "*  Enter the required set of arguments. *\n", 42);
 		write(1, "*Input should have the following format.*\n", 42);
-		write(1, "*$>./fdf map.cub                        *\n", 42);
+		write(1, "*$>./cub3d map.cub                      *\n", 42);
 		write(1, "*****************************************\n", 42);
 		exit(1);
 	}

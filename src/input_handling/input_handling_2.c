@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_handling_2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/19 18:51:48 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/06 11:41:31 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/04/06 17:38:11 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_error(void)
 {
 	write(STDERR_FILENO, "Error\n", 6);
-	exit(1);
+	// exit(1);
 }
 
 void	check_first_and_last_line(char *str)
