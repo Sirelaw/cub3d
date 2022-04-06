@@ -6,7 +6,7 @@
 /*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/18 06:25:49 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/06 13:33:29 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/04/06 17:42:33 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,23 +67,20 @@ static char	**add_to_arr(char ***arr, char *s)
 	return (*arr);
 }
 
-char	**input_rows(int argc, char **argv, char *start_orientation)
+void	input_rows(int argc, char **argv, t_vars *vars)
 {
-	char	**input;
 	int		fd;
 	char	*map_row;
 
-	input = NULL;
 	fd = check_input_get_fd(argc, argv);
 	map_row = get_line(fd);
-	input = add_to_arr(&input, map_row);
+	vars->input = add_to_arr(&vars->input, map_row);
 	while (map_row)
 	{
 		map_row = get_line(fd);
 		if (map_row)
-			input = add_to_arr(&input, map_row);
+			vars->input = add_to_arr(&vars->input, map_row);
 	}
-	if (input)
-		check_valid(input, start_orientation);
-	return (input);
+	if (vars->input)
+		check_valid(vars->input, vars);
 }

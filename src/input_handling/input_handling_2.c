@@ -6,7 +6,7 @@
 /*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/19 18:51:48 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/06 17:38:11 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/04/06 17:41:46 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void	check_surround(char *str, char *up, char *down, size_t i)
 {
 	char	surround[8];
 
+	if (i >= ft_strlen(up) - 1 || i >= ft_strlen(down) - 1)
+		ft_error();
 	surround[0] = up[i - 1];
 	surround[1] = up[i];
 	surround[2] = up[i + 1];
@@ -51,7 +53,7 @@ void	check_surround(char *str, char *up, char *down, size_t i)
 	}
 }
 
-void	check_other_line(char *str, char *up, char *down, char *orient)
+void	check_other_line(char *str, char *up, char *down, t_vars *vars)
 {
 	size_t	i;
 
@@ -62,17 +64,16 @@ void	check_other_line(char *str, char *up, char *down, char *orient)
 		ft_error();
 	while (str[i])
 	{
-		if (str[i] == '0')
+		if (str[i] == '0' || ft_strchr("NEWS", str[i]))
 		{
-			if (i >= ft_strlen(up) || i >= ft_strlen(down))
-				ft_error();
 			check_surround(str, up, down, i);
-		}
-		else if (ft_strchr("NEWS", str[i]))
-		{
-			if (*orient)
-				ft_error();
-			*orient = str[i];
+			if (ft_strchr("NEWS", str[i]))
+			{
+				if (vars->start_orientation)
+					ft_error();
+				vars->start_orientation = str[i];
+				vars->player[0] = i;
+			}
 		}
 		else if (str[i] != '1' && str[i] != ' ')
 			ft_error();
@@ -80,7 +81,7 @@ void	check_other_line(char *str, char *up, char *down, char *orient)
 	}
 }
 
-int	check_valid(char **input, char *orient)
+int	check_valid(char **input, t_vars *vars)
 {
 	int		i;
 	int		arr_len;
@@ -94,10 +95,14 @@ int	check_valid(char **input, char *orient)
 		if ((i == 0) || (i == arr_len - 1))
 			check_first_and_last_line(input[i]);
 		else
-			check_other_line(input[i], input[i - 1], input[i + 1], orient);
+		{
+			if (!vars->start_orientation)
+				vars->player[1] = i;
+			check_other_line(input[i], input[i - 1], input[i + 1], vars);
+		}
 		i++;
 	}
-	if (!*orient)
+	if (!vars->start_orientation)
 	{
 		write(STDERR_FILENO, "Map must include one player position.\n", 38);
 		ft_error();

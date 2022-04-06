@@ -16,6 +16,8 @@ void	init_vars(t_vars *vars)
 {
 	vars->input	= NULL;
 	vars->start_orientation = 0;
+	vars->player[0] = 0;
+	vars->player[1] = 0;
 }
 
 int	main(int argc, char **argv)
@@ -23,7 +25,7 @@ int	main(int argc, char **argv)
 	t_vars	vars;
 
 	init_vars(&vars);
-	vars.input = input_rows(argc, argv, &vars.start_orientation);
+	input_rows(argc, argv, &vars);
 	// game_starter(&vars, 15, 38);
 	print_str_arr(vars.input);
 	return (0);
