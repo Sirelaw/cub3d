@@ -6,7 +6,7 @@
 /*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:52:25 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/04/06 18:09:25 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/04/06 21:21:12 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 static void	side_two(t_vars *g, char *temp2, int i, int j)
 {
-	if (*temp2 == 'P' && g->check == 0)
+	if ((*temp2 == 'N' || *temp2 == 'S' || *temp2 == 'E' || *temp2 == 'W') && g->check == 0)
 	{
 		mlx_put_image_to_window(g->mlx, g->win, g->im[FIG1].l, j * g->sizer, i * g->sizer);
+		g->map[i][j] = 0;
 		g->fi_x = j * g->sizer;
 		g->fi_y = i * g->sizer;
 		g->check = 1;

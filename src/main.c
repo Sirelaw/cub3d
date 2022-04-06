@@ -26,7 +26,7 @@ int	main(int argc, char **argv)
 
 	init_vars(&vars);
 	input_rows(argc, argv, &vars);
-	game_starter(&vars, 23, 48);
+	game_starter(&vars, 24, 48);
 	print_str_arr(vars.input);
 	return (0);
 }
