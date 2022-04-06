@@ -6,7 +6,7 @@
 /*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:50:50 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/04/06 18:01:11 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/04/06 23:11:38 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,14 @@ static int	st_p(t_vars *g, int x, int y)
 static int	move_up_down(t_vars *g, int key, int r)
 {
 
-	if (key == 126 || key == 13)
+	if (key == 13)
 	{
 		mlx_put_image_to_window(g->mlx, g->win, g->im[FLOOR].l, g->fi_x, g->fi_y);
 		if (g->fi_y > 6 && st_p(g, g->fi_x, g->fi_y - 6))
 			g->fi_y -= 6;
 		mlx_put_image_to_window(g->mlx, g->win, g->im[r].l, g->fi_x, g->fi_y);
 	}
-	if (key == 125 || key == 1)
+	if (key == 1)
 	{
 		mlx_put_image_to_window(g->mlx, g->win, g->im[FLOOR].l, g->fi_x, g->fi_y);
 		if (g->fi_y < (g->he_y * 6) - 12 && st_p(g, g->fi_x, g->fi_y + 6))
@@ -49,17 +49,17 @@ static int	move_up_down(t_vars *g, int key, int r)
 	}
 	return (0);
 }
-
+// left 123 right 124
 static int	move_right_left(t_vars *g, int key, int r)
 {
-	if (key == 124 || key == 2)
+	if (key == 2)
 	{
 		mlx_put_image_to_window(g->mlx, g->win, g->im[4].l, g->fi_x, g->fi_y);
 		if (g->fi_x < (g->wi_x * 6 ) - 12 && st_p(g, g->fi_x + 6, g->fi_y))
 			g->fi_x += 6;
 		mlx_put_image_to_window(g->mlx, g->win, g->im[r].l, g->fi_x, g->fi_y);
 	}
-	if (key == 123 || key == 0)
+	if (key == 0)
 	{
 		mlx_put_image_to_window(g->mlx, g->win, g->im[4].l, g->fi_x, g->fi_y);
 		if (g->fi_x > 6 && st_p(g, g->fi_x - 6, g->fi_y))
@@ -82,13 +82,15 @@ int	key_hook(int keycode, t_vars *g)
 		// if (keycode == 13 || keycode == 1 || keycode == 2 || keycode == 0)
 		// 	(g->count)++;
 		// put_num_screen(g);
-		if (keycode == 126 || keycode == 13)
+		if (keycode == 123 || keycode == 124)
+			look_around(keycode, g);
+		if (keycode == 13)
 			move_up_down(g, keycode, fignum);
-		if (keycode == 125 || keycode == 1)
+		if (keycode == 1)
 			move_up_down(g, keycode, fignum);
-		if (keycode == 124 || keycode == 2)
+		if (keycode == 2)
 			move_right_left(g, keycode, fignum);
-		if (keycode == 123 || keycode == 0)
+		if (keycode == 0)
 			move_right_left(g, keycode, fignum);
 	}
 	return (0);

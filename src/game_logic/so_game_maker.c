@@ -6,7 +6,7 @@
 /*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:54:13 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/04/06 18:51:00 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/04/06 23:02:04 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,14 @@ void	game_starter(t_vars *game, int lines, int rows)
 	game->mlx = mlx_init();
 	game->win = mlx_new_window(game->mlx, 20 * 65, 15 * 65,
 			"42 cube3D");
+
+// pixel part
+ 	game->img = mlx_new_image(game->mlx, 20 * 65, 15 * 65);
+	game->addr = mlx_get_data_addr(game->img, &game->bits_per_pixel, &game->line_length, &game->endian);
+	my_mlx_pixel_put(game, game->fi_x + 500, game->fi_y + 500, 0x00CCFF66);
+	mlx_put_image_to_window(game->mlx, game->win, game->img, 000, 000);
+
+
 	mlx_hook(game->win, 2, 1L << 2, close1, game);
 	mlx_hook(game->win, 17, 1L << 17, close12, game);
 	img_handler(game);

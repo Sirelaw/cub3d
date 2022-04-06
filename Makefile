@@ -6,7 +6,7 @@
 #    By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 20:23:06 by oipadeol          #+#    #+#              #
-#    Updated: 2022/04/06 17:50:47 by ttokesi          ###   ########.fr        #
+#    Updated: 2022/04/06 22:46:42 by ttokesi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ SRC_FILES =	main.c get_line/get_line.c input_handling/input_handling.c\
 		input_handling/input_handling_2.c\
 		game_logic/so_game_maker.c game_logic/so_imghadler.c game_logic/so_killer.c\
 		game_logic/so_load_fields.c game_logic/so_mykey_hook.c game_logic/so_mytimer.c\
+		ray_caster/ray_turn.c ray_caster/so_drawline.c\
 
 OBJ_FILES = $(SRC_FILES:.c=.o)
 
@@ -52,6 +53,7 @@ obj:
 	@mkdir -p $(OBJ_DIR)input_handling
 	@mkdir -p $(OBJ_DIR)utils
 	@mkdir -p $(OBJ_DIR)game_logic
+	@mkdir -p $(OBJ_DIR)ray_caster
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@gcc -I $(LIBFT_DIR) -I $(INC_DIR) -o $@ -c $<
