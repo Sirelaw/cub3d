@@ -26,7 +26,7 @@ static void plotLineLow(int x, int y, int x1, int y1, t_vars *game)
 	}
 	while (x <= x1)
 	{
-		my_mlx_pixel_put(game, x, y, 0x0000FFFF);
+		my_mlx_pixel_put(game, x, y,0x0000FF);
 		if (D > 0)
 		{
 	        y = y + yi;
@@ -56,7 +56,7 @@ static void plotLineHigh(int x, int y, int x1, int y1, t_vars *game)
 	}
 	while (y <= y1)
 	{
-		my_mlx_pixel_put(game, x, y, 0x0000FFFF);
+		my_mlx_pixel_put(game, x, y,0x0000FF);
 		if (D > 0)
 		{
 	        x = x + xi;

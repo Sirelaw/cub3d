@@ -6,7 +6,7 @@
 /*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:50:50 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/04/06 23:11:38 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/04/07 01:03:09 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,5 +93,6 @@ int	key_hook(int keycode, t_vars *g)
 		if (keycode == 0)
 			move_right_left(g, keycode, fignum);
 	}
+	render_smallmap(g);
 	return (0);
 }

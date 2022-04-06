@@ -6,7 +6,7 @@
 /*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:54:13 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/04/06 23:02:04 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/04/07 01:06:12 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,9 @@ static void	set_startvalues(t_vars *game, int lines, int rows)
 	game->bh_y = -1;
 	game->b2_x = -1;
 	game->b2_y = -1;
+	game->pa = 0.0;
+	game->pdx = 0.0;
+	game->pdy = 0.0;
 }
 
 void	game_starter(t_vars *game, int lines, int rows)

@@ -6,7 +6,7 @@
 /*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:48:49 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/04/06 18:49:51 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/04/07 01:21:20 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ int	my_timer(t_vars *g)
 	(g->enemy)++;
 	// my_killer(g);
 	f = 0;
+	// render_smallmap(g);
 	if ((g->enemy) % 2000 == 0 && g->bh_x != -1 && g->bh_y != -1)
 	{
 		mlx_put_image_to_window(g->mlx, g->win, g->im[4].l, g->fi_x, g->fi_y);
@@ -116,5 +117,6 @@ int	my_timer(t_vars *g)
 		mlx_put_image_to_window(g->mlx, g->win, g->im[f].l, g->b2_x, g->b2_y);
 		g->enemy = 0;
 	}
+	// plotLine(g->fi_x, g->fi_y, g->fi_x + g->pdx * 5, g->fi_y + g->pdy * 5, g);
 	return (0);
 }

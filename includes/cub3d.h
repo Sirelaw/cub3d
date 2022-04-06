@@ -6,7 +6,7 @@
 /*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 19:02:23 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/06 23:06:22 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/04/07 01:05:17 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,9 @@ typedef struct s_vars
 	int		wi_x;
 	int		he_y;
 	int 	sizer;
+	float	pa;
+	float	pdx;
+	float	pdy;
 	// char	start_orientation;
 }				t_vars;
 
