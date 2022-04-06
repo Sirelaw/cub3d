@@ -6,12 +6,12 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 19:02:23 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/05 19:02:24 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/04/06 11:43:50 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
-#define CUB3D_H
+# define CUB3D_H
 
 # include <math.h>
 # include <stdio.h>
@@ -28,17 +28,12 @@ typedef struct s_vars
 	void	*mlx;
 	void	*win;
 	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		endian;
-	int		map_w;
-	int		map_l;
+	char	start_orientation;
 	char	**input;
 }t_vars;
 
-char	**input_rows(int argc, char **argv);
-int		check_valid(char **input);
+char	**input_rows(int argc, char **argv, char *start_orientation);
+int		check_valid(char **input, char *start_orientation);
 void	ft_error(void);
-
 
 #endif
