@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 14:39:00 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/09 18:31:30 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/04/11 15:21:08 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	init_v(int *dxy, int *xyi, int *count)
 	}
 }
 
-static void	plotlinelow(int x0_y0[2], int x1_y1[2], t_vars *vars)
+static void	plotlinelow(int x0_y0[2], int x1_y1[2], t_vars *vars, int color)
 {
 	int	dx;
 	int	dy;
@@ -37,7 +37,7 @@ static void	plotlinelow(int x0_y0[2], int x1_y1[2], t_vars *vars)
 	init_v(&dy, &yi, &count);
 	while (x0_y0[0] <= x1_y1[0])
 	{
-		my_mlx_pixel_put(vars, x0_y0[0], x0_y0[1], 0x00FFFFFF);
+		my_mlx_pixel_put(vars, x0_y0[0], x0_y0[1], color);
 		if (diff > 0)
 		{
 			x0_y0[1] = x0_y0[1] + yi;
@@ -49,7 +49,7 @@ static void	plotlinelow(int x0_y0[2], int x1_y1[2], t_vars *vars)
 	}
 }
 
-static void	plotlinehigh(int x0_y0[2], int x1_y1[2], t_vars *vars)
+static void	plotlinehigh(int x0_y0[2], int x1_y1[2], t_vars *vars, int color)
 {
 	int	dx;
 	int	dy;
@@ -64,7 +64,7 @@ static void	plotlinehigh(int x0_y0[2], int x1_y1[2], t_vars *vars)
 	init_v(&dx, &xi, &count);
 	while (x0_y0[1] <= x1_y1[1])
 	{
-		my_mlx_pixel_put(vars, x0_y0[0], x0_y0[1], 0x00FFFFFF);
+		my_mlx_pixel_put(vars, x0_y0[0], x0_y0[1], color);
 		if (diff > 0)
 		{
 			x0_y0[0] = x0_y0[0] + xi;
@@ -76,25 +76,25 @@ static void	plotlinehigh(int x0_y0[2], int x1_y1[2], t_vars *vars)
 	}
 }
 
-void	plotline(int point1[2], int point2[2], t_vars *vars)
+void	plotline(int point1[2], int point2[2], t_vars *vars, int color)
 {
 	int	x0_y0[2];
 	int	x1_y1[2];
 
-	x0_y0[0] = (point1[0] * vars->sizer) + vars->origin[0];
-	x0_y0[1] = (point1[1] * vars->sizer) + vars->origin[1];
-	x1_y1[0] = (point2[0] * vars->sizer) + vars->origin[0];
-	x1_y1[1] = (point2[1] * vars->sizer) + vars->origin[1];
+	x0_y0[0] = point1[0] + vars->origin[0];
+	x0_y0[1] = point1[1] + vars->origin[1];
+	x1_y1[0] = point2[0] + vars->origin[0];
+	x1_y1[1] = point2[1] + vars->origin[1];
 	if (ft_absolute(x1_y1[1] - x0_y0[1]) < ft_absolute(x1_y1[0] - x0_y0[0]))
 	{
 		if (x0_y0[0] > x1_y1[0])
-			plotlinelow(x1_y1, x0_y0, vars);
+			plotlinelow(x1_y1, x0_y0, vars, color);
 		else
-			plotlinelow(x0_y0, x1_y1, vars);
+			plotlinelow(x0_y0, x1_y1, vars, color);
 		return ;
 	}
 	else if (x0_y0[1] > x1_y1[1])
-		plotlinehigh(x1_y1, x0_y0, vars);
+		plotlinehigh(x1_y1, x0_y0, vars, color);
 	else
-		plotlinehigh(x0_y0, x1_y1, vars);
+		plotlinehigh(x0_y0, x1_y1, vars, color);
 }
