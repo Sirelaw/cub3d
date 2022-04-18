@@ -1,0 +1,53 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   image_handler.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/06 13:53:35 by ttokesi           #+#    #+#             */
+/*   Updated: 2022/04/18 17:14:33 by oipadeol         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../includes/cub3d.h"
+
+static void	p_img(t_vars *vars)
+{
+	vars->image[FLOOR].path = "./img/floor.xpm";
+	vars->image[NONE].path = "./img/none.xpm";
+	vars->image[WALL].path = "./img/wall.xpm";
+	vars->image[FIG1].path = "./img/fig1.xpm";
+	vars->image[BLACK].path = "./img/black.xpm";
+	vars->image[WHITE_32].path = "./img/white_32.xpm";
+	vars->image[WHITE_8].path = "./img/white_8.xpm";
+	vars->image[NONE_32].path = "./img/none_32.xpm";
+	vars->image[NONE_8].path = "./img/none_8.xpm";
+	vars->image[NIGERIA_64].path = "./img/Nigeria_64.xpm";
+	vars->image[HUNGARY_64].path = "./img/Hungary_64.xpm";
+	vars->image[GERMANY_64].path = "./img/Germany_64.xpm";
+	vars->image[LOGO_42_64].path = "./img/42logo_64.xpm";
+	vars->image[HAND_GUN].path = "./img/hand-with-gun.xpm";
+	vars->image[PLAYER].path = "./img/player_4.xpm";
+}
+
+static void	load_img(t_vars *vars)
+{
+	int	w;
+	int	h;
+	int	i;
+
+	i = 0;
+	while (i < IMAGE_COUNT)
+	{
+		vars->image[i].l = mlx_xpm_file_to_image(vars->mlx,
+					vars->image[i].path, &w, &h);
+		i++;
+	}
+}
+
+void	img_handler(t_vars *game)
+{
+	p_img(game);
+	load_img(game);
+}
