@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_handling_2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/19 18:51:48 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/06 17:41:46 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/04/18 12:58:35 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_error(void)
 {
 	write(STDERR_FILENO, "Error\n", 6);
-	// exit(1);
+	exit(1);
 }
 
 void	check_first_and_last_line(char *str)
@@ -72,7 +72,7 @@ void	check_other_line(char *str, char *up, char *down, t_vars *vars)
 				if (vars->start_orientation)
 					ft_error();
 				vars->start_orientation = str[i];
-				vars->player[0] = i;
+				vars->player[0] = i * TILE_SIZE;
 			}
 		}
 		else if (str[i] != '1' && str[i] != ' ')
@@ -81,23 +81,22 @@ void	check_other_line(char *str, char *up, char *down, t_vars *vars)
 	}
 }
 
-int	check_valid(char **input, t_vars *vars)
+int		check_valid(char **input, t_vars *vars)
 {
 	int		i;
-	int		arr_len;
 
 	i = 0;
-	arr_len = 0;
-	while (input && input[arr_len])
-		arr_len++;
+	vars->map_height = 0;
+	while (input && input[vars->map_height])
+		vars->map_height++;
 	while (input[i])
 	{
-		if ((i == 0) || (i == arr_len - 1))
+		if ((i == 0) || (i == vars->map_height - 1))
 			check_first_and_last_line(input[i]);
 		else
 		{
 			if (!vars->start_orientation)
-				vars->player[1] = i;
+				vars->player[1] = i * TILE_SIZE;
 			check_other_line(input[i], input[i - 1], input[i + 1], vars);
 		}
 		i++;

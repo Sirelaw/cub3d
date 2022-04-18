@@ -3,14 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   input_handling.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/18 06:25:49 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/06 17:42:33 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/04/14 17:00:50 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
+
+static void	init_orient(double	*orient, char start_orientation)
+{
+	if (start_orientation == 'E')
+		*orient = 0;
+	else if (start_orientation == 'S')
+		*orient = M_PI_2;
+	else if (start_orientation == 'W')
+		*orient = M_PI;
+	else if (start_orientation == 'N')
+		*orient = 3 * M_PI_2;
+}
 
 static int	check_input_get_fd(int argc, char **argv)
 {
@@ -67,7 +79,7 @@ static char	**add_to_arr(char ***arr, char *s)
 	return (*arr);
 }
 
-void	input_rows(int argc, char **argv, t_vars *vars)
+void	input_rows_init_player(int argc, char **argv, t_vars *vars)
 {
 	int		fd;
 	char	*map_row;
@@ -83,4 +95,10 @@ void	input_rows(int argc, char **argv, t_vars *vars)
 	}
 	if (vars->input)
 		check_valid(vars->input, vars);
+	init_orient(&vars->orient, vars->start_orientation);
+	vars->player_f[0] = vars->player[0];
+	vars->player_f[1] = vars->player[1];
+	vars->player_d[0] = cos(vars->orient);
+	vars->player_d[1] = sin(vars->orient);
+	standardize_input(vars->input, &(vars->map_width));	
 }
