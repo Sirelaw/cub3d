@@ -6,7 +6,7 @@
 #    By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/13 19:02:48 by oipadeol          #+#    #+#              #
-#    Updated: 2022/01/06 20:23:59 by oipadeol         ###   ########.fr        #
+#    Updated: 2022/04/10 11:51:29 by oipadeol         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,6 @@ SRC = 	ft_atoi.c ft_bzero.c ft_calloc.c ft_isalpha.c ft_isalnum.c ft_isascii.c\
 
 OBJ_FILES = $(SRC:.c=.o)
 
-OBJ_DIR = ./obj/
 
 OBJ = $(addprefix $(OBJ_DIR), $(OBJ_FILES))
 
