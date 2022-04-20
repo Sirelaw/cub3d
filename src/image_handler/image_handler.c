@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:53:35 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/04/18 17:14:33 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/04/20 02:49:24 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,17 @@ static void	p_img(t_vars *vars)
 
 static void	load_img(t_vars *vars)
 {
-	int	w;
-	int	h;
 	int	i;
 
 	i = 0;
 	while (i < IMAGE_COUNT)
 	{
-		vars->image[i].l = mlx_xpm_file_to_image(vars->mlx,
-					vars->image[i].path, &w, &h);
+		vars->image[i].load = mlx_xpm_file_to_image(vars->mlx,
+					vars->image[i].path,
+					&vars->image[i].width, &vars->image[i].height);
+		vars->image[i].addr = mlx_get_data_addr(vars->image[i].load,
+			&(vars->image[i].bits_per_pixel), &(vars->image[i].line_lenght),
+			&(vars->image[i].endian));
 		i++;
 	}
 }

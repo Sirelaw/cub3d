@@ -10,12 +10,18 @@ void	my_mlx_pixel_put(t_vars *vars, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
+int	get_pixel(t_img *image, int x, int y)
+{
+	char	*color;
+
+	color = image->addr + (y * image->line_lenght + x * (image->bits_per_pixel / 8));
+	return (*(unsigned int *) color);
+}
+
 int	render_next_rays(t_vars *vars)
 {
 	mlx_destroy_image(vars->mlx, vars->img);
 	cast_rays(vars);
-	if (vars->simul_loop++ > 10)
-		vars->simul_loop = 0;
 	return (0);
 }
 
@@ -25,7 +31,7 @@ int	render_next_rays(t_vars *vars)
 // 	vars->img = mlx_new_image(vars->mlx, vars->win_w, vars->win_h);
 // 	vars->addr = mlx_get_data_addr(vars->img, &vars->bits_per_pixel,
 // 			&vars->line_lenght, &vars->endian);
-// 	mlx_put_image_to_window(vars->mlx, vars->win, vars->image[PLAYER].l,
+// 	mlx_put_image_to_window(vars->mlx, vars->win, vars->image[PLAYER].load,
 // 	vars->player[0] * TILE_SIZE, vars->player[1] * TILE_SIZE);
 // 	return (0);
 // }
@@ -42,7 +48,7 @@ void	rotate_player(int keycode, t_vars *vars)
 		vars->orient += 2 * M_PI;
 	vars->player_d[0] = cosf(vars->orient);
 	vars->player_d[1] = sinf(vars->orient);
-	render_next_rays(vars);
+	// render_next_rays(vars);
 }
 
 static void	check_valid_position(float temp[2], t_vars *vars)
@@ -54,8 +60,10 @@ static void	check_valid_position(float temp[2], t_vars *vars)
 		vars->player_f[1] = temp[1];
 		vars->player[0] = temp[0];
 		vars->player[1] = temp[1];
+		if (vars->simul_loop++ > 10)
+			vars->simul_loop = 0;
 	}
-	render_next_rays(vars);
+	// render_next_rays(vars);
 }
 
 void	move_image(int keycode, t_vars *vars)
@@ -96,7 +104,6 @@ int	key_hook(int keycode, t_vars *vars)
 	else if (((keycode >= A_KEY) && (keycode <= D_KEY)) || ((keycode >= S_KEY)
 			&& (keycode <= W_KEY)))
 		move_image(keycode, vars);
-	// render_next_frame(vars);
 	return (0);
 }
 

@@ -29,18 +29,42 @@ int	fix_fisheye_get_height(t_vars *vars, float distance, float angle_diff)
 	return (lineH);
 }
 
+void	draw_wall(t_vars *vars, int i, int *j, float lineH, int color)
+{
+	double	scale;
+	int		k;
+	int		l;
+	int		temp;
+
+	temp = lineH;
+	k = 0;
+	l = 0;
+	while(temp--)
+	{
+		my_mlx_pixel_put(vars, i, *j, color);
+		my_mlx_pixel_put(vars, i, *j, get_pixel(&vars->image[NIGERIA_64],
+				((i & 63) * TILE_SIZE) / lineH,
+				(l++ * TILE_SIZE) / lineH));
+		(*j)++;
+	}
+
+}
+
 void	draw_line(t_vars *vars, int i, float lineH, int color)
 {
 	int	fill;
 	int	j;
 	int	k;
 	int	l;
+	double	scale;
 
 	j = -1;
 	fill = vars->win_h - lineH;
 	fill /= 2;
+	scale = lineH / TILE_SIZE;
 	while (j++ < fill)
 		my_mlx_pixel_put(vars, i, j, 0x17e8d6);
+	// draw_wall(vars, i, &j, lineH, color);
 	while (lineH--)
 		my_mlx_pixel_put(vars, i, j++, color);
 	j--;
@@ -88,11 +112,11 @@ void	cast_rays(t_vars *vars)
 
 	i = 0;
 	theta = vars->orient - M_PI / 6;
-	dtheta = (M_PI / 3.0) / 1200;
+	dtheta = (M_PI / 3.0) / vars->win_w;
 	vars->img = mlx_new_image(vars->mlx, vars->win_w, vars->win_h);
 	vars->addr = mlx_get_data_addr(vars->img, &vars->bits_per_pixel,
 			&vars->line_lenght, &vars->endian);
-	while (i++ < 1200)
+	while (i++ < vars->win_w)
 	{
 		theta += dtheta;
 		if (theta > 2 * M_PI)
@@ -124,15 +148,18 @@ void	draw_field(t_vars *vars)
 				&& j * MINI_SIZE < vars->player[0] / SCALE_TO_MINI + 50
 				&& j * MINI_SIZE > vars->player[0] / SCALE_TO_MINI - 50)
 				mlx_put_image_to_window(vars->mlx, vars->win,
-				vars->image[WHITE_8].l,
+				vars->image[WHITE_8].load,
 				j * MINI_SIZE, i * MINI_SIZE);
 			j++;
 		}
 		i++;
 	}
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->image[PLAYER].l,
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->image[PLAYER].load,
 	vars->player[0] / SCALE_TO_MINI, vars->player[1] / SCALE_TO_MINI);
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->image[HAND_GUN].l,
-		vars->win_w - 232 + vars->simul_loop, vars->win_h - 232 + vars->simul_loop);
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->image[HAND_GUN].load,
+		vars->win_w - 232 + (vars->simul_loop % 4) * 10 , vars->win_h - 232 + (vars->simul_loop % 4) * 10);
+	// shooting gun
+	// mlx_put_image_to_window(vars->mlx, vars->win, vars->image[HAND_GUN].load,
+	// 	vars->win_w - 232 + (vars->simul_loop % 2) * 10 , vars->win_h - 232 + (vars->simul_loop % 2) * 10);
 	// draw_gun(vars);
 }

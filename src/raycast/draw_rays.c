@@ -43,7 +43,8 @@ static void	look_up_down(t_vars *vars, t_ray* ray)
 		{
 			ray->point_h[0] = ray->rx;
 			ray->point_h[1] = ray->ry;
-			ray->dist[0] = get_dist(vars->player[0], vars->player[1], ray->rx, ray->ry);
+			ray->dist[0] = get_dist(vars->player[0], vars->player[1],
+				ray->rx, ray->ry);
 			ray->dof = vars->map_height;
 		}
 		else

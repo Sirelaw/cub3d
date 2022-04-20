@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 19:02:23 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/18 18:27:41 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/04/20 18:28:09 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,14 @@ enum	e_keys
 
 typedef struct s_img
 {
-	void			*l;
+	void			*load;
 	char			*path;
-	enum e_images	name;
+	int				width;
+	int				height;
+	char			*addr;
+	int				bits_per_pixel;
+	int				line_lenght;
+	int				endian;
 }	t_img;
 
 typedef struct s_ray
@@ -119,6 +124,7 @@ void	img_handler(t_vars *vars);
 
 // ------- mlx  ----------
 void	my_mlx_pixel_put(t_vars *vars, int x, int y, int color);
+int		get_pixel(t_img *image, int x, int y);
 int		key_hook(int keycode, t_vars *vars);
 int		mouse_hook(int mousecode, int x, int y, t_vars *vars);
 int		clean_destroy(t_vars *vars);
@@ -137,6 +143,7 @@ void	draw_field(t_vars *vars);
 void	cast_rays(t_vars *vars);
 void	init_look_up_down(t_vars *vars, t_ray* ray, float theta);
 void	init_look_left_right(t_vars *vars, t_ray* ray, float theta);
+int		render_next_rays(t_vars *vars);
 
 
 // -------- dev -------
