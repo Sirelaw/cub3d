@@ -29,8 +29,6 @@ int	fix_fisheye_get_height(t_vars *vars, float distance, float angle_diff)
 	return (lineH);
 }
 
-
-
 void	draw_wall(t_vars *vars, int i, int *j, float lineH, int color)
 {
 	double	scale;
@@ -43,13 +41,12 @@ void	draw_wall(t_vars *vars, int i, int *j, float lineH, int color)
 	l = 0;
 	while(temp--)
 	{
-		my_mlx_pixel_put(vars, i, *j, color);
+		// my_mlx_pixel_put(vars, i, *j, color);
 		my_mlx_pixel_put(vars, i, *j, get_pixel(&vars->image[NIGERIA_64],
 				((i & 63) * TILE_SIZE) / lineH,
 				(l++ * TILE_SIZE) / lineH));
 		(*j)++;
 	}
-
 }
 
 void	draw_line(t_vars *vars, int i, float lineH, int color)
@@ -66,9 +63,58 @@ void	draw_line(t_vars *vars, int i, float lineH, int color)
 	scale = lineH / TILE_SIZE;
 	while (j++ < fill)
 		my_mlx_pixel_put(vars, i, j, 0x17e8d6);
-	// draw_wall(vars, i, &j, lineH, color);
-	while (lineH--)
-		my_mlx_pixel_put(vars, i, j++, color);
+	draw_wall(vars, i, &j, lineH, color);
+	// while (lineH--)
+	// 	my_mlx_pixel_put(vars, i, j++, color);
+	j--;
+	while (j++ < vars->win_h)
+		my_mlx_pixel_put(vars, i, j, GREEN);
+}
+
+void	draw_wall_ray(t_vars *vars, int i, int *j, float lineH, t_ray *ray)
+{
+	double	scale;
+	int		k;
+	int		l;
+	int		temp;
+
+	temp = lineH;
+	k = 0;
+	l = 0;
+	// lineH = fix_fisheye_get_height(vars, ray.distance, vars->orient - theta);
+	// plot_line_angle(vars->player, theta, 8, vars);
+	while(temp--)
+	{
+		if (ray->type == 0)
+			my_mlx_pixel_put(vars, i, *j, get_pixel(&vars->image[BRICKWALL_GRAY],
+				ray->point[0] & 63,
+				(l++ * TILE_SIZE) / lineH));
+		else
+			my_mlx_pixel_put(vars, i, *j, get_pixel(&vars->image[BRICKWALL_DARK],
+				ray->point[1] & 63,
+				(l++ * TILE_SIZE) / lineH));
+		(*j)++;
+	}
+}
+
+
+void	draw_line_ray(t_vars *vars, int i, float lineH, t_ray *ray)
+{
+	int	fill;
+	int	j;
+	int	k;
+	int	l;
+	double	scale;
+
+	j = -1;
+	fill = vars->win_h - lineH;
+	fill /= 2;
+	scale = lineH / TILE_SIZE;
+	while (j++ < fill)
+		my_mlx_pixel_put(vars, i, j, 0x17e8d6);
+	draw_wall_ray(vars, i, &j, lineH, ray);
+	// while (lineH--)
+	// 	my_mlx_pixel_put(vars, i, j++, color);
 	j--;
 	while (j++ < vars->win_h)
 		my_mlx_pixel_put(vars, i, j, GREEN);
@@ -92,6 +138,7 @@ static void	cast_ray(t_vars *vars, float theta, int i)
 		ray.point[0] = ray.point_h[0];
 		ray.point[1] = ray.point_h[1];
 		color = 0xd617e8;
+		ray.type = 0;
 	}
 	else
 	{
@@ -99,10 +146,12 @@ static void	cast_ray(t_vars *vars, float theta, int i)
 		ray.point[0] = ray.point_v[0];
 		ray.point[1] = ray.point_v[1];
 		color = 0xe8d617;
+		ray.type = 1;
 	}
 	lineH = fix_fisheye_get_height(vars, ray.distance, vars->orient - theta);
 	plot_line_angle(vars->player, theta, 8, vars);
-	draw_line(vars, i, lineH, color);
+	// draw_line(vars, i, lineH, color);
+	draw_line_ray(vars, i, lineH, &ray);
 }
 
 void	cast_rays(t_vars *vars)

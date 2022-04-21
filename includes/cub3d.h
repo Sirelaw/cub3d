@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 19:02:23 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/21 13:20:23 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/04/21 19:26:45 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,10 @@ enum e_images
 	GERMANY_64,
 	LOGO_42_64,
 	HAND_GUN,
+	BRICKWALL_DARK,
+	BRICKWALL_GRAY,
+	BRICKWALL_LIGHT,
+	BRICKWALL_RED,
 	IMAGE_COUNT
 };
 
@@ -89,6 +93,7 @@ typedef struct s_ray
 	int		point[2];
 	float	dist[2];
 	float	distance;
+	int		type;
 }	t_ray;
 
 

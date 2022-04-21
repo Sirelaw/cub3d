@@ -60,7 +60,7 @@ void	init_look_left_right(t_vars *vars, t_ray* ray, float theta)
 {
 	if (theta > M_PI_2 && theta < 3 * M_PI_2)
 	{
-		ray->rx = (((int)(vars->player[0]) >> TILE_BIT) << TILE_BIT) - 0.0002;
+		ray->rx = (((int)(vars->player[0]) >> TILE_BIT) << TILE_BIT) - 0.00015;
 		ray->ry = (vars->player[0] - ray->rx) * ray->nTan + vars->player[1];
 		ray->xo = -TILE_SIZE;
 		ray->yo = -ray->xo * ray->nTan;
@@ -85,7 +85,7 @@ void	init_look_up_down(t_vars *vars, t_ray* ray, float theta)
 {
 	if (theta > M_PI)
 	{
-		ray->ry = (((int)(vars->player[1]) >> TILE_BIT) << TILE_BIT) - 0.0002;
+		ray->ry = (((int)(vars->player[1]) >> TILE_BIT) << TILE_BIT) - 0.00015;
 		ray->rx = (vars->player[1] - ray->ry) * ray->aTan + vars->player[0];
 		ray->yo = -TILE_SIZE;
 		ray->xo = -ray->yo * ray->aTan;

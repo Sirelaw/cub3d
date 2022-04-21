@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/19 18:51:48 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/18 12:58:35 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/04/21 15:14:45 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,10 @@ void	check_first_and_last_line(char *str)
 	while (*str)
 	{
 		if (*str != '1' && *str != ' ')
+		{
+			write(STDOUT_FILENO, "Non 1 or space in 1st or last line.\n", 38);
 			ft_error();
+		}
 		str++;
 	}
 }
@@ -35,7 +38,12 @@ void	check_surround(char *str, char *up, char *down, size_t i)
 	char	surround[8];
 
 	if (i >= ft_strlen(up) - 1 || i >= ft_strlen(down) - 1)
+	{
+		write(STDOUT_FILENO, "Check len of line ", 18);
+		ft_putnbr_fd(i, STDOUT_FILENO);
+		write(STDOUT_FILENO, "\n", 1);
 		ft_error();
+	}
 	surround[0] = up[i - 1];
 	surround[1] = up[i];
 	surround[2] = up[i + 1];
