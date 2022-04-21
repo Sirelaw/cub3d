@@ -29,6 +29,8 @@ int	fix_fisheye_get_height(t_vars *vars, float distance, float angle_diff)
 	return (lineH);
 }
 
+
+
 void	draw_wall(t_vars *vars, int i, int *j, float lineH, int color)
 {
 	double	scale;

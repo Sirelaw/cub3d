@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 19:02:23 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/20 18:28:09 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/04/21 13:20:23 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,7 @@ void	ft_error(void);
 void	plotline(int x0_y0[2], int x1_y1[2], t_vars *vars, int color);
 void	my_mlx_pixel_put(t_vars *vars, int x, int y, int color);
 void	draw_field(t_vars *vars);
+void	scale_image(t_vars *vars, t_img *image, double scale);
 void	cast_rays(t_vars *vars);
 void	init_look_up_down(t_vars *vars, t_ray* ray, float theta);
 void	init_look_left_right(t_vars *vars, t_ray* ray, float theta);
