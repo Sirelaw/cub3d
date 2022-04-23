@@ -172,7 +172,7 @@ void	cast_rays(t_vars *vars)
 	vars->img = mlx_new_image(vars->mlx, vars->win_w, vars->win_h);
 	vars->addr = mlx_get_data_addr(vars->img, &vars->bits_per_pixel,
 			&vars->line_lenght, &vars->endian);
-	// vars->par.put_in = 0;
+	vars->par.put_in = 0;
 	while (i++ < vars->win_w)
 	{
 		theta += dtheta;
@@ -184,9 +184,9 @@ void	cast_rays(t_vars *vars)
 	}
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img, 0, 0);
 	
-	if (vars->par.put_in == 1)
-		mlx_put_image_to_window(vars->mlx, vars->win, vars->image[PUTIN].load,
-			vars->par.putin_img_x , vars->par.putin_img_y);
+	// if (vars->par.put_in == 1)
+	// 	mlx_put_image_to_window(vars->mlx, vars->win, vars->image[PUTIN].load,
+	// 		vars->par.putin_img_x , vars->par.putin_img_y);
 	
 	draw_field(vars);
 }
@@ -205,10 +205,10 @@ void	draw_field(t_vars *vars)
 		while(input[i][j])
 		{
 			if (input[i][j] == '1' && i * MINI_SIZE < vars->player[1]
-				/ SCALE_TO_MINI + 50
-				&& i * MINI_SIZE > vars->player[1] / SCALE_TO_MINI - 50
-				&& j * MINI_SIZE < vars->player[0] / SCALE_TO_MINI + 50
-				&& j * MINI_SIZE > vars->player[0] / SCALE_TO_MINI - 50)
+				/ SCALE_TO_MINI + 50000
+				&& i * MINI_SIZE > vars->player[1] / SCALE_TO_MINI - 50000
+				&& j * MINI_SIZE < vars->player[0] / SCALE_TO_MINI + 50000
+				&& j * MINI_SIZE > vars->player[0] / SCALE_TO_MINI - 50000)
 				mlx_put_image_to_window(vars->mlx, vars->win,
 				vars->image[WHITE_8].load,
 				j * MINI_SIZE, i * MINI_SIZE);
