@@ -15,11 +15,22 @@ void	init_vars(t_vars *vars)
 	vars->origin[0] = 0;
 	vars->origin[1] = 0;
 	vars->simul_loop = 0;
+	// new
+	vars->par.putin_step = 64;
+	vars->par.putin_time = 0;
+	vars->putin[0] = 0;
+	vars->putin[1] = 0;
+	vars->par.put_in = 0;
 }
 
 int frame_func(t_vars *vars)
 {
+	// vars->par.put_in = 0;
 	render_next_rays(vars);
+	putin_run(vars);
+	// if (vars->par.put_in == 1)
+		// mlx_put_image_to_window(vars->mlx, vars->win, vars->image[PUTIN].load,
+		// 	vars->par.putin_img_x , vars->par.putin_img_y);
 	return (0);
 }
 

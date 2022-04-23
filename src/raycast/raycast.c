@@ -151,6 +151,11 @@ static void	cast_ray(t_vars *vars, float theta, int i)
 	lineH = fix_fisheye_get_height(vars, ray.distance, vars->orient - theta);
 	plot_line_angle(vars->player, theta, 8, vars);
 	// draw_line(vars, i, lineH, color);
+	if (vars->par.put_in == 1)
+	{
+		vars->par.putin_img_x = i;
+		vars->par.putin_img_y = vars->win_h / 2 - lineH / 2;
+	}
 	draw_line_ray(vars, i, lineH, &ray);
 }
 
@@ -167,6 +172,7 @@ void	cast_rays(t_vars *vars)
 	vars->img = mlx_new_image(vars->mlx, vars->win_w, vars->win_h);
 	vars->addr = mlx_get_data_addr(vars->img, &vars->bits_per_pixel,
 			&vars->line_lenght, &vars->endian);
+	// vars->par.put_in = 0;
 	while (i++ < vars->win_w)
 	{
 		theta += dtheta;
@@ -177,6 +183,11 @@ void	cast_rays(t_vars *vars)
 		cast_ray(vars, theta, i);
 	}
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img, 0, 0);
+	
+	if (vars->par.put_in == 1)
+		mlx_put_image_to_window(vars->mlx, vars->win, vars->image[PUTIN].load,
+			vars->par.putin_img_x , vars->par.putin_img_y);
+	
 	draw_field(vars);
 }
 
@@ -207,6 +218,8 @@ void	draw_field(t_vars *vars)
 	}
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->image[PLAYER].load,
 	vars->player[0] / SCALE_TO_MINI, vars->player[1] / SCALE_TO_MINI);
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->image[PLAYER].load,
+	vars->putin[0] / SCALE_TO_MINI, vars->putin[1] / SCALE_TO_MINI);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->image[HAND_GUN].load,
 		vars->win_w - 232 + (vars->simul_loop % 4) * 10 , vars->win_h - 232 + (vars->simul_loop % 4) * 10);
 	// shooting gun

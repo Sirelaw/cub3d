@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+         #
+#    By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 20:23:06 by oipadeol          #+#    #+#              #
-#    Updated: 2022/04/21 13:21:29 by oipadeol         ###   ########.fr        #
+#    Updated: 2022/04/22 15:32:06 by ttokesi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,7 @@ SRC_FILES =	main.c get_line/get_line.c input_handling/input_handling.c\
 		raycast/plotline.c raycast/raycast.c\
 		raycast/scale_image.c utils/mlx_utils.c raycast/draw_rays.c\
 		dev_utils/dev_utils.c input_handling/small_utils.c\
+		extras/putin_movments.c\
 
 OBJ_FILES = $(SRC_FILES:.c=.o)
 
@@ -56,6 +57,7 @@ obj:
 	@mkdir -p $(OBJ_DIR)raycast
 	@mkdir -p $(OBJ_DIR)utils
 	@mkdir -p $(OBJ_DIR)dev_utils
+	@mkdir -p $(OBJ_DIR)extras
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c $(INC_DIR)/*.h
 	@gcc -I $(LIBFT_DIR) -I $(INC_DIR) -o $@ -c $<

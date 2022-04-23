@@ -5,6 +5,20 @@ float	get_dist(float ax, float ay, float bx, float by)
 	return (sqrt(((ax - bx) * (ax - bx)) + ((ay - by) * (ay - by))));
 }
 
+static void	putin_ray_v(t_vars *vars, t_ray* ray)
+{
+	if (ray->mx >= 0 && ray->my >= 0 && ray->mx < vars->map_width
+		&& ray->my < vars->map_height
+		&& (vars->input)[ray->my][ray->mx] == '8')
+	{
+		vars->par.put_in = 1;
+		vars->par.point_v[0] = ray->rx;
+		vars->par.point_v[1] = ray->ry;
+		vars->par.dist[1] = get_dist(vars->player[0], vars->player[1],
+			vars->putin[0], vars->putin[1]);
+	}
+}
+
 static void	look_left_right(t_vars *vars, t_ray* ray)
 {
 	ray->dof = 0;
@@ -27,6 +41,21 @@ static void	look_left_right(t_vars *vars, t_ray* ray)
 			ray->ry += ray->yo;
 			ray->dof++;
 		}
+		putin_ray_v(vars, ray);
+	}
+}
+
+static void	putin_ray_h(t_vars *vars, t_ray* ray)
+{
+	if (ray->mx >= 0 && ray->my >= 0 && ray->mx < vars->map_width
+		&& ray->my < vars->map_height
+		&& (vars->input)[ray->my][ray->mx] == '8')
+	{
+		vars->par.put_in = 1;
+		vars->par.point_h[0] = ray->rx;
+		vars->par.point_h[1] = ray->ry;
+		vars->par.dist[0] = get_dist(vars->player[0], vars->player[1],
+			vars->putin[0], vars->putin[1]);
 	}
 }
 
@@ -53,6 +82,7 @@ static void	look_up_down(t_vars *vars, t_ray* ray)
 			ray->ry += ray->yo;
 			ray->dof++;
 		}
+		putin_ray_h(vars, ray);
 	}
 }
 

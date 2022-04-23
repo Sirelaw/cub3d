@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 19:02:23 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/21 19:26:45 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/04/22 19:36:08 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ enum e_images
 	BRICKWALL_GRAY,
 	BRICKWALL_LIGHT,
 	BRICKWALL_RED,
+	PUTIN,
 	IMAGE_COUNT
 };
 
@@ -96,6 +97,19 @@ typedef struct s_ray
 	int		type;
 }	t_ray;
 
+typedef struct s_putin
+{
+
+	int		point_h[2];
+	int		point_v[2];
+	float	dist[2];
+	int		putin_img_x;
+	int		putin_img_y;
+	float	putin_dist;
+	int		putin_step;
+	int		put_in;
+	int		putin_time;
+}				t_putin;
 
 typedef struct s_vars
 {
@@ -114,6 +128,7 @@ typedef struct s_vars
 	int		line_lenght;
 	int		endian;
 	int		player[2];
+	int		putin[2];
 	float	player_f[2];
 	float	player_d[2];
 	int		origin[2];
@@ -123,6 +138,7 @@ typedef struct s_vars
 	int		images[8];
 	int 	sizer;
 	int		simul_loop;
+	t_putin	par;
 }				t_vars;
 
 void	img_handler(t_vars *vars);
@@ -151,6 +167,9 @@ void	init_look_up_down(t_vars *vars, t_ray* ray, float theta);
 void	init_look_left_right(t_vars *vars, t_ray* ray, float theta);
 int		render_next_rays(t_vars *vars);
 
+// putin extras
+
+int		putin_run(t_vars *g);
 
 // -------- dev -------
 
