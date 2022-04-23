@@ -12,9 +12,9 @@ void plot_line_angle(int start[2], float theta, float dist, t_vars *vars)
 	plotline(point, new_point, vars, WHITE);
 }
 
-int	fix_fisheye_get_height(t_vars *vars, float distance, float angle_diff)
+float	fix_fisheye_get_height(t_vars *vars, float distance, float angle_diff)
 {
-	int	lineH;
+	float	lineH;
 
 	if (angle_diff > 2 * M_PI)
 		angle_diff -= 2 * M_PI;
@@ -24,106 +24,69 @@ int	fix_fisheye_get_height(t_vars *vars, float distance, float angle_diff)
 	if (distance < 1)
 		distance = 1;
 	lineH = TILE_SIZE * vars->win_h / distance;
-	if (lineH > vars->win_h)
-		lineH = vars->win_h;
 	return (lineH);
 }
 
-void	draw_wall(t_vars *vars, int i, int *j, float lineH, int color)
+void	draw_wall(t_vars *vars, int i, int *j, t_ray *ray)
 {
-	double	scale;
 	int		k;
 	int		l;
 	int		temp;
+	int		image;
 
-	temp = lineH;
+	temp = ray->lineH;
 	k = 0;
-	l = 0;
-	while(temp--)
+	if (ray->type == 0)
 	{
-		// my_mlx_pixel_put(vars, i, *j, color);
-		my_mlx_pixel_put(vars, i, *j, get_pixel(&vars->image[NIGERIA_64],
-				((i & 63) * TILE_SIZE) / lineH,
-				(l++ * TILE_SIZE) / lineH));
-		(*j)++;
+		if (ray->point[1] >= vars->player[1])
+			image = BRICKWALL_LIGHT;
+		else
+			image = BRICKWALL_GRAY;
 	}
-}
-
-void	draw_line(t_vars *vars, int i, float lineH, int color)
-{
-	int	fill;
-	int	j;
-	int	k;
-	int	l;
-	double	scale;
-
-	j = -1;
-	fill = vars->win_h - lineH;
-	fill /= 2;
-	scale = lineH / TILE_SIZE;
-	while (j++ < fill)
-		my_mlx_pixel_put(vars, i, j, 0x17e8d6);
-	draw_wall(vars, i, &j, lineH, color);
-	// while (lineH--)
-	// 	my_mlx_pixel_put(vars, i, j++, color);
-	j--;
-	while (j++ < vars->win_h)
-		my_mlx_pixel_put(vars, i, j, GREEN);
-}
-
-void	draw_wall_ray(t_vars *vars, int i, int *j, float lineH, t_ray *ray)
-{
-	double	scale;
-	int		k;
-	int		l;
-	int		temp;
-
-	temp = lineH;
-	k = 0;
-	l = 0;
-	// lineH = fix_fisheye_get_height(vars, ray.distance, vars->orient - theta);
-	// plot_line_angle(vars->player, theta, 8, vars);
+	else
+	{
+		if (ray->point[0] >= vars->player[0])
+			image = BRICKWALL_DARK;
+		else
+			image = BRICKWALL_RED;
+	}
 	while(temp--)
 	{
 		if (ray->type == 0)
-			my_mlx_pixel_put(vars, i, *j, get_pixel(&vars->image[BRICKWALL_GRAY],
-				ray->point[0] & 63,
-				(l++ * TILE_SIZE) / lineH));
+			my_mlx_pixel_put(vars, i, *j, get_pixel(&vars->image[image],
+				ray->point[0] & TILE_SIZE - 1,
+				(ray->offset++ * TILE_SIZE) / ray->lineH));
 		else
-			my_mlx_pixel_put(vars, i, *j, get_pixel(&vars->image[BRICKWALL_DARK],
-				ray->point[1] & 63,
-				(l++ * TILE_SIZE) / lineH));
+			my_mlx_pixel_put(vars, i, *j, get_pixel(&vars->image[image],
+				ray->point[1] & TILE_SIZE - 1,
+				(ray->offset++ * TILE_SIZE) / ray->lineH));
 		(*j)++;
 	}
 }
 
-
-void	draw_line_ray(t_vars *vars, int i, float lineH, t_ray *ray)
+void	draw_line(t_vars *vars, int i, t_ray *ray)
 {
 	int	fill;
 	int	j;
 	int	k;
 	int	l;
-	double	scale;
 
-	j = -1;
-	fill = vars->win_h - lineH;
+	j = 0;
+	ray->offset = 0;
+	fill = vars->win_h - ray->lineH;
 	fill /= 2;
-	scale = lineH / TILE_SIZE;
-	while (j++ < fill)
-		my_mlx_pixel_put(vars, i, j, 0x17e8d6);
-	draw_wall_ray(vars, i, &j, lineH, ray);
-	// while (lineH--)
-	// 	my_mlx_pixel_put(vars, i, j++, color);
-	j--;
-	while (j++ < vars->win_h)
-		my_mlx_pixel_put(vars, i, j, GREEN);
+	if (fill < 0)
+		ray->offset = -1 * fill;
+	while (j < fill)
+		my_mlx_pixel_put(vars, i, j++, 0x17e8d6);
+	draw_wall(vars, i, &j, ray);
+	while (j < vars->win_h)
+		my_mlx_pixel_put(vars, i, j++, GREEN);
 }
 
 static void	cast_ray(t_vars *vars, float theta, int i)
 {
 	t_ray	ray;
-	float	lineH;
 	int		color;
 
 	ray.dist[0] = 1000000;
@@ -148,15 +111,14 @@ static void	cast_ray(t_vars *vars, float theta, int i)
 		color = 0xe8d617;
 		ray.type = 1;
 	}
-	lineH = fix_fisheye_get_height(vars, ray.distance, vars->orient - theta);
+	ray.lineH = fix_fisheye_get_height(vars, ray.distance, vars->orient - theta);
 	plot_line_angle(vars->player, theta, 8, vars);
-	// draw_line(vars, i, lineH, color);
 	if (vars->par.put_in == 1)
 	{
 		vars->par.putin_img_x = i;
-		vars->par.putin_img_y = vars->win_h / 2 - lineH / 2;
+		vars->par.putin_img_y = vars->win_h / 2 - ray.lineH / 2;
 	}
-	draw_line_ray(vars, i, lineH, &ray);
+	draw_line(vars, i, &ray);
 }
 
 void	cast_rays(t_vars *vars)
@@ -183,11 +145,9 @@ void	cast_rays(t_vars *vars)
 		cast_ray(vars, theta, i);
 	}
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img, 0, 0);
-	
 	if (vars->par.put_in == 1)
 		mlx_put_image_to_window(vars->mlx, vars->win, vars->image[PUTIN].load,
 			vars->par.putin_img_x , vars->par.putin_img_y);
-	
 	draw_field(vars);
 }
 
@@ -222,8 +182,4 @@ void	draw_field(t_vars *vars)
 	vars->putin[0] / SCALE_TO_MINI, vars->putin[1] / SCALE_TO_MINI);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->image[HAND_GUN].load,
 		vars->win_w - 232 + (vars->simul_loop % 4) * 10 , vars->win_h - 232 + (vars->simul_loop % 4) * 10);
-	// shooting gun
-	// mlx_put_image_to_window(vars->mlx, vars->win, vars->image[HAND_GUN].load,
-	// 	vars->win_w - 232 + (vars->simul_loop % 2) * 10 , vars->win_h - 232 + (vars->simul_loop % 2) * 10);
-	// draw_gun(vars);
 }
