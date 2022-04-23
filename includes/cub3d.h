@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 19:02:23 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/23 15:23:50 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/04/23 15:38:45 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,27 +77,6 @@ typedef struct s_img
 	int				line_lenght;
 	int				endian;
 }	t_img;
-
-typedef struct s_ray
-{
-	int 	mx;
-	int		my;
-	int		dof;
-	float	rx;
-	float	ry;
-	float	xo;
-	float	yo;
-	float	aTan;
-	float	nTan;
-	int		point_h[2];
-	int		point_v[2];
-	int		point[2];
-	float	dist[2];
-	float	distance;
-	float	lineH;
-	int		offset;
-	int		type;
-}	t_ray;
 
 typedef struct s_putin
 {
