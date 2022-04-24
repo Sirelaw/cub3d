@@ -28,4 +28,3 @@ typedef struct s_ray
 }	t_ray;
 
 #endif
-

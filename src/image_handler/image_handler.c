@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   image_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:53:35 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/04/23 17:38:42 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/04/25 01:03:18 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	load_img(t_vars *vars)
 		if (vars->image[i].load == NULL)
 		{
 			printf("Could not open %s\n", vars->image[i].path);
-			ft_error();
+			ft_error("");
 		}
 		vars->image[i].addr = mlx_get_data_addr(vars->image[i].load,
 			&(vars->image[i].bits_per_pixel), &(vars->image[i].line_lenght),

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+         #
+#    By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 20:23:06 by oipadeol          #+#    #+#              #
-#    Updated: 2022/04/23 16:34:12 by ttokesi          ###   ########.fr        #
+#    Updated: 2022/04/25 01:04:29 by oipadeol         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,8 @@ SRC_FILES =	main.c get_line/get_line.c input_handling/input_handling.c\
 		input_handling/input_handling_2.c image_handler/image_handler.c\
 		raycast/plotline.c raycast/raycast.c\
 		raycast/scale_image.c utils/mlx_utils.c raycast/draw_rays.c\
-		dev_utils/dev_utils.c input_handling/small_utils.c\
+		dev_utils/dev_utils.c input_handling/input_handling_3.c\
+		input_handling/input_handling_4.c\
 		extras/putin_movments.c extras/putin_draw.c\
 
 OBJ_FILES = $(SRC_FILES:.c=.o)

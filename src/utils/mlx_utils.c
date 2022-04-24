@@ -109,9 +109,28 @@ int	mouse_hook(int mousecode, int x, int y, t_vars *vars)
 	return (0);
 }
 
+void	free_all(t_vars *vars)
+{
+	char	**input;
+	int		i;
+
+	i = 0;
+	input = vars->input;
+	while (input[i])
+	{
+		free(input[i]);
+		i++;
+	}
+	free(input);
+	free(vars->image[NO].path);
+	free(vars->image[SO].path);
+	free(vars->image[EA].path);
+	free(vars->image[WE].path);
+}
+
 int	clean_destroy(t_vars *vars)
 {
 	mlx_destroy_window(vars->mlx, vars->win);
-	// free_all(vars);
+	free_all(vars);
 	exit(EXIT_SUCCESS);
 }

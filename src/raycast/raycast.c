@@ -39,27 +39,27 @@ void	draw_wall(t_vars *vars, int i, int *j, t_ray *ray)
 	if (ray->type == 0)
 	{
 		if (ray->point[1] >= vars->player[1])
-			image = BRICKWALL_LIGHT;
+			image = SO;
 		else
-			image = BRICKWALL_GRAY;
+			image = NO;
 	}
 	else
 	{
 		if (ray->point[0] >= vars->player[0])
-			image = BRICKWALL_DARK;
+			image = WE;
 		else
-			image = BRICKWALL_RED;
+			image = EA;
 	}
 	while(temp-- && *j < vars->win_h)
 	{
 		if (ray->type == 0)
 			my_mlx_pixel_put(vars, i, *j, get_pixel(&vars->image[image],
-				ray->point[0] & TILE_SIZE - 1,
-				(ray->offset++ * TILE_SIZE) / ray->lineH));
+				ray->point[0] % vars->image[image].width,
+				(ray->offset++ * vars->image[image].height) / ray->lineH));
 		else
 			my_mlx_pixel_put(vars, i, *j, get_pixel(&vars->image[image],
-				ray->point[1] & TILE_SIZE - 1,
-				(ray->offset++ * TILE_SIZE) / ray->lineH));
+				ray->point[1] % vars->image[image].width,
+				(ray->offset++ * vars->image[image].height) / ray->lineH));
 		(*j)++;
 	}
 }
@@ -80,11 +80,11 @@ void	draw_line(t_vars *vars, int i, t_ray *ray)
 		ray->offset = -1 * fill;
 	vars->par.offset = ray->offset;
 	while (j < fill)
-		my_mlx_pixel_put(vars, i, j++, 0x17e8d6);
+		my_mlx_pixel_put(vars, i, j++, vars->ceiling_color);
 	int t = j;
 	draw_wall(vars, i, &j, ray);
 	while (j < vars->win_h)
-		my_mlx_pixel_put(vars, i, j++, GREEN);
+		my_mlx_pixel_put(vars, i, j++, vars->floor_color);
 	// printf("%d \n", vars->par.put_in);
 	if (vars->par.put_in == 1 &&  vars->par.one_put < 64)
 	{

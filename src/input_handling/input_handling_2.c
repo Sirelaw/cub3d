@@ -3,18 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   input_handling_2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/19 18:51:48 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/22 20:22:10 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/04/25 00:54:58 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-void	ft_error(void)
+void	ft_error(char *str)
 {
 	write(STDERR_FILENO, "Error\n", 6);
+	write(STDERR_FILENO, str, ft_strlen(str));
+	write(STDERR_FILENO, "\n", 1);
 	exit(1);
 }
 
@@ -25,10 +27,7 @@ void	check_first_and_last_line(char *str)
 	while (*str)
 	{
 		if (*str != '1' && *str != ' ')
-		{
-			write(STDOUT_FILENO, "Non 1 or space in 1st or last line.\n", 38);
-			ft_error();
-		}
+			ft_error("Non 1 or space in 1st or last line.");
 		str++;
 	}
 }
@@ -41,8 +40,7 @@ void	check_surround(char *str, char *up, char *down, size_t i)
 	{
 		write(STDOUT_FILENO, "Check len of line ", 18);
 		ft_putnbr_fd(i, STDOUT_FILENO);
-		write(STDOUT_FILENO, "\n", 1);
-		ft_error();
+		ft_error(" ");
 	}
 	surround[0] = up[i - 1];
 	surround[1] = up[i];
@@ -56,7 +54,7 @@ void	check_surround(char *str, char *up, char *down, size_t i)
 	while (i < 8)
 	{
 		if (surround[i] == ' ')
-			ft_error();
+			ft_error("0 bordered by one or more spaces.");
 		i++;
 	}
 }
@@ -69,7 +67,7 @@ void	check_other_line(char *str, char *up, char *down, t_vars *vars)
 	while (str[i] == ' ')
 		i++;
 	if (str[i] != '1' || str[ft_strlen(str) - 1] != '1')
-		ft_error();
+		ft_error("Line doesn't start or end with 1.");
 	while (str[i])
 	{
 		if (str[i] == '0' || ft_strchr("NEWS", str[i]))
@@ -78,7 +76,7 @@ void	check_other_line(char *str, char *up, char *down, t_vars *vars)
 			if (ft_strchr("NEWS", str[i]))
 			{
 				if (vars->start_orientation)
-					ft_error();
+					ft_error("More than one NEWS in map.");
 				vars->start_orientation = str[i];
 				vars->player[0] = i * TILE_SIZE;
 			}
@@ -89,7 +87,7 @@ void	check_other_line(char *str, char *up, char *down, t_vars *vars)
 			}
 		}
 		else if (str[i] != '1' && str[i] != ' ')
-			ft_error();
+			ft_error("Non 1 or space or 0 in map.");
 		i++;
 	}
 }
@@ -115,9 +113,6 @@ int		check_valid(char **input, t_vars *vars)
 		i++;
 	}
 	if (!vars->start_orientation)
-	{
-		write(STDERR_FILENO, "Map must include one player position.\n", 38);
-		ft_error();
-	}
+		ft_error("Map must include one player position.");
 	return (0);
 }

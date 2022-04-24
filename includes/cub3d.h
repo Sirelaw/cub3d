@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 19:02:23 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/25 00:41:26 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/04/25 00:58:59 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,10 @@
 
 enum e_images
 {
+	NO,
+	SO,
+	WE,
+	EA,
 	FIG1 ,
 	NONE ,
 	WHITE_32 ,
@@ -96,7 +100,7 @@ typedef struct s_putin
 	int		ofset_h;
 	int		offset;
 	int		type;
-}				t_putin;
+}	t_putin;
 
 typedef struct s_vars
 {
@@ -119,6 +123,8 @@ typedef struct s_vars
 	float	player_f[2];
 	float	player_d[2];
 	int		origin[2];
+	int		floor_color;
+	int		ceiling_color;
 	char	**input;
 	int		map_width;
 	int		map_height;
@@ -139,7 +145,7 @@ int		clean_destroy(t_vars *vars);
 void	input_rows_init_player(int argc, char **argv, t_vars *vars);
 int		check_valid(char **input, t_vars *vars);
 void	standardize_input(char **str_ptr, int *max_len);
-void	ft_error(void);
+void	ft_error(char *str);
 
 // ------ ray --------
 
@@ -150,6 +156,7 @@ void	scale_image(t_vars *vars, t_img *image, double scale);
 void	cast_rays(t_vars *vars);
 void	init_look_up_down(t_vars *vars, t_ray* ray, float theta);
 void	init_look_left_right(t_vars *vars, t_ray* ray, float theta);
+void	get_elements(t_vars *vars, int fd);
 int		render_next_rays(t_vars *vars);
 
 // putin extras
