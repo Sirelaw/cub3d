@@ -6,7 +6,7 @@
 /*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:48:49 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/04/24 16:53:36 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/04/24 19:26:36 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	st_p(t_vars *g, int x, int y)
 {
 	int dist;
 
-	if (g->input[y / TILE_SIZE][x / TILE_SIZE] == '1')
+	if (g->input[y / TILE_SIZE][x / TILE_SIZE] == '1' && y / TILE_SIZE > 1 && x / TILE_SIZE > 1 && g->input[y / TILE_SIZE - 1][x / TILE_SIZE - 1] == '1')
 		return (0);
 	dist = get_dist(g->player[0], g->player[1], g->putin[0], g->putin[1]);
 	if (dist < 2 * TILE_SIZE)

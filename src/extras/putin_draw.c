@@ -12,6 +12,7 @@ void	draw_putin(t_vars *vars, int i, int j, t_ray *ray)
 	temp = hight;
 	while(temp--)
 	{
+		k = hight / 64;
 		colore = get_pixel(&vars->image[PUTIN64],
 				vars->par.one_put, (vars->par.offset++ * 64) / hight);
 		if (colore != 0xFFFFFF)

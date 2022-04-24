@@ -6,7 +6,7 @@
 /*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 19:02:23 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/24 16:42:37 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/04/24 18:03:06 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@ typedef struct s_putin
 	int		put_in;
 	int		one_put;
 	int		putin_time;
+	int		hight;
+	int		ofset_h;
 	int		offset;
 	int		type;
 }				t_putin;

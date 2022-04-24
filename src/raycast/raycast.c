@@ -88,9 +88,17 @@ void	draw_line(t_vars *vars, int i, t_ray *ray)
 	// printf("%d \n", vars->par.put_in);
 	if (vars->par.put_in == 1 &&  vars->par.one_put < 64)
 	{
+		vars->par.hight = (vars->image[PUTIN64].height * vars->win_h) / vars->par.putin_dist;
+		vars->par.ofset_h = vars->par.hight / TILE_SIZE;
 		// if (i % 64 == 0)
 		// 	printf("%d\n", i);
-		draw_putin(vars, i, t, ray);
+			draw_putin(vars, i , t, ray);
+		// k = 0;
+		// while (k <= vars->par.ofset_h)
+		// {
+		// 	draw_putin(vars, i + k + (vars->par.one_put * vars->par.ofset_h), t, ray);
+		// 	k++;
+		// }
 		vars->par.one_put++;
 	}
 }
@@ -171,6 +179,7 @@ void	cast_rays(t_vars *vars)
 			theta += 2 * M_PI;
 		cast_ray(vars, theta, i);
 	}
+	// printf("x:%d y:%d\n", vars->putin[0], vars->putin[1]);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img, 0, 0);
 	
 	// if (vars->par.put_in == 1)
