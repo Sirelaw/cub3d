@@ -17,8 +17,8 @@ static void	putin_ray_v(t_vars *vars, t_ray* ray)
 		vars->par.dist[1] = get_dist(vars->player[0], vars->player[1],
 			vars->putin[0], vars->putin[1]);
 	}
-	else
-		vars->par.put_in = 0;
+	// else
+	// 	vars->par.put_in = 0;
 
 }
 
@@ -44,7 +44,8 @@ static void	look_left_right(t_vars *vars, t_ray* ray)
 			ray->ry += ray->yo;
 			ray->dof++;
 		}
-		putin_ray_v(vars, ray);
+		if (ray->dof != vars->map_height)
+			putin_ray_v(vars, ray);
 	}
 }
 
@@ -60,8 +61,8 @@ static void	putin_ray_h(t_vars *vars, t_ray* ray)
 		vars->par.dist[0] = get_dist(vars->player[0], vars->player[1],
 			vars->putin[0], vars->putin[1]);
 	}
-	else
-		vars->par.put_in = 0;
+	// else if ()
+	// 	vars->par.put_in = 0;
 
 }
 
@@ -88,7 +89,8 @@ static void	look_up_down(t_vars *vars, t_ray* ray)
 			ray->ry += ray->yo;
 			ray->dof++;
 		}
-		putin_ray_h(vars, ray);
+		if (ray->dof != vars->map_height)
+			putin_ray_h(vars, ray);
 	}
 }
 

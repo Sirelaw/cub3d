@@ -6,7 +6,7 @@
 /*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:48:49 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/04/23 14:48:28 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/04/24 16:53:36 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,12 @@
 
 static int	st_p(t_vars *g, int x, int y)
 {
+	int dist;
+
 	if (g->input[y / TILE_SIZE][x / TILE_SIZE] == '1')
+		return (0);
+	dist = get_dist(g->player[0], g->player[1], g->putin[0], g->putin[1]);
+	if (dist < 2 * TILE_SIZE)
 		return (0);
 	return (1);
 }
@@ -51,6 +56,8 @@ static void	flipper_two(int *step, t_vars *g)
 static void	flipper(t_vars *g, int *step, int x, int y)
 {
 	int	sign;
+	int exitcount;
+
 	step[0] = g->par.putin_step;
 	step[1] = g->par.putin_step;
 	step[2] = '\0';
@@ -70,8 +77,12 @@ static void	flipper(t_vars *g, int *step, int x, int y)
 		step[1] = -g->par.putin_step;
 		step[0] = 0;
 	}
-	while (!st_p(g, x + step[0], y + step[1]))
+	exitcount = 0;
+	while (!st_p(g, x + step[0], y + step[1]) && exitcount < 20)
+	{
 		flipper_two(step, g);
+		exitcount++;
+	}
 }
 
 static void	enemymaker(t_vars *g, int *step)

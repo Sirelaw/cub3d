@@ -6,7 +6,7 @@
 /*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:53:35 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/04/22 19:59:01 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/04/23 17:38:42 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ static void	p_img(t_vars *vars)
 	vars->image[BRICKWALL_LIGHT].path = "./img/brickwall_ligth.xpm";
 	vars->image[BRICKWALL_RED].path = "./img/brickwall_red.xpm";
 	vars->image[PUTIN].path = "./img/v_putin.xpm";
+	vars->image[PUTIN64].path = "./img/putin64_64.xpm";
 }
 
 static void	load_img(t_vars *vars)
