@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 19:02:23 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/23 15:38:45 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/04/23 17:29:32 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,8 +116,6 @@ typedef struct s_vars
 	char	**input;
 	int		map_width;
 	int		map_height;
-	int		images[8];
-	int 	sizer;
 	int		simul_loop;
 	t_putin	par;
 }				t_vars;

@@ -50,7 +50,7 @@ void	draw_wall(t_vars *vars, int i, int *j, t_ray *ray)
 		else
 			image = BRICKWALL_RED;
 	}
-	while(temp--)
+	while(temp-- && *j < vars->win_h)
 	{
 		if (ray->type == 0)
 			my_mlx_pixel_put(vars, i, *j, get_pixel(&vars->image[image],
