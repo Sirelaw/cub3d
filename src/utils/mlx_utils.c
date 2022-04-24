@@ -41,6 +41,11 @@ void	rotate_player(int keycode, t_vars *vars)
 
 static void	check_valid_position(float temp[2], t_vars *vars)
 {
+	int dist;
+
+	dist = get_dist(vars->player[0], vars->player[1], vars->putin[0], vars->putin[1]);
+	if (dist < 2 * TILE_SIZE)
+		return ;
 	if ((vars->input)[(int)temp[1] >> TILE_BIT][(int)temp[0] >> TILE_BIT]
 		!= '1')
 	{

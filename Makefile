@@ -6,7 +6,7 @@
 #    By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 20:23:06 by oipadeol          #+#    #+#              #
-#    Updated: 2022/04/22 15:32:06 by ttokesi          ###   ########.fr        #
+#    Updated: 2022/04/23 16:34:12 by ttokesi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ SRC_FILES =	main.c get_line/get_line.c input_handling/input_handling.c\
 		raycast/plotline.c raycast/raycast.c\
 		raycast/scale_image.c utils/mlx_utils.c raycast/draw_rays.c\
 		dev_utils/dev_utils.c input_handling/small_utils.c\
-		extras/putin_movments.c\
+		extras/putin_movments.c extras/putin_draw.c\
 
 OBJ_FILES = $(SRC_FILES:.c=.o)
 

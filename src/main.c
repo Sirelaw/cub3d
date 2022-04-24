@@ -16,11 +16,13 @@ void	init_vars(t_vars *vars)
 	vars->origin[1] = 0;
 	vars->simul_loop = 0;
 	// new
-	vars->par.putin_step = 64;
+	vars->par.putin_step = 32;
 	vars->par.putin_time = 0;
 	vars->putin[0] = 0;
 	vars->putin[1] = 0;
 	vars->par.put_in = 0;
+	vars->par.type = 0;
+
 }
 
 int frame_func(t_vars *vars)

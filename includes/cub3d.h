@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 19:02:23 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/23 17:29:32 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/04/25 00:41:26 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ enum e_images
 	BRICKWALL_LIGHT,
 	BRICKWALL_RED,
 	PUTIN,
+	PUTIN64,
 	IMAGE_COUNT
 };
 
@@ -89,7 +90,12 @@ typedef struct s_putin
 	float	putin_dist;
 	int		putin_step;
 	int		put_in;
+	int		one_put;
 	int		putin_time;
+	int		hight;
+	int		ofset_h;
+	int		offset;
+	int		type;
 }				t_putin;
 
 typedef struct s_vars
@@ -149,6 +155,8 @@ int		render_next_rays(t_vars *vars);
 // putin extras
 
 int		putin_run(t_vars *g);
+void	draw_putin(t_vars *vars, int i, int t, t_ray *ray);
+float	get_dist(float ax, float ay, float bx, float by);
 
 // -------- dev -------
 

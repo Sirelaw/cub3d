@@ -72,16 +72,35 @@ void	draw_line(t_vars *vars, int i, t_ray *ray)
 	int	l;
 
 	j = 0;
+	// k = 0;
 	ray->offset = 0;
 	fill = vars->win_h - ray->lineH;
 	fill /= 2;
 	if (fill < 0)
 		ray->offset = -1 * fill;
+	vars->par.offset = ray->offset;
 	while (j < fill)
 		my_mlx_pixel_put(vars, i, j++, 0x17e8d6);
+	int t = j;
 	draw_wall(vars, i, &j, ray);
 	while (j < vars->win_h)
 		my_mlx_pixel_put(vars, i, j++, GREEN);
+	// printf("%d \n", vars->par.put_in);
+	if (vars->par.put_in == 1 &&  vars->par.one_put < 64)
+	{
+		vars->par.hight = (vars->image[PUTIN64].height * vars->win_h) / vars->par.putin_dist;
+		vars->par.ofset_h = vars->par.hight / TILE_SIZE;
+		// if (i % 64 == 0)
+		// 	printf("%d\n", i);
+			draw_putin(vars, i , t, ray);
+		// k = 0;
+		// while (k <= vars->par.ofset_h)
+		// {
+		// 	draw_putin(vars, i + k + (vars->par.one_put * vars->par.ofset_h), t, ray);
+		// 	k++;
+		// }
+		vars->par.one_put++;
+	}
 }
 
 static void	cast_ray(t_vars *vars, float theta, int i)
@@ -91,6 +110,8 @@ static void	cast_ray(t_vars *vars, float theta, int i)
 
 	ray.dist[0] = 1000000;
 	ray.dist[1] = 1000000;
+	vars->par.dist[0] = 1000000;
+	vars->par.dist[1] = 1000000;
 	ray.aTan = -1 / tan(theta);
 	ray.nTan = -tan(theta);
 	init_look_up_down(vars, &ray, theta);
@@ -111,8 +132,20 @@ static void	cast_ray(t_vars *vars, float theta, int i)
 		color = 0xe8d617;
 		ray.type = 1;
 	}
+	if (vars->par.dist[0] < vars->par.dist[1])
+	{
+		vars->par.putin_dist = vars->par.dist[0];
+		vars->par.type = 1;
+
+	}
+	else
+	{
+		vars->par.type = 0;
+		vars->par.putin_dist = vars->par.dist[1];
+	}
+
 	ray.lineH = fix_fisheye_get_height(vars, ray.distance, vars->orient - theta);
-	plot_line_angle(vars->player, theta, 8, vars);
+	plot_line_angle(vars->player, theta, 5, vars);
 	if (vars->par.put_in == 1)
 	{
 		vars->par.putin_img_x = i;
@@ -134,9 +167,11 @@ void	cast_rays(t_vars *vars)
 	vars->img = mlx_new_image(vars->mlx, vars->win_w, vars->win_h);
 	vars->addr = mlx_get_data_addr(vars->img, &vars->bits_per_pixel,
 			&vars->line_lenght, &vars->endian);
-	// vars->par.put_in = 0;
+	// printf("---------------------cycle---------------------\n");
+	vars->par.one_put = 0;
 	while (i++ < vars->win_w)
 	{
+		vars->par.put_in = 0;
 		theta += dtheta;
 		if (theta > 2 * M_PI)
 			theta -= 2 * M_PI;
@@ -144,10 +179,12 @@ void	cast_rays(t_vars *vars)
 			theta += 2 * M_PI;
 		cast_ray(vars, theta, i);
 	}
+	// printf("x:%d y:%d\n", vars->putin[0], vars->putin[1]);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img, 0, 0);
-	if (vars->par.put_in == 1)
-		mlx_put_image_to_window(vars->mlx, vars->win, vars->image[PUTIN].load,
-			vars->par.putin_img_x , vars->par.putin_img_y);
+	
+	// if (vars->par.put_in == 1)
+	// 	mlx_put_image_to_window(vars->mlx, vars->win, vars->image[PUTIN].load,
+	// 		vars->par.putin_img_x , vars->par.putin_img_y);
 	draw_field(vars);
 }
 
@@ -165,10 +202,10 @@ void	draw_field(t_vars *vars)
 		while(input[i][j])
 		{
 			if (input[i][j] == '1' && i * MINI_SIZE < vars->player[1]
-				/ SCALE_TO_MINI + 50
-				&& i * MINI_SIZE > vars->player[1] / SCALE_TO_MINI - 50
-				&& j * MINI_SIZE < vars->player[0] / SCALE_TO_MINI + 50
-				&& j * MINI_SIZE > vars->player[0] / SCALE_TO_MINI - 50)
+				/ SCALE_TO_MINI + 50000
+				&& i * MINI_SIZE > vars->player[1] / SCALE_TO_MINI - 50000
+				&& j * MINI_SIZE < vars->player[0] / SCALE_TO_MINI + 50000
+				&& j * MINI_SIZE > vars->player[0] / SCALE_TO_MINI - 50000)
 				mlx_put_image_to_window(vars->mlx, vars->win,
 				vars->image[WHITE_8].load,
 				j * MINI_SIZE, i * MINI_SIZE);
