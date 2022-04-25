@@ -1,5 +1,13 @@
+NO ./img/brickwall_dark.xpm
+SO ./img/brickwall_gray.xpm
+WE ./img/brickwall_ligth.xpm
+EA ./img/brickwall_red.xpm
+
+F 220,100,0
+C 0,255,255
+
 11111111111
-10000010001
+10000000001
 10000000001
 10000000W01
 11111111111

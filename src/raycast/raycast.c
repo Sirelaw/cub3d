@@ -86,19 +86,13 @@ void	draw_line(t_vars *vars, int i, t_ray *ray)
 	while (j < vars->win_h)
 		my_mlx_pixel_put(vars, i, j++, vars->floor_color);
 	// printf("%d \n", vars->par.put_in);
-	if (vars->par.put_in == 1 &&  vars->par.one_put < 64)
+	if (vars->par.put_in == 1 &&  vars->par.one_put < 21)
 	{
+		// in some cases teh rays don't hit putin so this never runs....
+		// why is not hitting by the ray?? 
 		vars->par.hight = (vars->image[PUTIN64].height * vars->win_h) / vars->par.putin_dist;
 		vars->par.ofset_h = vars->par.hight / TILE_SIZE;
-		// if (i % 64 == 0)
-		// 	printf("%d\n", i);
-			draw_putin(vars, i , t, ray);
-		// k = 0;
-		// while (k <= vars->par.ofset_h)
-		// {
-		// 	draw_putin(vars, i + k + (vars->par.one_put * vars->par.ofset_h), t, ray);
-		// 	k++;
-		// }
+		draw_putin(vars, i, t, ray);
 		vars->par.one_put++;
 	}
 }
@@ -136,7 +130,6 @@ static void	cast_ray(t_vars *vars, float theta, int i)
 	{
 		vars->par.putin_dist = vars->par.dist[0];
 		vars->par.type = 1;
-
 	}
 	else
 	{
@@ -154,6 +147,58 @@ static void	cast_ray(t_vars *vars, float theta, int i)
 	draw_line(vars, i, &ray);
 }
 
+void draw_putin_arays(t_vars *vars)
+{
+	int i;
+	int j;
+	int colore;
+	double	adj;
+
+	i = 0;
+	adj = vars->par.hight - 50;
+	adj = 64;
+	while (i < adj)
+	{
+		j = 0;
+		while (j < adj)
+		{
+			if (vars->par.put_point_x[(int)((i * TILE_SIZE) / adj)] != -1)
+			{
+				colore = get_pixel(&vars->image[PUTIN64], (i * TILE_SIZE) / adj, (j * TILE_SIZE) / adj);
+				if (colore != 0xFFFFFF)
+					my_mlx_pixel_put(vars, vars->par.put_point_x[i],  450 + j, colore);
+			}
+			// colore = vars->par.points_colore[i][j];
+			// if (colore != -1)
+			// 	my_mlx_pixel_put(vars, vars->par.points_x[i][j] + 64, vars->par.points_y[i][j] , colore);
+			j++;
+		}
+		i++;
+	}
+}
+
+void fill_putin_arays(t_vars *vars)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (i < 64)
+	{
+		j = 0;
+		vars->par.put_point_higth[i] = -1;
+		vars->par.put_point_x[i] = -1;
+		while (j < 64)
+		{
+			vars->par.points_x[i][j] = -1;
+			vars->par.points_y[i][j] = -1;
+			vars->par.points_colore[i][j] = -1;
+			j++;
+		}
+		i++;
+	}
+}
+
 void	cast_rays(t_vars *vars)
 {
 	int		i;
@@ -169,6 +214,7 @@ void	cast_rays(t_vars *vars)
 			&vars->line_lenght, &vars->endian);
 	// printf("---------------------cycle---------------------\n");
 	vars->par.one_put = 0;
+	fill_putin_arays(vars);
 	while (i++ < vars->win_w)
 	{
 		vars->par.put_in = 0;
@@ -179,6 +225,7 @@ void	cast_rays(t_vars *vars)
 			theta += 2 * M_PI;
 		cast_ray(vars, theta, i);
 	}
+	draw_putin_arays(vars);
 	// printf("x:%d y:%d\n", vars->putin[0], vars->putin[1]);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img, 0, 0);
 	

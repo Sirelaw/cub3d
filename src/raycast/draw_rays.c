@@ -17,9 +17,6 @@ static void	putin_ray_v(t_vars *vars, t_ray* ray)
 		vars->par.dist[1] = get_dist(vars->player[0], vars->player[1],
 			vars->putin[0], vars->putin[1]);
 	}
-	// else
-	// 	vars->par.put_in = 0;
-
 }
 
 static void	look_left_right(t_vars *vars, t_ray* ray)
@@ -31,7 +28,7 @@ static void	look_left_right(t_vars *vars, t_ray* ray)
 		ray->my = (int)(ray->ry) >> TILE_BIT;
 		if (ray->mx >= 0 && ray->my >= 0 && ray->mx < vars->map_width
 			&& ray->my < vars->map_height
-			&& (vars->input)[ray->my][ray->mx] == '1')
+			&& vars->input[ray->my][ray->mx] == '1')
 		{
 			ray->point_v[0] = ray->rx;
 			ray->point_v[1] = ray->ry;
@@ -53,17 +50,14 @@ static void	putin_ray_h(t_vars *vars, t_ray* ray)
 {
 	if (ray->mx >= 0 && ray->my >= 0 && ray->mx < vars->map_width
 		&& ray->my < vars->map_height
-		&& (vars->input)[ray->my][ray->mx] == '8')
+		&& vars->input[ray->my][ray->mx] == '8')
 	{
 		vars->par.put_in = 1;
 		vars->par.point_h[0] = ray->rx;
 		vars->par.point_h[1] = ray->ry;
 		vars->par.dist[0] = get_dist(vars->player[0], vars->player[1],
-			vars->putin[0], vars->putin[1]);
+		vars->putin[0], vars->putin[1]);
 	}
-	// else if ()
-	// 	vars->par.put_in = 0;
-
 }
 
 static void	look_up_down(t_vars *vars, t_ray* ray)
@@ -75,7 +69,7 @@ static void	look_up_down(t_vars *vars, t_ray* ray)
 		ray->my = (int)(ray->ry) >> TILE_BIT;
 		if (ray->mx >= 0 && ray->my >= 0 && ray->mx < vars->map_width
 			&& ray->my < vars->map_height
-			&& (vars->input)[ray->my][ray->mx] == '1')
+			&& vars->input[ray->my][ray->mx] == '1')
 		{
 			ray->point_h[0] = ray->rx;
 			ray->point_h[1] = ray->ry;

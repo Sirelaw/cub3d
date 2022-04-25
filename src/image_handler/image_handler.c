@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   image_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:53:35 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/04/25 01:03:18 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/04/25 20:05:44 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,9 @@ static void	p_img(t_vars *vars)
 	vars->image[BRICKWALL_GRAY].path = "./img/brickwall_gray.xpm";
 	vars->image[BRICKWALL_LIGHT].path = "./img/brickwall_ligth.xpm";
 	vars->image[BRICKWALL_RED].path = "./img/brickwall_red.xpm";
-	vars->image[PUTIN].path = "./img/v_putin.xpm";
+	vars->image[PUTIN].path = "./img/putin_shirt.xpm";  //picture free place
 	vars->image[PUTIN64].path = "./img/putin64_64.xpm";
+	vars->image[PUTINS].path = "./img/putin_shirt.xpm";
 }
 
 static void	load_img(t_vars *vars)

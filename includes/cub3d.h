@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 19:02:23 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/25 00:58:59 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/04/25 22:22:21 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ enum e_images
 	BRICKWALL_RED,
 	PUTIN,
 	PUTIN64,
+	PUTINS,
 	IMAGE_COUNT
 };
 
@@ -85,7 +86,11 @@ typedef struct s_img
 
 typedef struct s_putin
 {
-
+	int		put_point_x[64];
+	int		put_point_higth[64];
+	int		points_x[64][64];
+	int		points_y[64][64]; //hight
+	int		points_colore[64][64];
 	int		point_h[2];
 	int		point_v[2];
 	float	dist[2];
