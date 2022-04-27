@@ -1,5 +1,6 @@
 #include "../../includes/cub3d.h"
 
+
 void	draw_field(t_vars *vars)
 {
 	int		i;
@@ -75,7 +76,7 @@ void	draw_line(t_vars *vars, int i, t_ray *ray)
 
 	}
 	// printf("%d \n", vars->par.put_in);
-	if (vars->par.put_in == 1/*  &&  vars->par.one_put < 84 */)
+	if (vars->par.put_in == 1/*  &&  vars->par.one_put < 64 */)
 	{
 		// in some cases teh rays don't hit putin so this never runs....
 		// why is not hitting by the ray?? 

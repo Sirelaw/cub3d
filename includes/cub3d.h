@@ -6,7 +6,7 @@
 /*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 19:02:23 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/27 22:39:26 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/04/28 01:47:41 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,9 @@
 # include "../libft/libft.h"
 # include "get_line.h"
 # include "ray_cast.h"
+# include <pthread.h>
 
-# define STEP 20
+# define STEP 40
 # define TILE_SIZE 64
 # define MINI_SIZE 8
 // Tile_size divided by mini_map_size

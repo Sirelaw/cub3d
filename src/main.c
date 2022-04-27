@@ -29,13 +29,27 @@ void	init_vars(t_vars *vars)
 int frame_func(t_vars *vars)
 {
 	// vars->par.put_in = 0;
-	render_next_rays(vars);
+	// render_next_rays(vars); // put inside putin run so not renders everyting all the time just every second blink
 	putin_run(vars);
 	// if (vars->par.put_in == 1)
 		// mlx_put_image_to_window(vars->mlx, vars->win, vars->image[PUTIN].load,
 		// 	vars->par.putin_img_x , vars->par.putin_img_y);
 	return (0);
 }
+
+// void *make_sound(void *some)
+// {
+// 	t_vars	*vars;
+
+// 	vars = (t_vars *)some;
+// 	while (1)
+// 	{
+// 		// usleep(50);
+// 		if (vars->shoot)
+// 			system("afplay ./sounds/gunshot.mp3");
+// 	}
+// 	return (NULL);
+// }
 
 int	main(int argc, char **argv)
 {
@@ -49,6 +63,9 @@ int	main(int argc, char **argv)
 	img_handler(&vars);
 
 	cast_rays(&vars);
+	// pthread_t sounding;
+	// pthread_create(&sounding, NULL, make_sound, &vars);
+
 // mlx_put_image_to_window(vars.mlx, vars.win, vars.image[LOST].load, 50, 50);
 	draw_field(&vars);
 	mlx_hook(vars.win, 2, 1L << 0, key_hook, &vars);

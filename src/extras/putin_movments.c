@@ -6,7 +6,7 @@
 /*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:48:49 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/04/27 22:38:07 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/04/28 01:27:26 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,9 @@ int	putin_run(t_vars *g)
 	int	step[3];
 
 	(g->par.putin_time)++;
-	if (g->shoot == 1 && g->par.putin_time % 4 == 0)
+	if (g->par.putin_time % 16 == 0)
+		render_next_rays(g);
+	if (g->shoot == 1 && g->par.putin_time % 16 == 0)
 		g->shoot = 0;
 	if (g->par.putin_time == 50 && g->putin[0] != -1 && g->putin[1] != -1)
 		enemymaker(g, step);
