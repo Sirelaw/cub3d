@@ -6,7 +6,7 @@
 /*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:48:49 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/04/25 20:15:27 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/04/27 22:38:07 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,12 @@ static int	st_p(t_vars *g, int x, int y)
 	if (g->input[y / TILE_SIZE][x / TILE_SIZE] == '1'/*  && y / TILE_SIZE > 1 && x / TILE_SIZE > 1 && g->input[y / TILE_SIZE - 1][x / TILE_SIZE - 1] == '1' */)
 		return (0);
 	dist = get_dist(g->player[0], g->player[1], g->putin[0], g->putin[1]);
-	if (dist < TILE_SIZE)
+	if (dist < 1 * TILE_SIZE)
+	{
+		g->this_ends = 0;
+		// end_the_game(g, 0);
 		return (0);
+	}
 	return (1);
 }
 
@@ -112,6 +116,8 @@ int	putin_run(t_vars *g)
 	int	step[3];
 
 	(g->par.putin_time)++;
+	if (g->shoot == 1 && g->par.putin_time % 4 == 0)
+		g->shoot = 0;
 	if (g->par.putin_time == 50 && g->putin[0] != -1 && g->putin[1] != -1)
 		enemymaker(g, step);
 	if (g->par.putin_time == 100 && g->putin[0] != -1 && g->putin[1] != -1)

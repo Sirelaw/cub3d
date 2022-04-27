@@ -3,7 +3,7 @@ SO ./img/brickwall_gray.xpm
 WE ./img/brickwall_ligth.xpm
 EA ./img/brickwall_red.xpm
 
-F 220,100,0
+F 0,100,100
 C 0,255,255
 
 11111111111

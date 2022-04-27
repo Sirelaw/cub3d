@@ -21,8 +21,9 @@ int	get_pixel(t_img *image, int x, int y)
 int	render_next_rays(t_vars *vars)
 {
 	mlx_destroy_image(vars->mlx, vars->img);
-	ray_maker(vars);
-	// cast_rays(vars);
+	// if (vars->this_ends != -1)
+	// 	end_the_game(vars, vars->this_ends);
+	cast_rays(vars);
 	return (0);
 }
 
@@ -95,8 +96,13 @@ int	key_hook(int keycode, t_vars *vars)
 	if ((keycode >= 123) && (keycode <= 126))
 		rotate_player(keycode, vars);
 	else if (((keycode >= A_KEY) && (keycode <= D_KEY)) || ((keycode >= S_KEY)
-			&& (keycode <= W_KEY)))
+			&& (keycode <= W_KEY))) // why <+ ?????
 		move_image(keycode, vars);
+	else if (keycode == 257 || keycode == 258)
+	{
+		vars->shoot = 1;
+		// PlaySound("./sounds/gunshot.mp3", NULL, SND_ASYNC);
+	}
 	return (0);
 }
 

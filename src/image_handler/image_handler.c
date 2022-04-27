@@ -6,7 +6,7 @@
 /*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:53:35 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/04/25 20:05:44 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/04/27 20:58:38 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,9 @@ static void	p_img(t_vars *vars)
 	vars->image[PUTIN].path = "./img/putin_shirt.xpm";  //picture free place
 	vars->image[PUTIN64].path = "./img/putin64_64.xpm";
 	vars->image[PUTINS].path = "./img/putin_shirt.xpm";
+	vars->image[WIN].path = "./img/win_big.xpm";
+	vars->image[FIRE].path = "./img/fire.xpm";
+	vars->image[LOST].path = "./img/game_over.xpm";
 }
 
 static void	load_img(t_vars *vars)

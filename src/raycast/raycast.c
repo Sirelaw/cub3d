@@ -27,90 +27,22 @@ float	fix_fisheye_get_height(t_vars *vars, float distance, float angle_diff)
 	return (lineH);
 }
 
-void	draw_wall(t_vars *vars, int i, int *j, t_ray *ray)
+void define_ray_parameters(t_vars *vars, t_ray *ray, float theta)
 {
-	int		k;
-	int		l;
-	int		temp;
-	int		image;
-
-	temp = ray->lineH;
-	k = 0;
-	if (ray->type == 0)
-	{
-		if (ray->point[1] >= vars->player[1])
-			image = SO;
-		else
-			image = NO;
-	}
-	else
-	{
-		if (ray->point[0] >= vars->player[0])
-			image = WE;
-		else
-			image = EA;
-	}
-	while(temp-- && *j < vars->win_h)
-	{
-		if (ray->type == 0)
-			my_mlx_pixel_put(vars, i, *j, get_pixel(&vars->image[image],
-				ray->point[0] % vars->image[image].width,
-				(ray->offset++ * vars->image[image].height) / ray->lineH));
-		else
-			my_mlx_pixel_put(vars, i, *j, get_pixel(&vars->image[image],
-				ray->point[1] % vars->image[image].width,
-				(ray->offset++ * vars->image[image].height) / ray->lineH));
-		(*j)++;
-	}
+	ray->dist[0] = 1000000;
+	ray->dist[1] = 1000000;
+	vars->par.dist[0] = 1000000;
+	vars->par.dist[1] = 1000000;
+	ray->aTan = -1 / tan(theta);
+	ray->nTan = -tan(theta);
 }
 
-void	draw_line(t_vars *vars, int i, t_ray *ray)
-{
-	int	fill;
-	int	j;
-	int	k;
-	int	l;
-
-	j = 0;
-	// k = 0;
-	ray->offset = 0;
-	fill = vars->win_h - ray->lineH;
-	fill /= 2;
-	if (fill < 0)
-		ray->offset = -1 * fill;
-	vars->par.offset = ray->offset;
-	while (j < fill)
-		my_mlx_pixel_put(vars, i, j++, vars->ceiling_color);
-	int t = j;
-	draw_wall(vars, i, &j, ray);
-	while (j < vars->win_h)
-		my_mlx_pixel_put(vars, i, j++, vars->floor_color);
-	// printf("%d \n", vars->par.put_in);
-	if (vars->par.put_in == 1 &&  vars->par.one_put < 21)
-	{
-		// in some cases teh rays don't hit putin so this never runs....
-		// why is not hitting by the ray?? 
-		// go over exchange functions make them norm ready and step by step check the flow
-		// why does it skip some putin, why isnt catching it???
-		
-		vars->par.hight = (vars->image[PUTIN64].height * vars->win_h) / vars->par.putin_dist;
-		vars->par.ofset_h = vars->par.hight / TILE_SIZE;
-		draw_putin(vars, i, t, ray);
-		vars->par.one_put++;
-	}
-}
 
 static void	cast_ray(t_vars *vars, float theta, int i)
 {
 	t_ray	ray;
-	int		color;
 
-	ray.dist[0] = 1000000;
-	ray.dist[1] = 1000000;
-	vars->par.dist[0] = 1000000;
-	vars->par.dist[1] = 1000000;
-	ray.aTan = -1 / tan(theta);
-	ray.nTan = -tan(theta);
+	define_ray_parameters(vars, &ray, theta);
 	init_look_up_down(vars, &ray, theta);
 	init_look_left_right(vars, &ray, theta);
 	if (ray.dist[0] < ray.dist[1])
@@ -118,7 +50,6 @@ static void	cast_ray(t_vars *vars, float theta, int i)
 		ray.distance = ray.dist[0];
 		ray.point[0] = ray.point_h[0];
 		ray.point[1] = ray.point_h[1];
-		color = 0xd617e8;
 		ray.type = 0;
 	}
 	else
@@ -126,7 +57,6 @@ static void	cast_ray(t_vars *vars, float theta, int i)
 		ray.distance = ray.dist[1];
 		ray.point[0] = ray.point_v[0];
 		ray.point[1] = ray.point_v[1];
-		color = 0xe8d617;
 		ray.type = 1;
 	}
 	if (vars->par.dist[0] < vars->par.dist[1])
@@ -158,8 +88,7 @@ void draw_putin_arays(t_vars *vars)
 	double	adj;
 
 	i = 0;
-	adj = vars->par.hight - 50;
-	adj = 64;
+	adj = vars->par.hight - 40; // 40 is to set the starting size - is bigger + is smaller.
 	while (i < adj)
 	{
 		j = 0;
@@ -167,9 +96,9 @@ void draw_putin_arays(t_vars *vars)
 		{
 			if (vars->par.put_point_x[(int)((i * TILE_SIZE) / adj)] != -1)
 			{
-				colore = get_pixel(&vars->image[PUTIN64], (i * TILE_SIZE) / adj, (j * TILE_SIZE) / adj);
+				colore = get_pixel(&vars->image[PUTINS], (i * TILE_SIZE) / adj, (j * TILE_SIZE) / adj);
 				if (colore != 0xFFFFFF)
-					my_mlx_pixel_put(vars, vars->par.put_point_x[i],  450 + j, colore);
+					my_mlx_pixel_put(vars, vars->par.put_point_x[i],  445 + j, colore); // 445 is to set the postiion y to place the figure on the screen
 			}
 			// colore = vars->par.points_colore[i][j];
 			// if (colore != -1)
@@ -236,37 +165,4 @@ void	cast_rays(t_vars *vars)
 	// 	mlx_put_image_to_window(vars->mlx, vars->win, vars->image[PUTIN].load,
 	// 		vars->par.putin_img_x , vars->par.putin_img_y);
 	draw_field(vars);
-}
-
-void	draw_field(t_vars *vars)
-{
-	int		i;
-	int		j;
-	char	**input;
-
-	i = 0;
-	input = vars->input;
-	while (input[i])
-	{
-		j = 0;
-		while(input[i][j])
-		{
-			if (input[i][j] == '1' && i * MINI_SIZE < vars->player[1]
-				/ SCALE_TO_MINI + 50000
-				&& i * MINI_SIZE > vars->player[1] / SCALE_TO_MINI - 50000
-				&& j * MINI_SIZE < vars->player[0] / SCALE_TO_MINI + 50000
-				&& j * MINI_SIZE > vars->player[0] / SCALE_TO_MINI - 50000)
-				mlx_put_image_to_window(vars->mlx, vars->win,
-				vars->image[WHITE_8].load,
-				j * MINI_SIZE, i * MINI_SIZE);
-			j++;
-		}
-		i++;
-	}
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->image[PLAYER].load,
-	vars->player[0] / SCALE_TO_MINI, vars->player[1] / SCALE_TO_MINI);
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->image[PLAYER].load,
-	vars->putin[0] / SCALE_TO_MINI, vars->putin[1] / SCALE_TO_MINI);
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->image[HAND_GUN].load,
-		vars->win_w - 232 + (vars->simul_loop % 4) * 10 , vars->win_h - 232 + (vars->simul_loop % 4) * 10);
 }

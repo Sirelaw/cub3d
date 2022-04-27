@@ -6,63 +6,76 @@
 /*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 17:09:18 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/04/27 14:29:33 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/04/27 17:52:48 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-static void	norm_horisontal_ray_maker(t_vars *g)
+static void	putin_ray_h(t_vars *vars, t_ray* ray)
 {
-	int mx;
-	int my;
-	int mp;
-
-	// printf("hello 1\n");
-	while (g->ray.dof < g->map_height)
+	if (ray->mx >= 0 && ray->my >= 0 && ray->mx < vars->map_width
+		&& ray->my < vars->map_height
+		&& vars->input[ray->my][ray->mx] == '8')
 	{
-		mx = (int)(g->ray.rx) / g->ray.ofset;
-		my = (int)(g->ray.ry) / g->ray.ofset;
-		mp = my * g->map_width + mx;
-	// printf("hello 2\n");
-		// if (mp > 0 && mp < g->map_width * g->map_height && g->input[my][mx] == '1')
-		if (mx > 0 && my > 0 && mx < 64 && my < 64 && g->input[my][mx] == '1')
-		{
-			g->ray.dof = g->map_height; // hit wall
-		}
-		else
-		{
-	// printf("hello 3\n");
-			g->ray.rx += g->ray.xo;
-			g->ray.ry += g->ray.yo;
-			g->ray.dof += 1; // next line
-		}
+		vars->par.put_in = 1;
+		vars->par.point_h[0] = ray->rx;
+		vars->par.point_h[1] = ray->ry;
+		vars->par.dist[0] = get_dist(vars->player[0], vars->player[1],
+		vars->putin[0], vars->putin[1]);
 	}
 }
 
-void	horisontal_ray_maker(t_vars *g)
+static void	look_up_down(t_vars *vars, t_ray* ray)
 {
-	g->ray.dof = 0;
-	float aTan = -1 / tan(g->ray.ra);
-	if (g->ray.ra > M_PI) // looking up
+	ray->dof = 0;
+	while (ray->dof < vars->map_height)
 	{
-		g->ray.ry = (((int)(g->player[1])>>6)<<6) - 0.0001;
-		g->ray.rx = (g->player[1] - g->ray.ry) * aTan + g->player[0];
-		g->ray.yo = -g->ray.ofset;
-		g->ray.xo = -g->ray.yo * aTan;
+		ray->mx = (int)(ray->rx) >> TILE_BIT;
+		ray->my = (int)(ray->ry) >> TILE_BIT;
+		if (ray->mx >= 0 && ray->my >= 0 && ray->mx < vars->map_width
+			&& ray->my < vars->map_height
+			&& vars->input[ray->my][ray->mx] == '1')
+		{
+			ray->point_h[0] = ray->rx;
+			ray->point_h[1] = ray->ry;
+			ray->dist[0] = get_dist(vars->player[0], vars->player[1],
+				ray->rx, ray->ry);
+			ray->dof = vars->map_height;
+		}
+		else
+		{
+			// my_mlx_pixel_put(vars, (int)ray->ry, (int)ray->rx, 0x000000);
+			ray->rx += ray->xo;
+			ray->ry += ray->yo;
+			ray->dof++;
+		}
+		// if (ray->dof != vars->map_height)
+			putin_ray_h(vars, ray);
 	}
-	if (g->ray.ra < M_PI) //looking down
+}
+
+void	init_look_up_down(t_vars *vars, t_ray* ray, float theta)
+{
+	if (theta > M_PI)
 	{
-		g->ray.ry = (((int)(g->player[1])>>6)<<6) + g->ray.ofset;
-		g->ray.rx = (g->player[1] - g->ray.ry) * aTan + g->player[0];
-		g->ray.yo = g->ray.ofset;
-		g->ray.xo = -g->ray.yo * aTan;
+		ray->ry = (((int)(vars->player[1]) >> TILE_BIT) << TILE_BIT) - 0.00015;
+		ray->rx = (vars->player[1] - ray->ry) * ray->aTan + vars->player[0];
+		ray->yo = -TILE_SIZE;
+		ray->xo = -ray->yo * ray->aTan;
 	}
-	if (g->ray.ra == 0 || g->ray.ra == M_PI)
+	else if (theta < M_PI)
 	{
-		g->ray.rx = g->player[0];
-		g->ray.ry = g->player[1];
-		g->ray.dof = g->map_height; // looking straight left or right
+		ray->ry = (((int)(vars->player[1]) >> TILE_BIT) << TILE_BIT) + TILE_SIZE;
+		ray->rx = (vars->player[1] - ray->ry) * ray->aTan + vars->player[0];
+		ray->yo = TILE_SIZE;
+		ray->xo = -ray->yo * ray->aTan;
 	}
-	norm_horisontal_ray_maker(g);
+	if (theta == 0 || theta == M_PI)
+	{
+		ray->rx = vars->player[0];
+		ray->ry = vars->player[1];
+		ray->dof = vars->map_height;
+	}
+	look_up_down(vars, ray);
 }

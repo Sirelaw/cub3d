@@ -6,140 +6,79 @@
 /*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 17:09:18 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/04/27 14:43:17 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/04/27 17:52:51 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-static void	norm_veritcal_ray_maker(t_vars *g)
+float	get_dist(float ax, float ay, float bx, float by)
 {
-	int mx;
-	int my;
-	int mp;
+	return (sqrt(((ax - bx) * (ax - bx)) + ((ay - by) * (ay - by))));
+}
 
-	while (g->ray.dof < g->map_width)
+static void	putin_ray_v(t_vars *vars, t_ray* ray)
+{
+	if (ray->mx >= 0 && ray->my >= 0 && ray->mx < vars->map_width
+		&& ray->my < vars->map_height
+		&& (vars->input)[ray->my][ray->mx] == '8')
 	{
-		mx = (int)(g->ray.rx)>>6;
-		my = (int)(g->ray.ry)>>6;
-		mp = my * g->map_width + mx; // what is map x?
-		// if (mp > 0 && mp < g->map_width * g->map_height && g->input[my][mx] == '8')
-		if (mx > 0 && my > 0 && mx < 64 && my < 64 && g->input[my][mx] == '8')
-		{
-			g->ray.put_in = 1;
-			g->ray.putin_rx = g->ray.rx;
-			g->ray.putin_ry = g->ray.ry;
-		}
-		// if (mp > 0 && mp < g->map_width * g->map_height && g->input[my][mx] == '1')
-		if (mx > 0 && my > 0 && mx < 64 && my < 64 && g->input[my][mx] == '1')
-		{
-			g->ray.dof = g->map_width; // hit wall
-		}
-		else
-		{
-			g->ray.rx += g->ray.xo;
-			g->ray.ry += g->ray.yo;
-			g->ray.dof += 1; // next line
-		}
+		vars->par.put_in = 1;
+		vars->par.point_v[0] = ray->rx;
+		vars->par.point_v[1] = ray->ry;
+		vars->par.dist[1] = get_dist(vars->player[0], vars->player[1],
+			vars->putin[0], vars->putin[1]);
 	}
 }
 
-void	vertical_ray_maker(t_vars *g)
+static void	look_left_right(t_vars *vars, t_ray* ray)
 {
-	g->ray.dof = 0;
-	float ntan = -tan(g->ray.ra);
-	if (g->ray.ra > M_PI / 2 && g->ray.ra < 3 * M_PI / 2) // looking left
-		{
-			g->ray.rx = (((((int)g->player[0]))>>6)<<6) - 0.0001;
-			g->ray.ry = (g->player[0] - g->ray.rx) * ntan + g->player[1];
-			g->ray.xo = -g->ray.ofset;
-			g->ray.yo = -g->ray.xo * ntan;
-		}
-		if (g->ray.ra < M_PI / 2 || g->ray.ra > (3 * M_PI) / 2) //looking right
-		{
-			g->ray.rx = ((((int)g->player[0])>>6)<<6) + g->ray.ofset;
-			g->ray.ry = (g->player[0] - g->ray.rx) * ntan + g->player[1];
-			g->ray.xo = g->ray.ofset;
-			g->ray.yo = -g->ray.xo * ntan;
-		}
-		if (g->ray.ra == 0 || g->ray.ra == M_PI)
-		{
-			g->ray.rx = g->player[0];
-			g->ray.ry = g->player[1];
-			g->ray.dof = g->map_width; // looking straight up  donw
-		}
-	norm_veritcal_ray_maker(g);
-}
-
-static void	draw_wall_ii(t_vars *vars, int i, int *j, float line_h)
-{
-	int		k;
-	int		l;
-	int		temp;
-	int		image;
-
-	temp = line_h;
-	k = 0;
-	if (vars->ray.type == 0)
+	ray->dof = 0;
+	while (ray->dof < vars->map_width)
 	{
-		if (vars->ray.ry >= vars->player[1])  // ray->point[1]
-			image = SO;
+		ray->mx = (int)(ray->rx) >> TILE_BIT;
+		ray->my = (int)(ray->ry) >> TILE_BIT;
+		if (ray->mx >= 0 && ray->my >= 0 && ray->mx < vars->map_width
+			&& ray->my < vars->map_height
+			&& vars->input[ray->my][ray->mx] == '1')
+		{
+			ray->point_v[0] = ray->rx;
+			ray->point_v[1] = ray->ry;
+			ray->dist[1] = get_dist(vars->player[0], vars->player[1], ray->rx, ray->ry);
+			ray->dof = vars->map_width;
+		}
 		else
-			image = NO;
-	}
-	else
-	{
-		if (vars->ray.rx >= vars->player[0]) // ray->point[0]
-			image = WE;
-		else
-			image = EA;
-	}
-	while(temp-- && *j < vars->win_h)
-	{
-		if (vars->ray.type == 0)
-			my_mlx_pixel_put(vars, i, *j, get_pixel(&vars->image[image],
-				(int)vars->ray.rx % vars->image[image].width,
-				(vars->ray.cutoff++ * vars->image[image].height) / line_h));
-		else
-			my_mlx_pixel_put(vars, i, *j, get_pixel(&vars->image[image],
-				(int)vars->ray.ry % vars->image[image].width,
-				(vars->ray.cutoff++ * vars->image[image].height) / line_h));
-		(*j)++;
+		{
+			ray->rx += ray->xo;
+			ray->ry += ray->yo;
+			ray->dof++;
+		}
+		// if (ray->dof != vars->map_height)
+			putin_ray_v(vars, ray);
 	}
 }
 
-void	draw_line_ii(t_vars *vars, int i, float line_h)
+void	init_look_left_right(t_vars *vars, t_ray* ray, float theta)
 {
-	int	fill;
-	int	j;
-	int	k;
-	int	l;
-
-	j = 0;
-	// k = 0;
-	vars->ray.cutoff = 0; // old ray offset
-	fill = vars->win_h - line_h;
-	fill /= 2;
-	if (fill < 0)
-		vars->ray.cutoff = -1 * fill;
-	vars->par.offset = vars->ray.cutoff;
-	while (j < fill)
-		my_mlx_pixel_put(vars, i, j++, vars->ceiling_color);
-	int t = j;
-	draw_wall_ii(vars, i, &j, line_h);
-	while (j < vars->win_h)
-		my_mlx_pixel_put(vars, i, j++, vars->floor_color);
-	// printf("%d \n", vars->par.put_in);
-	// if (vars->par.put_in == 1 &&  vars->par.one_put < 21)
-	// {
-	// 	// in some cases teh rays don't hit putin so this never runs....
-	// 	// why is not hitting by the ray?? 
-	// 	// go over exchange functions make them norm ready and step by step check the flow
-	// 	// why does it skip some putin, why isnt catching it???
-		
-	// 	vars->par.hight = (vars->image[PUTIN64].height * vars->win_h) / vars->par.putin_dist;
-	// 	vars->par.ofset_h = vars->par.hight / TILE_SIZE;
-	// 	draw_putin(vars, i, t, ray);
-	// 	vars->par.one_put++;
-	// }
+	if (theta > M_PI_2 && theta < 3 * M_PI_2)
+	{
+		ray->rx = (((int)(vars->player[0]) >> TILE_BIT) << TILE_BIT) - 0.00015;
+		ray->ry = (vars->player[0] - ray->rx) * ray->nTan + vars->player[1];
+		ray->xo = -TILE_SIZE;
+		ray->yo = -ray->xo * ray->nTan;
+	}
+	if (theta < M_PI_2 || theta > 3 * M_PI_2)
+	{
+		ray->rx = (((int)(vars->player[0]) >> TILE_BIT) << TILE_BIT) + TILE_SIZE;
+		ray->ry = (vars->player[0] - ray->rx) * ray->nTan + vars->player[1];
+		ray->xo = TILE_SIZE;
+		ray->yo = -ray->xo * ray->nTan;
+	}
+	if (theta == M_PI_2 || theta == 3 * M_PI_2)
+	{
+		ray->rx = vars->player[0];
+		ray->ry = vars->player[1];
+		ray->dof = vars->map_width;
+	}
+	look_left_right(vars, ray);
 }
