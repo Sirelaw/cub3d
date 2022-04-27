@@ -6,7 +6,7 @@
 /*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 19:02:23 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/25 22:22:21 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/04/26 16:13:37 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,35 @@ typedef struct s_putin
 	int		type;
 }	t_putin;
 
+
+typedef struct s_ray_ii
+{
+	int r;
+	int mx;
+	int my;
+	int mp;
+	int dof;
+	int px;
+	int py;
+	float rx;
+	float ry;
+	float rx_horiz;
+	float ry_horiz;
+	float dist_hor;
+	float dist;
+	float ra;
+	float xo;
+	float yo;
+	int ofset;
+	float putin_rx;
+	float putin_ry;
+	float putin_dist;
+	int		put_in;
+	float	linehigth;
+	int	cutoff;
+	int type;
+} t_ii;
+
 typedef struct s_vars
 {
 	t_img	image[IMAGE_COUNT];
@@ -118,7 +147,7 @@ typedef struct s_vars
 	char	**map;
 	void	*img;
 	char	start_orientation;
-	double	orient;
+	double	orient;  // pa is it ?
 	char	*addr;
 	int		bits_per_pixel;
 	int		line_lenght;
@@ -135,6 +164,7 @@ typedef struct s_vars
 	int		map_height;
 	int		simul_loop;
 	t_putin	par;
+	t_ii	ray;
 }				t_vars;
 
 void	img_handler(t_vars *vars);
@@ -173,5 +203,11 @@ float	get_dist(float ax, float ay, float bx, float by);
 // -------- dev -------
 
 void	print_str_arr(char **input);
+
+// ray teh II 
+void ray_maker(t_vars *g);
+void draw_line_ii(t_vars *g, int i, float line_h);
+void	vertical_ray_maker(t_vars *g);
+void	horisontal_ray_maker(t_vars *g);
 
 #endif

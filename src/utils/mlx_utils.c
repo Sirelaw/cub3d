@@ -21,7 +21,8 @@ int	get_pixel(t_img *image, int x, int y)
 int	render_next_rays(t_vars *vars)
 {
 	mlx_destroy_image(vars->mlx, vars->img);
-	cast_rays(vars);
+	ray_maker(vars);
+	// cast_rays(vars);
 	return (0);
 }
 

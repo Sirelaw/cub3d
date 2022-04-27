@@ -90,6 +90,9 @@ void	draw_line(t_vars *vars, int i, t_ray *ray)
 	{
 		// in some cases teh rays don't hit putin so this never runs....
 		// why is not hitting by the ray?? 
+		// go over exchange functions make them norm ready and step by step check the flow
+		// why does it skip some putin, why isnt catching it???
+		
 		vars->par.hight = (vars->image[PUTIN64].height * vars->win_h) / vars->par.putin_dist;
 		vars->par.ofset_h = vars->par.hight / TILE_SIZE;
 		draw_putin(vars, i, t, ray);
@@ -207,7 +210,7 @@ void	cast_rays(t_vars *vars)
 	int		point[2];
 
 	i = 0;
-	theta = vars->orient - M_PI / 6;
+	theta = vars->orient - M_PI / 6;  // this angles and staff was handeled differently
 	dtheta = (M_PI / 3.0) / vars->win_w;
 	vars->img = mlx_new_image(vars->mlx, vars->win_w, vars->win_h);
 	vars->addr = mlx_get_data_addr(vars->img, &vars->bits_per_pixel,
@@ -218,7 +221,7 @@ void	cast_rays(t_vars *vars)
 	while (i++ < vars->win_w)
 	{
 		vars->par.put_in = 0;
-		theta += dtheta;
+		theta += dtheta; // it was incremented end of cycle
 		if (theta > 2 * M_PI)
 			theta -= 2 * M_PI;
 		else if (theta < 0)

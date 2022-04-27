@@ -3,7 +3,7 @@
 void	init_vars(t_vars *vars)
 {
 	vars->input	= NULL;
-	vars->win_w = 1024;
+	vars->win_w = 1280;
 	vars->win_h = 920;
 	vars->start_orientation = 0;
 	vars->player[0] = 0;
@@ -46,7 +46,13 @@ int	main(int argc, char **argv)
 	vars.win = mlx_new_window(vars.mlx, vars.win_w,
 			vars.win_h, "42+2 cube3D");
 	img_handler(&vars);
-	cast_rays(&vars);
+	// ray cast secod
+	ray_maker(&vars);
+
+	// ray cast first
+	// cast_rays(&vars);
+	//
+
 	draw_field(&vars);
 	mlx_hook(vars.win, 2, 1L << 0, key_hook, &vars);
 	mlx_mouse_hook (vars.win, mouse_hook, &vars);
