@@ -21,20 +21,11 @@ int	get_pixel(t_img *image, int x, int y)
 int	render_next_rays(t_vars *vars)
 {
 	mlx_destroy_image(vars->mlx, vars->img);
+	// if (vars->this_ends != -1)
+	// 	end_the_game(vars, vars->this_ends);
 	cast_rays(vars);
 	return (0);
 }
-
-// int	render_next_frame(t_vars *vars)
-// {
-// 	mlx_destroy_image(vars->mlx, vars->img);
-// 	vars->img = mlx_new_image(vars->mlx, vars->win_w, vars->win_h);
-// 	vars->addr = mlx_get_data_addr(vars->img, &vars->bits_per_pixel,
-// 			&vars->line_lenght, &vars->endian);
-// 	mlx_put_image_to_window(vars->mlx, vars->win, vars->image[PLAYER].load,
-// 	vars->player[0] * TILE_SIZE, vars->player[1] * TILE_SIZE);
-// 	return (0);
-// }
 
 void	rotate_player(int keycode, t_vars *vars)
 {
@@ -48,11 +39,15 @@ void	rotate_player(int keycode, t_vars *vars)
 		vars->orient += 2 * M_PI;
 	vars->player_d[0] = cosf(vars->orient);
 	vars->player_d[1] = sinf(vars->orient);
-	// render_next_rays(vars);
 }
 
 static void	check_valid_position(float temp[2], t_vars *vars)
 {
+	int dist;
+
+	dist = get_dist(vars->player[0], vars->player[1], vars->putin[0], vars->putin[1]);
+	if (dist < 1 * TILE_SIZE)
+		return ;
 	if ((vars->input)[(int)temp[1] >> TILE_BIT][(int)temp[0] >> TILE_BIT]
 		!= '1')
 	{
@@ -60,10 +55,9 @@ static void	check_valid_position(float temp[2], t_vars *vars)
 		vars->player_f[1] = temp[1];
 		vars->player[0] = temp[0];
 		vars->player[1] = temp[1];
-		if (vars->simul_loop++ > 10)
-			vars->simul_loop = 0;
+		vars->simul_loop++;
+		vars->simul_loop = vars->simul_loop & 15;
 	}
-	// render_next_rays(vars);
 }
 
 void	move_image(int keycode, t_vars *vars)
@@ -102,8 +96,13 @@ int	key_hook(int keycode, t_vars *vars)
 	if ((keycode >= 123) && (keycode <= 126))
 		rotate_player(keycode, vars);
 	else if (((keycode >= A_KEY) && (keycode <= D_KEY)) || ((keycode >= S_KEY)
-			&& (keycode <= W_KEY)))
+			&& (keycode <= W_KEY))) // why <+ ?????
 		move_image(keycode, vars);
+	else if (keycode == 257 || keycode == 258)
+	{
+		vars->shoot = 1;
+		// PlaySound("./sounds/gunshot.mp3", NULL, SND_ASYNC);
+	}
 	return (0);
 }
 
@@ -117,9 +116,28 @@ int	mouse_hook(int mousecode, int x, int y, t_vars *vars)
 	return (0);
 }
 
+void	free_all(t_vars *vars)
+{
+	char	**input;
+	int		i;
+
+	i = 0;
+	input = vars->input;
+	while (input[i])
+	{
+		free(input[i]);
+		i++;
+	}
+	free(input);
+	free(vars->image[NO].path);
+	free(vars->image[SO].path);
+	free(vars->image[EA].path);
+	free(vars->image[WE].path);
+}
+
 int	clean_destroy(t_vars *vars)
 {
 	mlx_destroy_window(vars->mlx, vars->win);
-	// free_all(vars);
+	free_all(vars);
 	exit(EXIT_SUCCESS);
 }

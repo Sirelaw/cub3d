@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 19:02:23 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/22 19:36:08 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/04/28 00:02:47 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,10 @@
 
 enum e_images
 {
+	NO,
+	SO,
+	WE,
+	EA,
 	FIG1 ,
 	NONE ,
 	WHITE_32 ,
@@ -53,6 +57,12 @@ enum e_images
 	BRICKWALL_LIGHT,
 	BRICKWALL_RED,
 	PUTIN,
+	PUTIN64,
+	PUTINS,
+	WIN,
+	LOST,
+	FIRE,
+	DOOR,
 	IMAGE_COUNT
 };
 
@@ -78,28 +88,13 @@ typedef struct s_img
 	int				endian;
 }	t_img;
 
-typedef struct s_ray
-{
-	int 	mx;
-	int		my;
-	int		dof;
-	float	rx;
-	float	ry;
-	float	xo;
-	float	yo;
-	float	aTan;
-	float	nTan;
-	int		point_h[2];
-	int		point_v[2];
-	int		point[2];
-	float	dist[2];
-	float	distance;
-	int		type;
-}	t_ray;
-
 typedef struct s_putin
 {
-
+	int		put_point_x[64];
+	int		put_point_higth[64];
+	int		points_x[64][64];
+	int		points_y[64][64]; //hight
+	int		points_colore[64][64];
 	int		point_h[2];
 	int		point_v[2];
 	float	dist[2];
@@ -108,8 +103,13 @@ typedef struct s_putin
 	float	putin_dist;
 	int		putin_step;
 	int		put_in;
+	int		one_put;
 	int		putin_time;
-}				t_putin;
+	int		hight;
+	int		ofset_h;
+	int		offset;
+	int		type;
+}	t_putin;
 
 typedef struct s_vars
 {
@@ -122,7 +122,7 @@ typedef struct s_vars
 	char	**map;
 	void	*img;
 	char	start_orientation;
-	double	orient;
+	double	orient;  // pa is it ?
 	char	*addr;
 	int		bits_per_pixel;
 	int		line_lenght;
@@ -132,12 +132,14 @@ typedef struct s_vars
 	float	player_f[2];
 	float	player_d[2];
 	int		origin[2];
+	int		floor_color;
+	int		ceiling_color;
 	char	**input;
 	int		map_width;
 	int		map_height;
-	int		images[8];
-	int 	sizer;
 	int		simul_loop;
+	int		this_ends;
+	int		shoot;
 	t_putin	par;
 }				t_vars;
 
@@ -154,7 +156,7 @@ int		clean_destroy(t_vars *vars);
 void	input_rows_init_player(int argc, char **argv, t_vars *vars);
 int		check_valid(char **input, t_vars *vars);
 void	standardize_input(char **str_ptr, int *max_len);
-void	ft_error(void);
+void	ft_error(char *str);
 
 // ------ ray --------
 
@@ -165,14 +167,26 @@ void	scale_image(t_vars *vars, t_img *image, double scale);
 void	cast_rays(t_vars *vars);
 void	init_look_up_down(t_vars *vars, t_ray* ray, float theta);
 void	init_look_left_right(t_vars *vars, t_ray* ray, float theta);
+void	get_elements(t_vars *vars, int fd);
 int		render_next_rays(t_vars *vars);
 
 // putin extras
 
 int		putin_run(t_vars *g);
+void	draw_putin(t_vars *vars, int i, int t, t_ray *ray);
+float	get_dist(float ax, float ay, float bx, float by);
+void	end_the_game(t_vars *game, int suc);
 
 // -------- dev -------
 
 void	print_str_arr(char **input);
+
+// ray teh II 
+void	draw_line(t_vars *vars, int i, t_ray *ray);
+void	draw_wall(t_vars *vars, int i, int *j, t_ray *ray);
+// void ray_maker(t_vars *g);
+// void draw_line_ii(t_vars *g, int i, float line_h);
+// void	vertical_ray_maker(t_vars *g);
+// void	horisontal_ray_maker(t_vars *g);
 
 #endif

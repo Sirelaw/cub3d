@@ -12,9 +12,9 @@ void plot_line_angle(int start[2], float theta, float dist, t_vars *vars)
 	plotline(point, new_point, vars, WHITE);
 }
 
-int	fix_fisheye_get_height(t_vars *vars, float distance, float angle_diff)
+float	fix_fisheye_get_height(t_vars *vars, float distance, float angle_diff)
 {
-	int	lineH;
+	float	lineH;
 
 	if (angle_diff > 2 * M_PI)
 		angle_diff -= 2 * M_PI;
@@ -24,112 +24,26 @@ int	fix_fisheye_get_height(t_vars *vars, float distance, float angle_diff)
 	if (distance < 1)
 		distance = 1;
 	lineH = TILE_SIZE * vars->win_h / distance;
-	if (lineH > vars->win_h)
-		lineH = vars->win_h;
 	return (lineH);
 }
 
-void	draw_wall(t_vars *vars, int i, int *j, float lineH, int color)
+void define_ray_parameters(t_vars *vars, t_ray *ray, float theta)
 {
-	double	scale;
-	int		k;
-	int		l;
-	int		temp;
-
-	temp = lineH;
-	k = 0;
-	l = 0;
-	while(temp--)
-	{
-		// my_mlx_pixel_put(vars, i, *j, color);
-		my_mlx_pixel_put(vars, i, *j, get_pixel(&vars->image[NIGERIA_64],
-				((i & 63) * TILE_SIZE) / lineH,
-				(l++ * TILE_SIZE) / lineH));
-		(*j)++;
-	}
+	ray->dist[0] = 1000000;
+	ray->dist[1] = 1000000;
+	vars->par.dist[0] = 1000000;
+	vars->par.dist[1] = 1000000;
+	ray->aTan = -1 / tan(theta);
+	ray->nTan = -tan(theta);
+	ray->door = 0;
 }
 
-void	draw_line(t_vars *vars, int i, float lineH, int color)
-{
-	int	fill;
-	int	j;
-	int	k;
-	int	l;
-	double	scale;
-
-	j = -1;
-	fill = vars->win_h - lineH;
-	fill /= 2;
-	scale = lineH / TILE_SIZE;
-	while (j++ < fill)
-		my_mlx_pixel_put(vars, i, j, 0x17e8d6);
-	draw_wall(vars, i, &j, lineH, color);
-	// while (lineH--)
-	// 	my_mlx_pixel_put(vars, i, j++, color);
-	j--;
-	while (j++ < vars->win_h)
-		my_mlx_pixel_put(vars, i, j, GREEN);
-}
-
-void	draw_wall_ray(t_vars *vars, int i, int *j, float lineH, t_ray *ray)
-{
-	double	scale;
-	int		k;
-	int		l;
-	int		temp;
-
-	temp = lineH;
-	k = 0;
-	l = 0;
-	// lineH = fix_fisheye_get_height(vars, ray.distance, vars->orient - theta);
-	// plot_line_angle(vars->player, theta, 8, vars);
-	while(temp--)
-	{
-		if (ray->type == 0)
-			my_mlx_pixel_put(vars, i, *j, get_pixel(&vars->image[BRICKWALL_GRAY],
-				ray->point[0] & 63,
-				(l++ * TILE_SIZE) / lineH));
-		else
-			my_mlx_pixel_put(vars, i, *j, get_pixel(&vars->image[BRICKWALL_DARK],
-				ray->point[1] & 63,
-				(l++ * TILE_SIZE) / lineH));
-		(*j)++;
-	}
-}
-
-
-void	draw_line_ray(t_vars *vars, int i, float lineH, t_ray *ray)
-{
-	int	fill;
-	int	j;
-	int	k;
-	int	l;
-	double	scale;
-
-	j = -1;
-	fill = vars->win_h - lineH;
-	fill /= 2;
-	scale = lineH / TILE_SIZE;
-	while (j++ < fill)
-		my_mlx_pixel_put(vars, i, j, 0x17e8d6);
-	draw_wall_ray(vars, i, &j, lineH, ray);
-	// while (lineH--)
-	// 	my_mlx_pixel_put(vars, i, j++, color);
-	j--;
-	while (j++ < vars->win_h)
-		my_mlx_pixel_put(vars, i, j, GREEN);
-}
 
 static void	cast_ray(t_vars *vars, float theta, int i)
 {
 	t_ray	ray;
-	float	lineH;
-	int		color;
 
-	ray.dist[0] = 1000000;
-	ray.dist[1] = 1000000;
-	ray.aTan = -1 / tan(theta);
-	ray.nTan = -tan(theta);
+	define_ray_parameters(vars, &ray, theta);
 	init_look_up_down(vars, &ray, theta);
 	init_look_left_right(vars, &ray, theta);
 	if (ray.dist[0] < ray.dist[1])
@@ -137,7 +51,6 @@ static void	cast_ray(t_vars *vars, float theta, int i)
 		ray.distance = ray.dist[0];
 		ray.point[0] = ray.point_h[0];
 		ray.point[1] = ray.point_h[1];
-		color = 0xd617e8;
 		ray.type = 0;
 	}
 	else
@@ -145,18 +58,78 @@ static void	cast_ray(t_vars *vars, float theta, int i)
 		ray.distance = ray.dist[1];
 		ray.point[0] = ray.point_v[0];
 		ray.point[1] = ray.point_v[1];
-		color = 0xe8d617;
 		ray.type = 1;
 	}
-	lineH = fix_fisheye_get_height(vars, ray.distance, vars->orient - theta);
-	plot_line_angle(vars->player, theta, 8, vars);
-	// draw_line(vars, i, lineH, color);
+	if (vars->par.dist[0] < vars->par.dist[1])
+	{
+		vars->par.putin_dist = vars->par.dist[0];
+		vars->par.type = 1;
+	}
+	else
+	{
+		vars->par.type = 0;
+		vars->par.putin_dist = vars->par.dist[1];
+	}
+
+	ray.lineH = fix_fisheye_get_height(vars, ray.distance, vars->orient - theta);
+	plot_line_angle(vars->player, theta, 5, vars);
 	if (vars->par.put_in == 1)
 	{
 		vars->par.putin_img_x = i;
-		vars->par.putin_img_y = vars->win_h / 2 - lineH / 2;
+		vars->par.putin_img_y = vars->win_h / 2 - ray.lineH / 2;
 	}
-	draw_line_ray(vars, i, lineH, &ray);
+	draw_line(vars, i, &ray);
+}
+
+void draw_putin_arays(t_vars *vars)
+{
+	int i;
+	int j;
+	int colore;
+	double	adj;
+
+	i = 0;
+	adj = vars->par.hight - 40; // 40 is to set the starting size - is bigger + is smaller.
+	while (i < adj)
+	{
+		j = 0;
+		while (j < adj)
+		{
+			if (vars->par.put_point_x[(int)((i * TILE_SIZE) / adj)] != -1)
+			{
+				colore = get_pixel(&vars->image[PUTINS], (i * TILE_SIZE) / adj, (j * TILE_SIZE) / adj);
+				if (colore != 0xFFFFFF)
+					my_mlx_pixel_put(vars, vars->par.put_point_x[i],  445 + j, colore); // 445 is to set the postiion y to place the figure on the screen
+			}
+			// colore = vars->par.points_colore[i][j];
+			// if (colore != -1)
+			// 	my_mlx_pixel_put(vars, vars->par.points_x[i][j] + 64, vars->par.points_y[i][j] , colore);
+			j++;
+		}
+		i++;
+	}
+}
+
+void fill_putin_arays(t_vars *vars)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (i < 64)
+	{
+		j = 0;
+		vars->par.put_point_higth[i] = -1;
+		vars->par.put_point_x[i] = -1;
+		while (j < 64)
+		{
+			vars->par.points_x[i][j] = -1;
+			vars->par.points_y[i][j] = -1;
+			vars->par.points_colore[i][j] = -1;
+			j++;
+		}
+		i++;
+	}
 }
 
 void	cast_rays(t_vars *vars)
@@ -172,58 +145,25 @@ void	cast_rays(t_vars *vars)
 	vars->img = mlx_new_image(vars->mlx, vars->win_w, vars->win_h);
 	vars->addr = mlx_get_data_addr(vars->img, &vars->bits_per_pixel,
 			&vars->line_lenght, &vars->endian);
-	// vars->par.put_in = 0;
+	// printf("---------------------cycle---------------------\n");
+	vars->par.one_put = 0;
+	fill_putin_arays(vars);
 	while (i++ < vars->win_w)
 	{
-		theta += dtheta;
+		vars->par.put_in = 0;
+		theta += dtheta; // it was incremented end of cycle
 		if (theta > 2 * M_PI)
 			theta -= 2 * M_PI;
 		else if (theta < 0)
 			theta += 2 * M_PI;
 		cast_ray(vars, theta, i);
 	}
+	draw_putin_arays(vars);
+	// printf("x:%d y:%d\n", vars->putin[0], vars->putin[1]);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img, 0, 0);
 	
-	if (vars->par.put_in == 1)
-		mlx_put_image_to_window(vars->mlx, vars->win, vars->image[PUTIN].load,
-			vars->par.putin_img_x , vars->par.putin_img_y);
-	
+	// if (vars->par.put_in == 1)
+	// 	mlx_put_image_to_window(vars->mlx, vars->win, vars->image[PUTIN].load,
+	// 		vars->par.putin_img_x , vars->par.putin_img_y);
 	draw_field(vars);
-}
-
-void	draw_field(t_vars *vars)
-{
-	int		i;
-	int		j;
-	char	**input;
-
-	i = 0;
-	input = vars->input;
-	while (input[i])
-	{
-		j = 0;
-		while(input[i][j])
-		{
-			if (input[i][j] == '1' && i * MINI_SIZE < vars->player[1]
-				/ SCALE_TO_MINI + 50
-				&& i * MINI_SIZE > vars->player[1] / SCALE_TO_MINI - 50
-				&& j * MINI_SIZE < vars->player[0] / SCALE_TO_MINI + 50
-				&& j * MINI_SIZE > vars->player[0] / SCALE_TO_MINI - 50)
-				mlx_put_image_to_window(vars->mlx, vars->win,
-				vars->image[WHITE_8].load,
-				j * MINI_SIZE, i * MINI_SIZE);
-			j++;
-		}
-		i++;
-	}
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->image[PLAYER].load,
-	vars->player[0] / SCALE_TO_MINI, vars->player[1] / SCALE_TO_MINI);
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->image[PLAYER].load,
-	vars->putin[0] / SCALE_TO_MINI, vars->putin[1] / SCALE_TO_MINI);
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->image[HAND_GUN].load,
-		vars->win_w - 232 + (vars->simul_loop % 4) * 10 , vars->win_h - 232 + (vars->simul_loop % 4) * 10);
-	// shooting gun
-	// mlx_put_image_to_window(vars->mlx, vars->win, vars->image[HAND_GUN].load,
-	// 	vars->win_w - 232 + (vars->simul_loop % 2) * 10 , vars->win_h - 232 + (vars->simul_loop % 2) * 10);
-	// draw_gun(vars);
 }

@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/18 06:25:49 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/14 17:00:50 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/04/25 01:06:06 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,14 @@ void	input_rows_init_player(int argc, char **argv, t_vars *vars)
 {
 	int		fd;
 	char	*map_row;
+	int		skip;
 
 	fd = check_input_get_fd(argc, argv);
-	map_row = get_line(fd);
+	map_row = NULL;
+	skip = 20;
+	get_elements(vars, fd);
+	while (skip-- && !map_row)
+		map_row = get_line(fd);
 	vars->input = add_to_arr(&vars->input, map_row);
 	while (map_row)
 	{
@@ -100,5 +105,5 @@ void	input_rows_init_player(int argc, char **argv, t_vars *vars)
 	vars->player_f[1] = vars->player[1];
 	vars->player_d[0] = cos(vars->orient);
 	vars->player_d[1] = sin(vars->orient);
-	standardize_input(vars->input, &(vars->map_width));	
+	standardize_input(vars->input, &(vars->map_width));
 }

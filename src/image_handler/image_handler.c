@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   image_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:53:35 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/04/22 19:59:01 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/04/28 00:03:37 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,13 @@ static void	p_img(t_vars *vars)
 	vars->image[BRICKWALL_GRAY].path = "./img/brickwall_gray.xpm";
 	vars->image[BRICKWALL_LIGHT].path = "./img/brickwall_ligth.xpm";
 	vars->image[BRICKWALL_RED].path = "./img/brickwall_red.xpm";
-	vars->image[PUTIN].path = "./img/v_putin.xpm";
+	vars->image[PUTIN].path = "./img/putin_shirt.xpm";  //picture free place
+	vars->image[PUTIN64].path = "./img/putin64_64.xpm";
+	vars->image[PUTINS].path = "./img/putin_shirt.xpm";
+	vars->image[WIN].path = "./img/win_big.xpm";
+	vars->image[FIRE].path = "./img/fire.xpm";
+	vars->image[LOST].path = "./img/game_over.xpm";
+	vars->image[DOOR].path = "./img/door.xpm";
 }
 
 static void	load_img(t_vars *vars)
@@ -49,7 +55,7 @@ static void	load_img(t_vars *vars)
 		if (vars->image[i].load == NULL)
 		{
 			printf("Could not open %s\n", vars->image[i].path);
-			ft_error();
+			ft_error("");
 		}
 		vars->image[i].addr = mlx_get_data_addr(vars->image[i].load,
 			&(vars->image[i].bits_per_pixel), &(vars->image[i].line_lenght),

@@ -1,137 +1,120 @@
 #include "../../includes/cub3d.h"
 
-float	get_dist(float ax, float ay, float bx, float by)
+void	draw_field(t_vars *vars)
 {
-	return (sqrt(((ax - bx) * (ax - bx)) + ((ay - by) * (ay - by))));
+	int		i;
+	int		j;
+	char	**input;
+
+	i = 0;
+	input = vars->input;
+	while (input[i])
+	{
+		j = 0;
+		while(input[i][j])
+		{
+			if (input[i][j] == '1' && i * MINI_SIZE < vars->player[1]
+				/ SCALE_TO_MINI + 50000
+				&& i * MINI_SIZE > vars->player[1] / SCALE_TO_MINI - 50000
+				&& j * MINI_SIZE < vars->player[0] / SCALE_TO_MINI + 50000
+				&& j * MINI_SIZE > vars->player[0] / SCALE_TO_MINI - 50000)
+				mlx_put_image_to_window(vars->mlx, vars->win,
+				vars->image[WHITE_8].load,
+				j * MINI_SIZE, i * MINI_SIZE);
+			j++;
+		}
+		i++;
+	}
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->image[PLAYER].load,
+	vars->player[0] / SCALE_TO_MINI, vars->player[1] / SCALE_TO_MINI);
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->image[PLAYER].load,
+	vars->putin[0] / SCALE_TO_MINI, vars->putin[1] / SCALE_TO_MINI);
+	if (vars->shoot == 1)
+		mlx_put_image_to_window(vars->mlx, vars->win, vars->image[FIRE].load, vars->win_w - 302 + (vars->simul_loop % 4) * 10, vars->win_h - 302 + (vars->simul_loop % 4) * 10);
+
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->image[HAND_GUN].load,
+		vars->win_w - 232 + (vars->simul_loop % 4) * 10 , vars->win_h - 232 + (vars->simul_loop % 4) * 10);
+	if (vars->this_ends != -1)
+	{
+			// printf("FUCK YOU!!!\n");
+		mlx_put_image_to_window(vars->mlx, vars->win, vars->image[LOST].load, 50, 50);
+		// sleep(10);
+		// exit(EXIT_SUCCESS);
+
+	}
+		// end_the_game(vars, vars->this_ends);
 }
 
-static void	putin_ray_v(t_vars *vars, t_ray* ray)
+void	draw_line(t_vars *vars, int i, t_ray *ray)
 {
-	if (ray->mx >= 0 && ray->my >= 0 && ray->mx < vars->map_width
-		&& ray->my < vars->map_height
-		&& (vars->input)[ray->my][ray->mx] == '8')
+	int	fill;
+	int	j;
+	int	k;
+	int	l;
+
+	j = 0;
+	// k = 0;
+	ray->offset = 0;
+	fill = vars->win_h - ray->lineH;
+	fill /= 2;
+	if (fill < 0)
+		ray->offset = -1 * fill;
+	vars->par.offset = ray->offset;
+	while (j < fill)
+		my_mlx_pixel_put(vars, i, j++, vars->ceiling_color);
+	int t = j;
+	draw_wall(vars, i, &j, ray);
+	while (j < vars->win_h)
 	{
-		vars->par.put_in = 1;
-		vars->par.point_v[0] = ray->rx;
-		vars->par.point_v[1] = ray->ry;
-		vars->par.dist[1] = get_dist(vars->player[0], vars->player[1],
-			vars->putin[0], vars->putin[1]);
+		// if (i % 64 == 0)
+		// 	my_mlx_pixel_put(vars, i, j++, 0x000000);
+		// else if (j % 64 == 0)
+		// 	my_mlx_pixel_put(vars, i, j++, 0x000000);
+		// else
+			my_mlx_pixel_put(vars, i, j++, vars->floor_color);
+
+	}
+	// printf("%d \n", vars->par.put_in);
+	if (vars->par.put_in == 1/*  &&  vars->par.one_put < 84 */)
+	{
+		// in some cases teh rays don't hit putin so this never runs....
+		// why is not hitting by the ray?? 
+		// go over exchange functions make them norm ready and step by step check the flow
+		// why does it skip some putin, why isnt catching it???
+		
+		vars->par.hight = (vars->image[PUTINS].height * vars->win_h) / vars->par.putin_dist;
+		vars->par.ofset_h = vars->par.hight / TILE_SIZE;
+		draw_putin(vars, i, t, ray);
+		vars->par.one_put++;
 	}
 }
 
-static void	look_left_right(t_vars *vars, t_ray* ray)
+void	draw_wall(t_vars *vars, int i, int *j, t_ray *ray)
 {
-	ray->dof = 0;
-	while (ray->dof < vars->map_width)
+	int		temp;
+	int		image;
+
+	temp = ray->lineH;
+	if (ray->type == 0 && ray->point[1] >= vars->player[1])
+		image = SO;
+	else if (ray->type == 0)
+		image = NO;
+	if (ray->type == 1 && ray->point[0] >= vars->player[0])
+		image = WE;
+	else if (ray->type == 1)
+		image = EA;
+	if (ray->door)
+		image = DOOR;
+	while(temp-- && *j < vars->win_h)
 	{
-		ray->mx = (int)(ray->rx) >> TILE_BIT;
-		ray->my = (int)(ray->ry) >> TILE_BIT;
-		if (ray->mx >= 0 && ray->my >= 0 && ray->mx < vars->map_width
-			&& ray->my < vars->map_height
-			&& (vars->input)[ray->my][ray->mx] == '1')
-		{
-			ray->point_v[0] = ray->rx;
-			ray->point_v[1] = ray->ry;
-			ray->dist[1] = get_dist(vars->player[0], vars->player[1], ray->rx, ray->ry);
-			ray->dof = vars->map_width;
-		}
+		if (ray->type == 0)
+			my_mlx_pixel_put(vars, i, *j, get_pixel(&vars->image[image],
+				ray->point[0] % vars->image[image].width,
+				(ray->offset++ * vars->image[image].height) / ray->lineH));
 		else
-		{
-			ray->rx += ray->xo;
-			ray->ry += ray->yo;
-			ray->dof++;
-		}
-		putin_ray_v(vars, ray);
+			my_mlx_pixel_put(vars, i, *j, get_pixel(&vars->image[image],
+				ray->point[1] % vars->image[image].width,
+				(ray->offset++ * vars->image[image].height) / ray->lineH));
+		(*j)++;
 	}
-}
-
-static void	putin_ray_h(t_vars *vars, t_ray* ray)
-{
-	if (ray->mx >= 0 && ray->my >= 0 && ray->mx < vars->map_width
-		&& ray->my < vars->map_height
-		&& (vars->input)[ray->my][ray->mx] == '8')
-	{
-		vars->par.put_in = 1;
-		vars->par.point_h[0] = ray->rx;
-		vars->par.point_h[1] = ray->ry;
-		vars->par.dist[0] = get_dist(vars->player[0], vars->player[1],
-			vars->putin[0], vars->putin[1]);
-	}
-}
-
-static void	look_up_down(t_vars *vars, t_ray* ray)
-{
-	ray->dof = 0;
-	while (ray->dof < vars->map_height)
-	{
-		ray->mx = (int)(ray->rx) >> TILE_BIT;
-		ray->my = (int)(ray->ry) >> TILE_BIT;
-		if (ray->mx >= 0 && ray->my >= 0 && ray->mx < vars->map_width
-			&& ray->my < vars->map_height
-			&& (vars->input)[ray->my][ray->mx] == '1')
-		{
-			ray->point_h[0] = ray->rx;
-			ray->point_h[1] = ray->ry;
-			ray->dist[0] = get_dist(vars->player[0], vars->player[1],
-				ray->rx, ray->ry);
-			ray->dof = vars->map_height;
-		}
-		else
-		{
-			ray->rx += ray->xo;
-			ray->ry += ray->yo;
-			ray->dof++;
-		}
-		putin_ray_h(vars, ray);
-	}
-}
-
-void	init_look_left_right(t_vars *vars, t_ray* ray, float theta)
-{
-	if (theta > M_PI_2 && theta < 3 * M_PI_2)
-	{
-		ray->rx = (((int)(vars->player[0]) >> TILE_BIT) << TILE_BIT) - 0.00015;
-		ray->ry = (vars->player[0] - ray->rx) * ray->nTan + vars->player[1];
-		ray->xo = -TILE_SIZE;
-		ray->yo = -ray->xo * ray->nTan;
-	}
-	if (theta < M_PI_2 || theta > 3 * M_PI_2)
-	{
-		ray->rx = (((int)(vars->player[0]) >> TILE_BIT) << TILE_BIT) + TILE_SIZE;
-		ray->ry = (vars->player[0] - ray->rx) * ray->nTan + vars->player[1];
-		ray->xo = TILE_SIZE;
-		ray->yo = -ray->xo * ray->nTan;
-	}
-	if (theta == M_PI_2 || theta == 3 * M_PI_2)
-	{
-		ray->rx = vars->player[0];
-		ray->ry = vars->player[1];
-		ray->dof = vars->map_width;
-	}
-	look_left_right(vars, ray);
-}
-
-void	init_look_up_down(t_vars *vars, t_ray* ray, float theta)
-{
-	if (theta > M_PI)
-	{
-		ray->ry = (((int)(vars->player[1]) >> TILE_BIT) << TILE_BIT) - 0.00015;
-		ray->rx = (vars->player[1] - ray->ry) * ray->aTan + vars->player[0];
-		ray->yo = -TILE_SIZE;
-		ray->xo = -ray->yo * ray->aTan;
-	}
-	else if (theta < M_PI)
-	{
-		ray->ry = (((int)(vars->player[1]) >> TILE_BIT) << TILE_BIT) + TILE_SIZE;
-		ray->rx = (vars->player[1] - ray->ry) * ray->aTan + vars->player[0];
-		ray->yo = TILE_SIZE;
-		ray->xo = -ray->yo * ray->aTan;
-	}
-	if (theta == 0 || theta == M_PI)
-	{
-		ray->rx = vars->player[0];
-		ray->ry = vars->player[1];
-		ray->dof = vars->map_height;
-	}
-	look_up_down(vars, ray);
 }
