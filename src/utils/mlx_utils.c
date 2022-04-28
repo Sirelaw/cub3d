@@ -90,12 +90,12 @@ void	move_image(int keycode, t_vars *vars)
 }
 
 
-void *make_sound(void *some)
-{
+// void *make_sound(void *some)
+// {
 	
-	system("afplay ./sounds/gunshot.mp3");
-	return (NULL);
-}
+// 	system("afplay ./sounds/gunshot.mp3");
+// 	return (NULL);
+// }
 
 
 
@@ -110,9 +110,13 @@ int	key_hook(int keycode, t_vars *vars)
 		move_image(keycode, vars);
 	else if (keycode == 257 || keycode == 258)
 	{
-		vars->shoot = 1;
-		pthread_t sounding;
-		pthread_create(&sounding, NULL, make_sound, NULL);
+		if (vars->shoot == 0)
+		{
+			vars->shoot = 1;
+			vars->simul_loop += 2;
+		}
+		// pthread_t sounding;
+		// pthread_create(&sounding, NULL, make_sound, NULL);
 		// usleep(10);
 		// PlaySound("./sounds/gunshot.mp3", NULL, SND_ASYNC);
 	}

@@ -6,7 +6,7 @@
 /*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 17:09:18 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/04/27 23:11:29 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/04/28 17:31:00 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ static void	look_left_right(t_vars *vars, t_ray* ray)
 	{
 		ray->mx = (int)(ray->rx) >> TILE_BIT;
 		ray->my = (int)(ray->ry) >> TILE_BIT;
+		putin_ray_v(vars, ray);
 		if (ray->mx >= 0 && ray->my >= 0 && ray->mx < vars->map_width
 			&& ray->my < vars->map_height
 			&& vars->input[ray->my][ray->mx] == '1')
@@ -54,7 +55,6 @@ static void	look_left_right(t_vars *vars, t_ray* ray)
 			ray->dof++;
 		}
 		// if (ray->dof != vars->map_height)
-			putin_ray_v(vars, ray);
 	}
 }
 

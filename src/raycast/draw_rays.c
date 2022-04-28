@@ -43,7 +43,12 @@ void	draw_field(t_vars *vars)
 		// exit(EXIT_SUCCESS);
 
 	}
-		// end_the_game(vars, vars->this_ends);
+	if (vars->colore_shift > 20)
+	{
+		// printf("FUCK YOU!!!\n");
+		mlx_put_image_to_window(vars->mlx, vars->win, vars->image[WIN].load, 50, 50);
+	}
+		// end_the_game(vars, 1);
 }
 
 void	draw_line(t_vars *vars, int i, t_ray *ray)
@@ -78,6 +83,7 @@ void	draw_line(t_vars *vars, int i, t_ray *ray)
 	// printf("%d \n", vars->par.put_in);
 	if (vars->par.put_in == 1/*  &&  vars->par.one_put < 64 */)
 	{
+
 		// in some cases teh rays don't hit putin so this never runs....
 		// why is not hitting by the ray?? 
 		// go over exchange functions make them norm ready and step by step check the flow

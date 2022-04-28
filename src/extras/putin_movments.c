@@ -6,7 +6,7 @@
 /*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:48:49 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/04/28 01:27:26 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/04/28 19:43:14 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	st_p(t_vars *g, int x, int y)
 {
 	int dist;
 
-	if (g->input[y / TILE_SIZE][x / TILE_SIZE] == '1'/*  && y / TILE_SIZE > 1 && x / TILE_SIZE > 1 && g->input[y / TILE_SIZE - 1][x / TILE_SIZE - 1] == '1' */)
+	if (g->input[y / TILE_SIZE][x / TILE_SIZE] == '1' /* && g->input[y / TILE_SIZE][x / TILE_SIZE] == 'D' */)
 		return (0);
 	dist = get_dist(g->player[0], g->player[1], g->putin[0], g->putin[1]);
 	if (dist < 1 * TILE_SIZE)
@@ -115,14 +115,19 @@ int	putin_run(t_vars *g)
 	int	f;
 	int	step[3];
 
+	if (g->colore_shift == 8)
+		end_the_game(g, 1);
 	(g->par.putin_time)++;
 	if (g->par.putin_time % 16 == 0)
 		render_next_rays(g);
 	if (g->shoot == 1 && g->par.putin_time % 16 == 0)
+	{
 		g->shoot = 0;
-	if (g->par.putin_time == 50 && g->putin[0] != -1 && g->putin[1] != -1)
+		g->simul_loop -= 2;
+	}
+	if (g->par.putin_time % 400 == 0 && g->putin[0] != -1 && g->putin[1] != -1)
 		enemymaker(g, step);
-	if (g->par.putin_time == 100 && g->putin[0] != -1 && g->putin[1] != -1)
+	if (g->par.putin_time == 1000 && g->putin[0] != -1 && g->putin[1] != -1)
 	{
 		g->par.putin_time = 0;
 	}
