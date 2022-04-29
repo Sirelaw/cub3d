@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 13:01:04 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/29 19:57:12 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/04/29 22:31:09 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void	cast_ray(t_vars *vars, float theta, int i)
 	init_look_left_right(vars, &ray, theta);
 	distance_calculations(vars, &ray);
 	ray.lineH = fix_fisheye_get_height(vars, ray.distance, vars->orient - theta);
-	plot_line_angle(vars->player, theta, ray.lineH / SCALE_TO_MINI, vars);
+	plot_line_angle(vars->player, theta, ray.distance / SCALE_TO_MINI, vars);
 	if (vars->par.put_in == 1)
 	{
 		vars->par.putin_img_x = i;

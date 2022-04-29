@@ -3,8 +3,8 @@
 static void	init_vars(t_vars *vars)
 {
 	vars->input	= NULL;
-	vars->win_w = 1024;
-	vars->win_h = 700;
+	vars->win_w = 1280;
+	vars->win_h = 920;
 	vars->start_orientation = 0;
 	vars->player[0] = 0;
 	vars->player[1] = 0;
