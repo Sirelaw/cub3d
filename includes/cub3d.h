@@ -6,7 +6,7 @@
 /*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 19:02:23 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/29 17:07:48 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/04/29 19:09:02 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@
 # define SCALE_TO_MINI 8
 # define TILE_BIT 6
 # define KILL_SHOT 32
+# define POSITION_PUTIN_Y 445
+# define RELATIVE_SIZE_PUTIN 40
 
 enum e_images
 {
@@ -135,10 +137,8 @@ typedef struct s_vars
 	int		map_width;
 	int		map_height;
 	int		simul_loop;
-	int		this_ends;
 	int		shoot;
 	int		colore_shift;
-	int		putin_dead;
 	int		mouse;
 	t_putin	par;
 }				t_vars;
@@ -184,6 +184,11 @@ void	print_str_arr(char **input);
 // ray teh II 
 void	draw_line(t_vars *vars, int i, t_ray *ray);
 void	draw_wall(t_vars *vars, int i, int *j, t_ray *ray);
+void	draw_putin_arays(t_vars *vars);
+void	plot_line_angle(int start[2], float theta, float dist, t_vars *vars);
+float	fix_fisheye_get_height(t_vars *vars, float distance, float angle_diff);
+void	define_ray_parameters(t_vars *vars, t_ray *ray, float theta);
+
 // void ray_maker(t_vars *g);
 // void draw_line_ii(t_vars *g, int i, float line_h);
 // void	vertical_ray_maker(t_vars *g);
