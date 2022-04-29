@@ -38,7 +38,6 @@ void define_ray_parameters(t_vars *vars, t_ray *ray, float theta)
 	ray->door = 0;
 }
 
-
 static void	cast_ray(t_vars *vars, float theta, int i)
 {
 	t_ray	ray;

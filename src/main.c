@@ -28,12 +28,9 @@ void	init_vars(t_vars *vars)
 
 int frame_func(t_vars *vars)
 {
-	struct timeval *restrict tp;
 	// vars->par.put_in = 0;
 	render_next_rays(vars);
 	putin_run(vars);
-	int
-     gettimeofday(struct timeval *restrict tp, void *restrict tzp);
 	// if (vars->par.put_in == 1)
 		// mlx_put_image_to_window(vars->mlx, vars->win, vars->image[PUTIN].load,
 		// 	vars->par.putin_img_x , vars->par.putin_img_y);
