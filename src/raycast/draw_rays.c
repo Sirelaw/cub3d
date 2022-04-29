@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 13:06:25 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/29 17:35:49 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/04/29 19:34:38 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,19 +121,29 @@ void	draw_wall(t_vars *vars, int i, int *j, t_ray *ray)
 	else if (ray->type == 1)
 		image = EA;
 	while(temp-- && *j < vars->win_h)
-	{
-		if (ray->door && (ray->point[ray->type] % vars->image[DOOR].width == 0) && vars->door_flag)
-			vars->door_flag = 0;
-		if (ray->door && !vars->door_flag)
+	{		
+		if (ray->door && vars->door_flag != -1)
 		{
-			if (ray->point[ray->type] % vars->image[DOOR].width == vars->image[DOOR].width - 1)
+			printf("reset flag	%d	%d	%d\n", i, ray->point[ray->type], ray->point[ray->type] % vars->image[DOOR].width);
+			if (vars->door_flag == 0)
+				vars->door_flag = ray->point[ray->type] % vars->image[DOOR].width;
+			if (ray->point[ray->type] % vars->image[DOOR].width == vars->image[DOOR].width - 1 
+				&& ray->point[ray->type] % vars->image[DOOR].width != vars->door_flag)
 			{
-				// printf("%d	%d\n", ray->point[ray->type] % TILE_SIZE, ray->point[ray->type] % vars->image[DOOR].width);
-				vars->door_flag = 1;
+				printf("Here\n");
+				vars->door_flag = -1;
+				// exit(0);
 			}
-			else
-				image = DOOR;
+			image = DOOR;
 		}
+		// if (ray->door && vars->door_flag != -1)
+		// {
+		// 	if (ray->point[ray->type] % vars->image[DOOR].width == vars->image[DOOR].width - 1 && vars->door_flag == 1)
+		// 	{
+		// 		printf("set flag	%d	%d	%d\n", i, ray->point[ray->type], ray->point[ray->type] % vars->image[DOOR].width);
+		// 		vars->door_flag = -1;
+		// 	}
+		// }
 		my_mlx_pixel_put(vars, i, *j, get_pixel(&vars->image[image],
 			ray->point[ray->type] % vars->image[image].width,
 			(ray->offset++ * vars->image[image].height) / ray->lineH));

@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 19:02:23 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/29 17:11:53 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/04/29 17:51:04 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,9 @@ enum	e_keys
 	D_KEY = 2,
 	W_KEY = 13,
 	LEFT_KEY = 123,
-	RIGHT_KEY = 124	
+	RIGHT_KEY = 124,
+	DOWN_KEY = 125,
+	UP_KEY = 126
 };
 
 typedef struct s_img

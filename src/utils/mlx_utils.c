@@ -76,12 +76,12 @@ void	move_image(int keycode, t_vars *vars)
 		temp[0] -= STEP * vars->player_d[1];
 		temp[1] += STEP * vars->player_d[0];
 	}
-	else if (keycode == S_KEY || keycode == 125)
+	else if (keycode == S_KEY || keycode == DOWN_KEY)
 	{
 		temp[0] -= STEP * vars->player_d[0];
 		temp[1] -= STEP * vars->player_d[1];
 	}
-	else if (keycode == W_KEY || keycode == 126)
+	else if (keycode == W_KEY || keycode == UP_KEY)
 	{
 		temp[0] += STEP * vars->player_d[0];
 		temp[1] += STEP * vars->player_d[1];
@@ -89,24 +89,14 @@ void	move_image(int keycode, t_vars *vars)
 	check_valid_position(temp, vars);
 }
 
-
-// void *make_sound(void *some)
-// {
-	
-// 	system("afplay ./sounds/gunshot.mp3");
-// 	return (NULL);
-// }
-
-
-
 int	key_hook(int keycode, t_vars *vars)
 {
 	if (keycode == 53)
 		clean_destroy(vars);
 	if (keycode == 123 || keycode == 124)
 		rotate_player(keycode, vars);
-	else if (keycode == A_KEY || keycode <= D_KEY || keycode == S_KEY
-			|| keycode == W_KEY || keycode == 125 || keycode == 126) // why <+ ?????
+	else if (keycode == A_KEY || keycode == D_KEY || keycode == S_KEY
+			|| keycode == W_KEY || keycode == UP_KEY || keycode == DOWN_KEY)
 		move_image(keycode, vars);
 	else if (keycode == 257 || keycode == 258)
 	{
@@ -116,22 +106,17 @@ int	key_hook(int keycode, t_vars *vars)
 			vars->shoot = 1;
 			vars->simul_loop += 2;
 		}
-		// pthread_t sounding;
-		// pthread_create(&sounding, NULL, make_sound, NULL);
-		// usleep(10);
-		// PlaySound("./sounds/gunshot.mp3", NULL, SND_ASYNC);
 	}
 	return (0);
 }
 
 int	mouse_hook(int x, int y, t_vars *vars)
 {
-	// printf("x:%d, y:%d", x,y);
-	if (vars->mouse < x / 20)
+	if (vars->mouse < x / STEP)
 		rotate_player(RIGHT_KEY, vars);
-	else if (vars->mouse > x / 20)
+	else if (vars->mouse > x / STEP)
 		rotate_player(LEFT_KEY, vars);
-	vars->mouse = x / 20;
+	vars->mouse = x / STEP;
 	return (0);
 }
 

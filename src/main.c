@@ -3,8 +3,8 @@
 void	init_vars(t_vars *vars)
 {
 	vars->input	= NULL;
-	vars->win_w = 1280;
-	vars->win_h = 920;
+	vars->win_w = 1024;
+	vars->win_h = 700;
 	vars->start_orientation = 0;
 	vars->player[0] = 0;
 	vars->player[1] = 0;
@@ -50,9 +50,8 @@ void *make_sound(void *some)
 	t_vars	*vars;
 
 	vars = (t_vars *)some;
-	while (1)
+	while (vars->this_ends == -1)
 	{
-		// usleep(50);
 		if (vars->shoot)
 			system("afplay ./sounds/gunshot.mp3");
 	}
@@ -70,12 +69,10 @@ int	main(int argc, char **argv)
 	vars.win = mlx_new_window(vars.mlx, vars.win_w,
 			vars.win_h, "42+2 cube3D");
 	img_handler(&vars);
-
 	cast_rays(&vars);
 	pthread_create(&sounding, NULL, make_sound, &vars);
-
+	pthread_detach(sounding);
 	mlx_hook(vars.win, 2, 1L << 0, key_hook, &vars);
-	// mlx_mouse_hook (vars.win, mouse_hook, &vars);
 	mlx_hook(vars.win, 6, 1L << 0, mouse_hook, &vars);
 	mlx_hook(vars.win, 17, 0, clean_destroy, &vars);
 	mlx_loop_hook(vars.mlx, frame_func, &vars);

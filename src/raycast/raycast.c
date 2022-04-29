@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 13:01:04 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/29 14:00:17 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/04/29 19:53:26 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ static void	cast_ray(t_vars *vars, float theta, int i)
 	}
 
 	ray.lineH = fix_fisheye_get_height(vars, ray.distance, vars->orient - theta);
-	plot_line_angle(vars->player, theta, 5, vars);
+	plot_line_angle(vars->player, theta, ray.lineH / SCALE_TO_MINI, vars);
 	if (vars->par.put_in == 1)
 	{
 		vars->par.putin_img_x = i;
