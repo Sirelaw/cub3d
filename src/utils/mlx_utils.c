@@ -30,9 +30,9 @@ int	render_next_rays(t_vars *vars)
 void	rotate_player(int keycode, t_vars *vars)
 {
 	if (keycode == RIGHT_KEY)
-		vars->orient += 0.1;
+		vars->orient += 0.2;
 	else if (keycode ==  LEFT_KEY)
-		vars->orient -= 0.1;
+		vars->orient -= 0.2;
 	if (vars->orient > 2 * M_PI)
 		vars->orient -= 2 * M_PI;
 	else if (vars->orient < 0)
@@ -89,6 +89,16 @@ void	move_image(int keycode, t_vars *vars)
 	check_valid_position(temp, vars);
 }
 
+
+// void *make_sound(void *some)
+// {
+	
+// 	system("afplay ./sounds/gunshot.mp3");
+// 	return (NULL);
+// }
+
+
+
 int	key_hook(int keycode, t_vars *vars)
 {
 	if (keycode == 53)
@@ -100,7 +110,14 @@ int	key_hook(int keycode, t_vars *vars)
 		move_image(keycode, vars);
 	else if (keycode == 257 || keycode == 258)
 	{
-		vars->shoot = 1;
+		if (vars->shoot == 0)
+		{
+			vars->shoot = 1;
+			vars->simul_loop += 2;
+		}
+		// pthread_t sounding;
+		// pthread_create(&sounding, NULL, make_sound, NULL);
+		// usleep(10);
 		// PlaySound("./sounds/gunshot.mp3", NULL, SND_ASYNC);
 	}
 	return (0);

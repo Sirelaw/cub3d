@@ -6,7 +6,7 @@
 /*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 22:02:17 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/04/27 20:45:35 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/04/28 19:45:47 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ void end_the_game(t_vars *game, int suc)
 		// printf("FUCK YOU!!!\n");
 		mlx_put_image_to_window(game->mlx, game->win, game->image[LOST].load, 50, 50);
 	}
-	sleep(10);
-	exit(EXIT_SUCCESS);
+	// sleep(10);
+	// exit(EXIT_SUCCESS);
 }
 
 // // #define M_PI 3.1415926

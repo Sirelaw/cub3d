@@ -41,7 +41,6 @@ void define_ray_parameters(t_vars *vars, t_ray *ray, float theta)
 static void	cast_ray(t_vars *vars, float theta, int i)
 {
 	t_ray	ray;
-
 	define_ray_parameters(vars, &ray, theta);
 	init_look_up_down(vars, &ray, theta);
 	init_look_left_right(vars, &ray, theta);
@@ -76,8 +75,40 @@ static void	cast_ray(t_vars *vars, float theta, int i)
 	{
 		vars->par.putin_img_x = i;
 		vars->par.putin_img_y = vars->win_h / 2 - ray.lineH / 2;
+		if (vars->shoot == 1 && vars->orient - 0.001 < theta && vars->orient + 0.001 > theta)
+		{
+			vars->colore_shift++;
+			// printf("orient: %f, theta: %f", vars->orient, theta);
+		}
+
 	}
 	draw_line(vars, i, &ray);
+}
+
+int colore_shift(int color, int scale)
+{
+	int mask = 0xFF;
+
+	int a = (color >> 24) & mask;
+	int r = (color >> 16) & mask;
+	int g = (color >> 8) & mask;
+	int b = color & mask;
+
+	// convert to decimal form:
+	float rDecimal = r / 255; 
+	// Let r: 0x66 = 102 => rDecimal: 0.4
+
+	// darken with 50%, basically divide it by two
+	rDecimal = r * scale; 
+	// rDecimal: 0.2
+
+	// Go back to original representation and put it back to r
+	r = (int)(rDecimal * 255); 
+	// r: 51 = 0x33
+
+	// Put it all back in place
+	color = (a << 24) + (r << 16) + (g << 8) + b;
+	return (color);
 }
 
 void draw_putin_arays(t_vars *vars)
@@ -98,7 +129,16 @@ void draw_putin_arays(t_vars *vars)
 			{
 				colore = get_pixel(&vars->image[PUTINS], (i * TILE_SIZE) / adj, (j * TILE_SIZE) / adj);
 				if (colore != 0xFFFFFF)
+				{
+
+					// colore += (colore >> 8) + 255;
+					// colore += (colore << 8) - 255;
+					// colore += (colore << 16) + 150;
+					// colore = colore & 25;
+					if (vars->colore_shift > 0)
+						colore = colore_shift(colore, vars->colore_shift);
 					my_mlx_pixel_put(vars, vars->par.put_point_x[i],  445 + j, colore); // 445 is to set the postiion y to place the figure on the screen
+				}
 			}
 			// colore = vars->par.points_colore[i][j];
 			// if (colore != -1)
@@ -112,21 +152,21 @@ void draw_putin_arays(t_vars *vars)
 void fill_putin_arays(t_vars *vars)
 {
 	int i;
-	int j;
+	// int j;
 
 	i = 0;
 	while (i < 64)
 	{
-		j = 0;
-		vars->par.put_point_higth[i] = -1;
+		// j = 0;
+		// vars->par.put_point_higth[i] = -1;
 		vars->par.put_point_x[i] = -1;
-		while (j < 64)
-		{
-			vars->par.points_x[i][j] = -1;
-			vars->par.points_y[i][j] = -1;
-			vars->par.points_colore[i][j] = -1;
-			j++;
-		}
+		// while (j < 64)
+		// {
+		// 	vars->par.points_x[i][j] = -1;
+		// 	vars->par.points_y[i][j] = -1;
+		// 	vars->par.points_colore[i][j] = -1;
+		// 	j++;
+		// }
 		i++;
 	}
 }
@@ -137,6 +177,10 @@ void	cast_rays(t_vars *vars)
 	float	dtheta;
 	float	theta;
 	int		point[2];
+	// printf("printf 2\n");
+	// printf("printf 3\n");
+	// printf("printf 2\n");
+	// printf("printf 3\n");
 
 	i = 0;
 	theta = vars->orient - M_PI / 6;

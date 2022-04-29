@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 19:02:23 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/28 00:02:47 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/04/29 12:55:15 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@
 # include "../libft/libft.h"
 # include "get_line.h"
 # include "ray_cast.h"
+# include <pthread.h>
 
-# define STEP 20
+# define STEP 40
 # define TILE_SIZE 64
 # define MINI_SIZE 8
-// Tile_size divided by mini_map_size
 # define SCALE_TO_MINI 8
 # define TILE_BIT 6
 
@@ -90,11 +90,12 @@ typedef struct s_img
 
 typedef struct s_putin
 {
-	int		put_point_x[64];
-	int		put_point_higth[64];
-	int		points_x[64][64];
-	int		points_y[64][64]; //hight
-	int		points_colore[64][64];
+	int		put_point_x[1280];
+	// int		put_point_higth[64];
+	// int		points_x[64][64];
+	// int		points_y[64][64]; //hight
+	// int		nothing[100][100];
+	// int		points_colore[64][64];
 	int		point_h[2];
 	int		point_v[2];
 	float	dist[2];
@@ -140,6 +141,8 @@ typedef struct s_vars
 	int		simul_loop;
 	int		this_ends;
 	int		shoot;
+	int		colore_shift;
+	int		putin_dead;
 	t_putin	par;
 }				t_vars;
 
