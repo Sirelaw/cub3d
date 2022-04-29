@@ -26,13 +26,19 @@ void	init_vars(t_vars *vars)
 	vars->shoot = 0;
 	vars->colore_shift = 0;
 	vars->putin_dead = 0;
+	vars->mouse = 0;
 }
 
 int frame_func(t_vars *vars)
 {
 	// vars->par.put_in = 0;
 	// render_next_rays(vars); // put inside putin run so not renders everyting all the time just every second blink
-	putin_run(vars);
+	if (vars->colore_shift <= KILL_SHOT)
+	{
+		putin_run(vars);
+	}
+	// else
+	// 	printf("hello here\n");
 	// if (vars->par.put_in == 1)
 		// mlx_put_image_to_window(vars->mlx, vars->win, vars->image[PUTIN].load,
 		// 	vars->par.putin_img_x , vars->par.putin_img_y);
@@ -69,7 +75,8 @@ int	main(int argc, char **argv)
 	pthread_create(&sounding, NULL, make_sound, &vars);
 
 	mlx_hook(vars.win, 2, 1L << 0, key_hook, &vars);
-	mlx_mouse_hook (vars.win, mouse_hook, &vars);
+	// mlx_mouse_hook (vars.win, mouse_hook, &vars);
+	mlx_hook(vars.win, 6, 1L << 0, mouse_hook, &vars);
 	mlx_hook(vars.win, 17, 0, clean_destroy, &vars);
 	mlx_loop_hook(vars.mlx, frame_func, &vars);
 	mlx_loop(vars.mlx);

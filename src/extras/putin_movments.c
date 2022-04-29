@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   putin_movments.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:48:49 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/04/28 19:43:14 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/04/29 17:40:37 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ static int	st_p(t_vars *g, int x, int y)
 {
 	int dist;
 
-	if (g->input[y / TILE_SIZE][x / TILE_SIZE] == '1' /* && g->input[y / TILE_SIZE][x / TILE_SIZE] == 'D' */)
+	if (g->input[y / TILE_SIZE][x / TILE_SIZE] == '1'
+		|| g->input[y / TILE_SIZE][x / TILE_SIZE] == 'D')
 		return (0);
 	dist = get_dist(g->player[0], g->player[1], g->putin[0], g->putin[1]);
 	if (dist < 1 * TILE_SIZE)

@@ -76,12 +76,12 @@ void	move_image(int keycode, t_vars *vars)
 		temp[0] -= STEP * vars->player_d[1];
 		temp[1] += STEP * vars->player_d[0];
 	}
-	else if (keycode == S_KEY)
+	else if (keycode == S_KEY || keycode == 125)
 	{
 		temp[0] -= STEP * vars->player_d[0];
 		temp[1] -= STEP * vars->player_d[1];
 	}
-	else if (keycode == W_KEY)
+	else if (keycode == W_KEY || keycode == 126)
 	{
 		temp[0] += STEP * vars->player_d[0];
 		temp[1] += STEP * vars->player_d[1];
@@ -103,15 +103,16 @@ int	key_hook(int keycode, t_vars *vars)
 {
 	if (keycode == 53)
 		clean_destroy(vars);
-	if ((keycode >= 123) && (keycode <= 126))
+	if (keycode == 123 || keycode == 124)
 		rotate_player(keycode, vars);
-	else if (((keycode >= A_KEY) && (keycode <= D_KEY)) || ((keycode >= S_KEY)
-			&& (keycode <= W_KEY))) // why <+ ?????
+	else if (keycode == A_KEY || keycode <= D_KEY || keycode == S_KEY
+			|| keycode == W_KEY || keycode == 125 || keycode == 126) // why <+ ?????
 		move_image(keycode, vars);
 	else if (keycode == 257 || keycode == 258)
 	{
 		if (vars->shoot == 0)
 		{
+			
 			vars->shoot = 1;
 			vars->simul_loop += 2;
 		}
@@ -123,13 +124,14 @@ int	key_hook(int keycode, t_vars *vars)
 	return (0);
 }
 
-int	mouse_hook(int mousecode, int x, int y, t_vars *vars)
+int	mouse_hook(int x, int y, t_vars *vars)
 {
-	if ((mousecode == 4) || (mousecode == 5))
-	{
-		// zoom_image(mousecode, x, y, vars);
-		// render_next_frame(vars);
-	}
+	// printf("x:%d, y:%d", x,y);
+	if (vars->mouse < x / 20)
+		rotate_player(RIGHT_KEY, vars);
+	else if (vars->mouse > x / 20)
+		rotate_player(LEFT_KEY, vars);
+	vars->mouse = x / 20;
 	return (0);
 }
 

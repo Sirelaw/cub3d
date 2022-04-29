@@ -13,3 +13,8 @@ void	print_str_arr(char **input)
 		i++;
 	}
 }
+
+// int mouse_turn(int x, int y, t_vars *game)
+// {
+
+// }
