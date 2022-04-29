@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 13:01:04 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/29 19:57:12 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/04/29 23:51:32 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,17 @@ static void	distance_calculations(t_vars *vars, t_ray *ray)
 static void	cast_ray(t_vars *vars, float theta, int i)
 {
 	t_ray	ray;
+
 	define_ray_parameters(vars, &ray, theta);
 	init_look_up_down(vars, &ray, theta);
 	init_look_left_right(vars, &ray, theta);
 	distance_calculations(vars, &ray);
 	ray.lineH = fix_fisheye_get_height(vars, ray.distance, vars->orient - theta);
-	plot_line_angle(vars->player, theta, ray.lineH / SCALE_TO_MINI, vars);
+	plot_line_angle(vars->player, theta, ray.distance / SCALE_TO_MINI, vars);
 	if (vars->par.put_in == 1)
 	{
 		vars->par.putin_img_x = i;
-		vars->par.putin_img_y = vars->win_h / 2 - ray.lineH / 2;
+		vars->par.putin_img_y = WIN_HEIGHT / 2 - ray.lineH / 2;
 		if (vars->shoot == 1 && vars->orient - 0.001 < theta && vars->orient + 0.001 > theta)
 			vars->colore_shift++;
 	}
@@ -79,14 +80,14 @@ void	cast_rays(t_vars *vars)
 
 	i = 0;
 	theta = vars->orient - M_PI / 6;
-	dtheta = (M_PI / 3.0) / vars->win_w;
+	dtheta = (M_PI / 3.0) / WIN_WIDTH;
 	vars->door_flag = 0;
-	vars->img = mlx_new_image(vars->mlx, vars->win_w, vars->win_h);
+	vars->img = mlx_new_image(vars->mlx, WIN_WIDTH, WIN_HEIGHT);
 	vars->addr = mlx_get_data_addr(vars->img, &vars->bits_per_pixel,
 			&vars->line_lenght, &vars->endian);
 	vars->par.one_put = 0;
 	fill_putin_arays(vars);
-	while (i++ < vars->win_w)
+	while (i++ < WIN_WIDTH)
 	{
 		vars->par.put_in = 0;
 		theta += dtheta;

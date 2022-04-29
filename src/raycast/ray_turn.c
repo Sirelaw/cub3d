@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_turn.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 22:02:17 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/04/29 19:16:46 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/04/29 23:51:32 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ float	fix_fisheye_get_height(t_vars *vars, float distance, float angle_diff)
 	distance = distance * cos(angle_diff);
 	if (distance < 1)
 		distance = 1;
-	lineH = TILE_SIZE * vars->win_h / distance;
+	lineH = TILE_SIZE * WIN_HEIGHT / distance;
 	return (lineH);
 }
 

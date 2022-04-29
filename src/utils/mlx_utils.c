@@ -4,7 +4,7 @@ void	my_mlx_pixel_put(t_vars *vars, int x, int y, int color)
 {
 	char	*dst;
 
-	if ((x >= vars->win_w) || (y >= vars->win_h) || (x < 0) || (y < 0))
+	if ((x >= WIN_WIDTH) || (y >= WIN_HEIGHT) || (x < 0) || (y < 0))
 		return ;
 	dst = vars->addr + (y * vars->line_lenght + x * (vars->bits_per_pixel / 8));
 	*(unsigned int *)dst = color;

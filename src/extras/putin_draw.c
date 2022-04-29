@@ -8,7 +8,7 @@ void	draw_putin(t_vars *vars, int i, int j, t_ray *ray)
 	// int		n;
 	// int		m;
 
-	// hight = (vars->image[PUTIN64].height * vars->win_h) / vars->par.putin_dist;
+	// hight = (vars->image[PUTIN64].height * WIN_HEIGHT) / vars->par.putin_dist;
 	// temp = hight;
 	// m = 0;
 	// printf("%d my m:", vars->par.one_put);

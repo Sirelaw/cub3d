@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 19:02:23 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/29 19:58:17 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/04/29 23:52:33 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@
 # define KILL_SHOT 32
 # define POSITION_PUTIN_Y 445
 # define RELATIVE_SIZE_PUTIN 40
+# define WIN_WIDTH 400
+# define WIN_HEIGHT 400
 
 enum e_images
 {
@@ -118,8 +120,6 @@ typedef struct s_vars
 	void	*mlx;
 	void	*win;
 	int		count;
-	int		win_w;
-	int		win_h;
 	char	**map;
 	void	*img;
 	char	start_orientation;
