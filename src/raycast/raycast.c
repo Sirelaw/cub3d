@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   raycast.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/29 13:01:04 by oipadeol          #+#    #+#             */
+/*   Updated: 2022/04/29 14:00:17 by oipadeol         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/cub3d.h"
 
 void plot_line_angle(int start[2], float theta, float dist, t_vars *vars)
@@ -41,6 +53,7 @@ void define_ray_parameters(t_vars *vars, t_ray *ray, float theta)
 static void	cast_ray(t_vars *vars, float theta, int i)
 {
 	t_ray	ray;
+
 	define_ray_parameters(vars, &ray, theta);
 	init_look_up_down(vars, &ray, theta);
 	init_look_left_right(vars, &ray, theta);
@@ -177,24 +190,20 @@ void	cast_rays(t_vars *vars)
 	float	dtheta;
 	float	theta;
 	int		point[2];
-	// printf("printf 2\n");
-	// printf("printf 3\n");
-	// printf("printf 2\n");
-	// printf("printf 3\n");
 
 	i = 0;
 	theta = vars->orient - M_PI / 6;
 	dtheta = (M_PI / 3.0) / vars->win_w;
+	vars->door_flag = 0;
 	vars->img = mlx_new_image(vars->mlx, vars->win_w, vars->win_h);
 	vars->addr = mlx_get_data_addr(vars->img, &vars->bits_per_pixel,
 			&vars->line_lenght, &vars->endian);
-	// printf("---------------------cycle---------------------\n");
 	vars->par.one_put = 0;
 	fill_putin_arays(vars);
 	while (i++ < vars->win_w)
 	{
 		vars->par.put_in = 0;
-		theta += dtheta; // it was incremented end of cycle
+		theta += dtheta;
 		if (theta > 2 * M_PI)
 			theta -= 2 * M_PI;
 		else if (theta < 0)
@@ -202,11 +211,6 @@ void	cast_rays(t_vars *vars)
 		cast_ray(vars, theta, i);
 	}
 	draw_putin_arays(vars);
-	// printf("x:%d y:%d\n", vars->putin[0], vars->putin[1]);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img, 0, 0);
-	
-	// if (vars->par.put_in == 1)
-	// 	mlx_put_image_to_window(vars->mlx, vars->win, vars->image[PUTIN].load,
-	// 		vars->par.putin_img_x , vars->par.putin_img_y);
-	draw_field(vars);
+	draw_mini_map(vars);
 }

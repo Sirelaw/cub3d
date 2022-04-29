@@ -26,6 +26,7 @@ typedef struct s_ray
 	int		offset;
 	int		type;
 	int		door;
+	int		door_flag;
 }	t_ray;
 
 #endif

@@ -68,9 +68,6 @@ int	main(int argc, char **argv)
 	cast_rays(&vars);
 	pthread_create(&sounding, NULL, make_sound, &vars);
 
-// mlx_put_image_to_window(vars.mlx, vars.win, vars.image[LOST].load, 50, 50);
-	
-	draw_field(&vars);
 	mlx_hook(vars.win, 2, 1L << 0, key_hook, &vars);
 	mlx_mouse_hook (vars.win, mouse_hook, &vars);
 	mlx_hook(vars.win, 17, 0, clean_destroy, &vars);
