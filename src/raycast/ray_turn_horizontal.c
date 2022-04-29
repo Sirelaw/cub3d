@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_turn_horizontal.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 17:09:18 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/04/29 12:55:34 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/04/29 18:58:05 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,10 @@ static void	look_up_down(t_vars *vars, t_ray* ray)
 		}
 		else
 		{
-			// my_mlx_pixel_put(vars, (int)ray->ry, (int)ray->rx, 0x000000);
 			ray->rx += ray->xo;
 			ray->ry += ray->yo;
 			ray->dof++;
 		}
-		// if (ray->dof != vars->map_height)
 	}
 }
 

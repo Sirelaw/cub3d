@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   putin_movments.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:48:49 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/04/29 17:40:37 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/04/29 19:43:37 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	st_p(t_vars *g, int x, int y)
 	dist = get_dist(g->player[0], g->player[1], g->putin[0], g->putin[1]);
 	if (dist < 1 * TILE_SIZE)
 	{
-		g->this_ends = 0;
+		g->colore_shift = -1;
 		// end_the_game(g, 0);
 		return (0);
 	}

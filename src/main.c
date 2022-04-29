@@ -1,6 +1,6 @@
 #include "../includes/cub3d.h"
 
-void	init_vars(t_vars *vars)
+static void	init_vars(t_vars *vars)
 {
 	vars->input	= NULL;
 	vars->win_w = 1024;
@@ -15,42 +15,34 @@ void	init_vars(t_vars *vars)
 	vars->origin[0] = 0;
 	vars->origin[1] = 0;
 	vars->simul_loop = 0;
-	// new
 	vars->par.putin_step = 32;
 	vars->par.putin_time = 0;
 	vars->putin[0] = 0;
 	vars->putin[1] = 0;
 	vars->par.put_in = 0;
 	vars->par.type = 0;
-	vars->this_ends = -1;
 	vars->shoot = 0;
 	vars->colore_shift = 0;
-	vars->putin_dead = 0;
 	vars->mouse = 0;
 }
 
-int frame_func(t_vars *vars)
+static int	frame_func(t_vars *vars)
 {
-	// vars->par.put_in = 0;
-	// render_next_rays(vars); // put inside putin run so not renders everyting all the time just every second blink
-	if (vars->colore_shift <= KILL_SHOT)
+	if (vars->colore_shift <= KILL_SHOT || vars->colore_shift != -1)
 	{
 		putin_run(vars);
 	}
-	// else
-	// 	printf("hello here\n");
-	// if (vars->par.put_in == 1)
-		// mlx_put_image_to_window(vars->mlx, vars->win, vars->image[PUTIN].load,
-		// 	vars->par.putin_img_x , vars->par.putin_img_y);
+	else
+		vars->shoot = 0;
 	return (0);
 }
 
-void *make_sound(void *some)
+void	*make_sound(void *some)
 {
 	t_vars	*vars;
 
 	vars = (t_vars *)some;
-	while (vars->this_ends == -1)
+	while (1)
 	{
 		if (vars->shoot)
 			system("afplay ./sounds/gunshot.mp3");
@@ -78,6 +70,5 @@ int	main(int argc, char **argv)
 	mlx_loop_hook(vars.mlx, frame_func, &vars);
 	mlx_loop(vars.mlx);
 	//handle keypress in hook
-
 	return (0);
 }
