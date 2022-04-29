@@ -6,7 +6,7 @@
 /*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 19:02:23 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/29 16:34:23 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/04/29 17:07:48 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@
 # define STEP 40
 # define TILE_SIZE 64
 # define MINI_SIZE 8
-// Tile_size divided by mini_map_size
 # define SCALE_TO_MINI 8
 # define TILE_BIT 6
 # define KILL_SHOT 32
@@ -64,6 +63,7 @@ enum e_images
 	WIN,
 	LOST,
 	FIRE,
+	DOOR,
 	IMAGE_COUNT
 };
 

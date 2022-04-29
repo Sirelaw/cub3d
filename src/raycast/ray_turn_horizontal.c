@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_turn_horizontal.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 17:09:18 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/04/28 17:31:15 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/04/29 12:55:34 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,11 @@ static void	look_up_down(t_vars *vars, t_ray* ray)
 		putin_ray_h(vars, ray);
 		if (ray->mx >= 0 && ray->my >= 0 && ray->mx < vars->map_width
 			&& ray->my < vars->map_height
-			&& vars->input[ray->my][ray->mx] == '1')
+			&& (vars->input[ray->my][ray->mx] == '1'
+			|| vars->input[ray->my][ray->mx] == 'D'))
 		{
+			if (vars->input[ray->my][ray->mx] == 'D')
+				ray->door = 1;
 			ray->point_h[0] = ray->rx;
 			ray->point_h[1] = ray->ry;
 			ray->dist[0] = get_dist(vars->player[0], vars->player[1],

@@ -35,8 +35,8 @@ void define_ray_parameters(t_vars *vars, t_ray *ray, float theta)
 	vars->par.dist[1] = 1000000;
 	ray->aTan = -1 / tan(theta);
 	ray->nTan = -tan(theta);
+	ray->door = 0;
 }
-
 
 static void	cast_ray(t_vars *vars, float theta, int i)
 {
@@ -183,7 +183,7 @@ void	cast_rays(t_vars *vars)
 	// printf("printf 3\n");
 
 	i = 0;
-	theta = vars->orient - M_PI / 6;  // this angles and staff was handeled differently
+	theta = vars->orient - M_PI / 6;
 	dtheta = (M_PI / 3.0) / vars->win_w;
 	vars->img = mlx_new_image(vars->mlx, vars->win_w, vars->win_h);
 	vars->addr = mlx_get_data_addr(vars->img, &vars->bits_per_pixel,

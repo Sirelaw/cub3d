@@ -35,7 +35,6 @@ int frame_func(t_vars *vars)
 	// render_next_rays(vars); // put inside putin run so not renders everyting all the time just every second blink
 	if (vars->colore_shift <= KILL_SHOT)
 	{
-		// printf("%d\n", vars->shoot);
 		putin_run(vars);
 	}
 	// else

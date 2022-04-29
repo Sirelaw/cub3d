@@ -110,6 +110,8 @@ void	draw_wall(t_vars *vars, int i, int *j, t_ray *ray)
 		image = WE;
 	else if (ray->type == 1)
 		image = EA;
+	if (ray->door)
+		image = DOOR;
 	while(temp-- && *j < vars->win_h)
 	{
 		if (ray->type == 0)
