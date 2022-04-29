@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 17:09:18 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/04/29 12:55:47 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/04/29 14:01:14 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ static void	look_left_right(t_vars *vars, t_ray* ray)
 			ray->ry += ray->yo;
 			ray->dof++;
 		}
-		// if (ray->dof != vars->map_height)
 	}
 }
 

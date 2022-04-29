@@ -6,7 +6,7 @@
 /*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 19:02:23 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/29 19:09:02 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/04/29 19:48:01 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ typedef struct s_vars
 	char	**map;
 	void	*img;
 	char	start_orientation;
-	double	orient;  // pa is it ?
+	double	orient;
 	char	*addr;
 	int		bits_per_pixel;
 	int		line_lenght;
@@ -138,6 +138,7 @@ typedef struct s_vars
 	int		map_height;
 	int		simul_loop;
 	int		shoot;
+	int		door_flag;
 	int		colore_shift;
 	int		mouse;
 	t_putin	par;
@@ -162,7 +163,7 @@ void	ft_error(char *str);
 
 void	plotline(int x0_y0[2], int x1_y1[2], t_vars *vars, int color);
 void	my_mlx_pixel_put(t_vars *vars, int x, int y, int color);
-void	draw_field(t_vars *vars);
+void	draw_mini_map(t_vars *vars);
 void	scale_image(t_vars *vars, t_img *image, double scale);
 void	cast_rays(t_vars *vars);
 void	init_look_up_down(t_vars *vars, t_ray* ray, float theta);
@@ -184,6 +185,7 @@ void	print_str_arr(char **input);
 // ray teh II 
 void	draw_line(t_vars *vars, int i, t_ray *ray);
 void	draw_wall(t_vars *vars, int i, int *j, t_ray *ray);
+void	draw_field(t_vars *vars);
 void	draw_putin_arays(t_vars *vars);
 void	plot_line_angle(int start[2], float theta, float dist, t_vars *vars);
 float	fix_fisheye_get_height(t_vars *vars, float distance, float angle_diff);

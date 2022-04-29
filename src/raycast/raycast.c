@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   raycast.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/29 13:01:04 by oipadeol          #+#    #+#             */
+/*   Updated: 2022/04/29 19:44:56 by ttokesi          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/cub3d.h"
 
 static void	distance_calculations(t_vars *vars, t_ray *ray)
@@ -68,6 +80,7 @@ void	cast_rays(t_vars *vars)
 	i = 0;
 	theta = vars->orient - M_PI / 6;
 	dtheta = (M_PI / 3.0) / vars->win_w;
+	vars->door_flag = 0;
 	vars->img = mlx_new_image(vars->mlx, vars->win_w, vars->win_h);
 	vars->addr = mlx_get_data_addr(vars->img, &vars->bits_per_pixel,
 			&vars->line_lenght, &vars->endian);

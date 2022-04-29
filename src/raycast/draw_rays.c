@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_rays.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/29 13:06:25 by oipadeol          #+#    #+#             */
+/*   Updated: 2022/04/29 19:44:25 by ttokesi          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/cub3d.h"
 
 static void	draw_field_norm(t_vars *vars)
@@ -96,14 +108,21 @@ void	draw_wall(t_vars *vars, int i, int *j, t_ray *ray)
 	image = draw_wall_norm(vars, ray);
 	while(temp-- && *j < vars->win_h)
 	{
-		if (ray->type == 0)
-			my_mlx_pixel_put(vars, i, *j, get_pixel(&vars->image[image],
-				ray->point[0] % vars->image[image].width,
-				(ray->offset++ * vars->image[image].height) / ray->lineH));
-		else
-			my_mlx_pixel_put(vars, i, *j, get_pixel(&vars->image[image],
-				ray->point[1] % vars->image[image].width,
-				(ray->offset++ * vars->image[image].height) / ray->lineH));
+		if (ray->door && (ray->point[ray->type] % vars->image[DOOR].width == 0) && vars->door_flag)
+			vars->door_flag = 0;
+		if (ray->door && !vars->door_flag)
+		{
+			if (ray->point[ray->type] % vars->image[DOOR].width == vars->image[DOOR].width - 1)
+			{
+				// printf("%d	%d\n", ray->point[ray->type] % TILE_SIZE, ray->point[ray->type] % vars->image[DOOR].width);
+				vars->door_flag = 1;
+			}
+			else
+				image = DOOR;
+		}
+		my_mlx_pixel_put(vars, i, *j, get_pixel(&vars->image[image],
+			ray->point[ray->type] % vars->image[image].width,
+			(ray->offset++ * vars->image[image].height) / ray->lineH));
 		(*j)++;
 	}
 }

@@ -126,12 +126,11 @@ int	key_hook(int keycode, t_vars *vars)
 
 int	mouse_hook(int x, int y, t_vars *vars)
 {
-	// printf("x:%d, y:%d", x,y);
-	if (vars->mouse < x - 5)
-		rotate_player(124, vars);
-	else if (vars->mouse > x + 5)
-		rotate_player(123, vars);
-	vars->mouse = x;
+	if (vars->mouse < x / 20)
+		rotate_player(RIGHT_KEY, vars);
+	else if (vars->mouse > x / 20)
+		rotate_player(LEFT_KEY, vars);
+	vars->mouse = x / 20;
 	return (0);
 }
 
