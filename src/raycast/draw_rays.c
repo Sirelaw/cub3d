@@ -43,7 +43,7 @@ void	draw_field(t_vars *vars)
 		// exit(EXIT_SUCCESS);
 
 	}
-	if (vars->colore_shift > 20)
+	if (vars->colore_shift > KILL_SHOT)
 	{
 		// printf("FUCK YOU!!!\n");
 		mlx_put_image_to_window(vars->mlx, vars->win, vars->image[WIN].load, 50, 50);
