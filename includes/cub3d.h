@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 19:02:23 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/29 23:52:33 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/04/30 02:13:57 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@
 # define SCALE_TO_MINI 8
 # define TILE_BIT 6
 # define KILL_SHOT 32
+# define WIN_WIDTH 1200
+# define WIN_HEIGHT 700
 # define POSITION_PUTIN_Y 445
 # define RELATIVE_SIZE_PUTIN 40
-# define WIN_WIDTH 400
-# define WIN_HEIGHT 400
 
 enum e_images
 {
@@ -77,6 +77,7 @@ enum	e_keys
 	S_KEY = 1,
 	D_KEY = 2,
 	W_KEY = 13,
+	ENTER_KEY = 36,
 	LEFT_KEY = 123,
 	RIGHT_KEY = 124,
 	DOWN_KEY = 125,
@@ -140,7 +141,9 @@ typedef struct s_vars
 	int		map_height;
 	int		simul_loop;
 	int		shoot;
+	int		open_door;
 	int		door_flag;
+	int		door_start;
 	int		colore_shift;
 	int		mouse;
 	t_putin	par;

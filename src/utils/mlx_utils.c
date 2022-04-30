@@ -48,8 +48,9 @@ static void	check_valid_position(float temp[2], t_vars *vars)
 	dist = get_dist(vars->player[0], vars->player[1], vars->putin[0], vars->putin[1]);
 	if (dist < 1 * TILE_SIZE)
 		return ;
-	if ((vars->input)[(int)temp[1] >> TILE_BIT][(int)temp[0] >> TILE_BIT]
-		!= '1')
+	if (((vars->input)[(int)temp[1] >> TILE_BIT][(int)temp[0] >> TILE_BIT]
+		!= '1') && ((vars->input)[(int)temp[1] >> TILE_BIT][(int)temp[0] >> TILE_BIT]
+		!= 'D'))
 	{
 		vars->player_f[0] = temp[0];
 		vars->player_f[1] = temp[1];
@@ -107,6 +108,8 @@ int	key_hook(int keycode, t_vars *vars)
 			vars->simul_loop += 2;
 		}
 	}
+	else if (keycode == ENTER_KEY)
+		vars->open_door = 1;
 	return (0);
 }
 

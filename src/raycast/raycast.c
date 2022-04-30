@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 13:01:04 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/29 23:58:15 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/04/30 02:36:37 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,9 @@ static void	cast_ray(t_vars *vars, float theta, int i)
 		if (vars->shoot == 1 && vars->orient - 0.001 < theta && vars->orient + 0.001 > theta)
 			vars->colore_shift++;
 	}
+	// if (i == WIN_WIDTH / 2 && vars->open_door
+	// 	&& vars->input[ray.point[ray.type] / 8][ray.point[!ray.type] / 8] == 'D')
+	// 	printf("Open command given here.\n");
 	draw_line(vars, i, &ray);
 }
 
@@ -82,6 +85,7 @@ void	cast_rays(t_vars *vars)
 	theta = vars->orient - M_PI / 6;
 	dtheta = (M_PI / 3.0) / WIN_WIDTH;
 	vars->door_flag = 0;
+	vars->door_start = 0;
 	vars->img = mlx_new_image(vars->mlx, WIN_WIDTH, WIN_HEIGHT);
 	vars->addr = mlx_get_data_addr(vars->img, &vars->bits_per_pixel,
 			&vars->line_lenght, &vars->endian);

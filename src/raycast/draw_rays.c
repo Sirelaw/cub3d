@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 13:06:25 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/29 23:51:32 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/04/30 01:56:35 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ static void	draw_field_norm(t_vars *vars)
 		while(input[i][j])
 		{
 			if (input[i][j] == '1' && i * MINI_SIZE < vars->player[1]
-				/ SCALE_TO_MINI + 50000
-				&& i * MINI_SIZE > vars->player[1] / SCALE_TO_MINI - 50000
-				&& j * MINI_SIZE < vars->player[0] / SCALE_TO_MINI + 50000
-				&& j * MINI_SIZE > vars->player[0] / SCALE_TO_MINI - 50000)
+				/ SCALE_TO_MINI + 50
+				&& i * MINI_SIZE > vars->player[1] / SCALE_TO_MINI - 50
+				&& j * MINI_SIZE < vars->player[0] / SCALE_TO_MINI + 50
+				&& j * MINI_SIZE > vars->player[0] / SCALE_TO_MINI - 50)
 				mlx_put_image_to_window(vars->mlx, vars->win,
 				vars->image[WHITE_8].load,
 				j * MINI_SIZE, i * MINI_SIZE);
@@ -94,8 +94,19 @@ static int	draw_wall_norm(t_vars *vars, t_ray *ray)
 		image = WE;
 	else if (ray->type == 1)
 		image = EA;
-	if (ray->door)
-		image = DOOR;
+	if (ray->door && vars->door_flag != -1)
+	{
+		if (ray->point[ray->type] % vars->image[DOOR].width == 1)
+			vars->door_start = 1;
+		if (vars->door_flag == 0)
+			vars->door_flag = ray->point[ray->type] % vars->image[DOOR].width;
+		if (ray->point[ray->type] % vars->image[DOOR].width == 0
+			&& ray->point[ray->type] % vars->image[DOOR].width != vars->door_flag
+			&& vars->door_start)
+			vars->door_flag = -1;
+		else
+			image = DOOR;
+	}
 	return (image);
 }
 
@@ -108,20 +119,7 @@ void	draw_wall(t_vars *vars, int i, int *j, t_ray *ray)
 	image = draw_wall_norm(vars, ray);
 	while(temp-- && *j < WIN_HEIGHT)
 	{		
-		if (ray->door && vars->door_flag != -1)
-		{
-			printf("reset flag	%d	%d	%d\n", i, ray->point[ray->type], ray->point[ray->type] % vars->image[DOOR].width);
-			if (vars->door_flag == 0)
-				vars->door_flag = ray->point[ray->type] % vars->image[DOOR].width;
-			if (ray->point[ray->type] % vars->image[DOOR].width == vars->image[DOOR].width - 1 
-				&& ray->point[ray->type] % vars->image[DOOR].width != vars->door_flag)
-			{
-				printf("Here\n");
-				vars->door_flag = -1;
-				exit(0);
-			}
-			image = DOOR;
-		}
+		
 		my_mlx_pixel_put(vars, i, *j, get_pixel(&vars->image[image],
 			ray->point[ray->type] % vars->image[image].width,
 			(ray->offset++ * vars->image[image].height) / ray->lineH));
