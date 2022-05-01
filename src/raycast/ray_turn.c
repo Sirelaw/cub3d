@@ -6,7 +6,7 @@
 /*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 22:02:17 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/04/30 18:10:30 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/05/01 17:08:22 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ float	fix_fisheye_get_height(t_vars *vars, float distance, float angle_diff)
 	distance = distance * cos(angle_diff);
 	if (distance < 1)
 		distance = 1;
-	// lineH = ((float)(TILE_SIZE * vars->win_h) / distance) * 2.23333;
-	lineH = ((float)(TILE_SIZE * vars->win_h) / distance) * (((float)vars->win_w / vars->win_h) - 0.11);
+	// lineH = TILE_SIZE * WIN_HEIGHT / distance;
+	lineH = ((float)(TILE_SIZE * WIN_HEIGHT) / distance) * (((float)WIN_WIDTH / WIN_HEIGHT) - 0.11);
 	return (lineH);
 }
 

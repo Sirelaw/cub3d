@@ -6,7 +6,7 @@
 /*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 19:02:23 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/05/01 16:50:57 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/05/01 17:09:08 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@
 # define SCALE_TO_MINI 8
 # define TILE_BIT 6
 # define KILL_SHOT 32
+# define WIN_WIDTH 1280
+# define WIN_HEIGHT 920
 # define POSITION_PUTIN_Y 445
 # define RELATIVE_SIZE_PUTIN 40
 
@@ -76,6 +78,7 @@ enum	e_keys
 	S_KEY = 1,
 	D_KEY = 2,
 	W_KEY = 13,
+	ENTER_KEY = 36,
 	LEFT_KEY = 123,
 	RIGHT_KEY = 124,
 	DOWN_KEY = 125,
@@ -124,8 +127,6 @@ typedef struct s_vars
 	void	*mlx;
 	void	*win;
 	int		count;
-	int		win_w;
-	int		win_h;
 	char	**map;
 	void	*img;
 	char	start_orientation;
@@ -146,7 +147,9 @@ typedef struct s_vars
 	int		map_height;
 	int		simul_loop;
 	int		shoot;
+	int		open_door;
 	int		door_flag;
+	int		door_start;
 	int		colore_shift;
 	int		mouse;
 	t_putin	par;

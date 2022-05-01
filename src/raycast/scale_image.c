@@ -9,7 +9,7 @@ void	scale_image(t_vars *vars, t_img *image, double scale)
 
 	i = 0;
 	adjusted_lenght = scale * TILE_SIZE;
-	vars->img = mlx_new_image(vars->mlx, vars->win_w, vars->win_h);
+	vars->img = mlx_new_image(vars->mlx, WIN_WIDTH, WIN_HEIGHT);
 	vars->addr = mlx_get_data_addr(vars->img, &vars->bits_per_pixel,
 			&vars->line_lenght, &vars->endian);
 	while (i < adjusted_lenght)

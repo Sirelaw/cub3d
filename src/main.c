@@ -3,8 +3,6 @@
 static void	init_vars(t_vars *vars)
 {
 	vars->input	= NULL;
-	vars->win_w = 1280;
-	vars->win_h = 920;
 	vars->start_orientation = 0;
 	vars->player[0] = 0;
 	vars->player[1] = 0;
@@ -23,6 +21,7 @@ static void	init_vars(t_vars *vars)
 	vars->par.type = 0;
 	vars->shoot = 0;
 	vars->colore_shift = 0;
+	vars->open_door = 0;
 	vars->mouse = 0;
 	// printf("%f\n", ((float)vars->win_w / vars->win_h) - 0.1);
 }
@@ -60,8 +59,8 @@ int	main(int argc, char **argv)
 	init_vars(&vars);
 	input_rows_init_player(argc, argv, &vars);
 	vars.mlx = mlx_init();
-	vars.win = mlx_new_window(vars.mlx, vars.win_w,
-			vars.win_h, "42+2 cube3D");
+	vars.win = mlx_new_window(vars.mlx, WIN_WIDTH,
+			WIN_HEIGHT, "42+2 cube3D");
 	img_handler(&vars);
 	cast_rays(&vars);
 	pthread_create(&sounding, NULL, make_sound, &vars);

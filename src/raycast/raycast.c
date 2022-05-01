@@ -6,7 +6,7 @@
 /*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 13:01:04 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/30 20:01:20 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/05/01 16:58:08 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ static void	distance_calculations(t_vars *vars, t_ray *ray)
 static void	cast_ray(t_vars *vars, float theta, int i)
 {
 	t_ray	ray;
+
 	define_ray_parameters(vars, &ray, theta);
 	init_look_up_down(vars, &ray, theta);
 	init_look_left_right(vars, &ray, theta);
@@ -53,14 +54,13 @@ static void	cast_ray(t_vars *vars, float theta, int i)
 	{
 		vars->par.all_in = 1;
 		vars->par.putin_img_x = i;
-		vars->par.putin_img_y = vars->win_h / 2 - ray.lineH / 2;
+		vars->par.putin_img_y = WIN_HEIGHT / 2 - ray.lineH / 2;
 		if (vars->shoot == 1 && vars->orient - 0.001 < theta && vars->orient + 0.001 > theta)
 			vars->colore_shift++;
 	}
-	// if (theta > vars->par.max_angle && theta < 2 * vars->par.max_angle && ray.lineH < vars->par.line_h_and_w)
-	// {
-
-	// }
+	// if (i == WIN_WIDTH / 2 && vars->open_door
+	// 	&& vars->input[ray.point[ray.type] / 8][ray.point[!ray.type] / 8] == 'D')
+	// 	printf("Open command given here.\n");
 	draw_line(vars, i, &ray);
 }
 
@@ -84,15 +84,16 @@ void	cast_rays(t_vars *vars)
 
 	i = 0;
 	theta = vars->orient - M_PI / 6;
-	dtheta = (M_PI / 3.0) / vars->win_w; //2.4 makes the stretch almsot good
+	dtheta = (M_PI / 3.0) / WIN_WIDTH;
 	vars->door_flag = 0;
-	vars->img = mlx_new_image(vars->mlx, vars->win_w, vars->win_h);
+	vars->door_start = 0;
+	vars->img = mlx_new_image(vars->mlx, WIN_WIDTH, WIN_HEIGHT);
 	vars->addr = mlx_get_data_addr(vars->img, &vars->bits_per_pixel,
 			&vars->line_lenght, &vars->endian);
 	vars->par.one_put = 0;
 	vars->par.all_in = 0;
 	fill_putin_arays(vars);
-	while (i++ < vars->win_w)
+	while (i++ < WIN_WIDTH)
 	{
 		vars->par.put_in = 0;
 		theta += dtheta;
