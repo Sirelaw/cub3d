@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 19:02:23 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/05/01 17:12:29 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/05/01 18:17:50 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,8 +142,7 @@ typedef struct s_vars
 	int		simul_loop;
 	int		shoot;
 	int		open_door;
-	int		door_flag;
-	int		door_start;
+	int		last_door[2];
 	int		colore_shift;
 	int		mouse;
 	t_putin	par;

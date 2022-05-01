@@ -46,10 +46,19 @@ static void	check_valid_position(float temp[2], t_vars *vars)
 	dist = get_dist(vars->player[0], vars->player[1], vars->putin[0], vars->putin[1]);
 	if (dist < 1 * TILE_SIZE)
 		return ;
-	if (((vars->input)[(int)temp[1] >> TILE_BIT][(int)temp[0] >> TILE_BIT]
-		!= '1') && ((vars->input)[(int)temp[1] >> TILE_BIT][(int)temp[0] >> TILE_BIT]
-		!= 'D'))
+	if ((vars->input)[(int)temp[1] >> TILE_BIT][(int)temp[0] >> TILE_BIT]
+		!= '1')
 	{
+		if ((vars->input)[(int)temp[1] >> TILE_BIT][(int)temp[0] >> TILE_BIT]
+		== 'D')
+		{
+			if (!vars->open_door)
+				return ;
+			vars->last_door[0] = (int)temp[0] >> TILE_BIT;
+			vars->last_door[1] = (int)temp[1] >> TILE_BIT;
+			(vars->input)[(int)temp[1] >> TILE_BIT][(int)temp[0] >> TILE_BIT]
+				= '0';
+		}
 		vars->player_f[0] = temp[0];
 		vars->player_f[1] = temp[1];
 		vars->player[0] = temp[0];
@@ -90,7 +99,6 @@ void	move_image(int keycode, t_vars *vars)
 
 int	key_hook(int keycode, t_vars *vars)
 {
-	printf("%d\n", keycode);
 	if (keycode == 53)
 		clean_destroy(vars);
 	if (keycode == 123 || keycode == 124)

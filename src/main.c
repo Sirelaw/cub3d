@@ -22,6 +22,8 @@ static void	init_vars(t_vars *vars)
 	vars->shoot = 0;
 	vars->colore_shift = 0;
 	vars->open_door = 0;
+	vars->last_door[0] = 0;
+	vars->last_door[1] = 0;
 	vars->mouse = 0;
 }
 
