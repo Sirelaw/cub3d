@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 16:44:30 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/05/02 00:22:56 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/05/02 00:37:21 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ void	get_elements(t_vars *vars, int fd)
 					free(temp[1]);
 			free(elem);
 			free(temp[0]);
+			free(temp);
 		}
 	}
 }

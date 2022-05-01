@@ -6,7 +6,7 @@
 /*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 13:06:25 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/05/01 17:12:02 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/05/02 00:07:55 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,14 @@ void	draw_line(t_vars *vars, int i, t_ray *ray)
 	draw_wall(vars, i, &j, ray);
 	while (j < WIN_HEIGHT)
 		my_mlx_pixel_put(vars, i, j++, vars->floor_color);
-	if (vars->par.put_in == 1/*  &&  vars->par.one_put < 64 */)
+	if (vars->par.put_in == 1)
 	{
 		vars->par.hight = (vars->image[PUTINS].height * WIN_HEIGHT) / vars->par.putin_dist;
 		vars->par.ofset_h = vars->par.hight / TILE_SIZE;
-		draw_putin(vars, i, t, ray);
+		if (vars->par.putin_dist < ray->distance)
+		{
+			vars->par.put_point_x[vars->par.one_put] = i;
+		}
 		vars->par.one_put++;
 	}
 }
@@ -107,11 +110,7 @@ void	draw_wall(t_vars *vars, int i, int *j, t_ray *ray)
 	temp = ray->lineH;
 	image = draw_wall_norm(vars, ray);
 	while(temp-- && *j < WIN_HEIGHT)
-	{		
-		
-		// my_mlx_pixel_put(vars, i, *j, get_pixel(&vars->image[image],
-		// 	ray->point[ray->type],
-		// 	(ray->offset++ * vars->image[image].height) / ray->lineH));
+	{
 		my_mlx_pixel_put(vars, i, *j, get_pixel(&vars->image[image],
 			ray->point[ray->type] % vars->image[image].width,
 			(ray->offset++ * vars->image[image].height) / ray->lineH));

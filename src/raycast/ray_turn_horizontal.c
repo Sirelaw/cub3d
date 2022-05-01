@@ -6,7 +6,7 @@
 /*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 17:09:18 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/05/01 17:12:06 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/05/02 00:05:17 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,10 @@ static void	putin_ray_h(t_vars *vars, t_ray* ray)
 		&& ray->my < vars->map_height
 		&& vars->input[ray->my][ray->mx] == '8')
 	{
-		vars->par.put_in = 1;
-		vars->par.point_h[0] = ray->rx;
-		vars->par.point_h[1] = ray->ry;
 		vars->par.dist[0] = get_dist(vars->player[0], vars->player[1],
-		vars->putin[0], vars->putin[1]);
+			vars->putin[0], vars->putin[1]);
+		if (ray->dist[0] > vars->par.dist[0])
+			vars->par.put_in = 1;
 	}
 }
 
@@ -61,7 +60,7 @@ void	init_look_up_down(t_vars *vars, t_ray* ray, float theta)
 {
 	if (theta > M_PI)
 	{
-		ray->ry = (((int)(vars->player[1]) >> TILE_BIT) << TILE_BIT) - 0.00015; //0 . 64 128 ...
+		ray->ry = (((int)(vars->player[1]) >> TILE_BIT) << TILE_BIT) - 0.00015;
 		ray->rx = (vars->player[1] - ray->ry) * ray->aTan + vars->player[0];
 		ray->yo = -TILE_SIZE;
 		ray->xo = -ray->yo * ray->aTan;

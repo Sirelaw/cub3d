@@ -13,12 +13,11 @@ static void	init_vars(t_vars *vars)
 	vars->origin[0] = 0;
 	vars->origin[1] = 0;
 	vars->simul_loop = 0;
-	vars->par.putin_step = 32;
+	// vars->par.putin_step = 37;
 	vars->par.putin_time = 0;
 	vars->putin[0] = 0;
 	vars->putin[1] = 0;
 	vars->par.put_in = 0;
-	vars->par.type = 0;
 	vars->shoot = 0;
 	vars->colore_shift = 0;
 	vars->open_door = 0;
