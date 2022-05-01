@@ -6,6 +6,8 @@
 #define	RED 0xFF0000
 #define GREEN 0x00FF00
 
+
+
 typedef struct s_ray
 {
 	int 	mx;

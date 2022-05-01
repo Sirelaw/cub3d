@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 16:44:30 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/25 01:16:25 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/05/02 00:22:56 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ static int	convert_to_color(char *str)
 		temp_color[i - 1] = do_atoi(temp[i - 1]);
 		if (temp_color[i - 1] < 0 || temp_color[i - 1] > 255)
 			ft_error("RGB value not in range of 0 - 255");
+		free(temp[i - 1]);
 	}
 	free(temp);
 	return (temp_color[0] << 16 | temp_color[1] << 8 | temp_color[2]);

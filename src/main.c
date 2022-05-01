@@ -56,6 +56,7 @@ int	main(int argc, char **argv)
 {
 	t_vars		vars;
 	pthread_t	sounding;
+	t_keys		keys;
 
 	ft_bzero(&vars, sizeof(vars));
 	init_vars(&vars);

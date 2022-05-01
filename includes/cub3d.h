@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 19:02:23 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/05/01 18:27:58 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/05/01 23:52:21 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,18 @@ enum e_images
 	SIMPLE,
 	IMAGE_COUNT
 };
+
+typedef	struct s_keys
+{
+	int	w;
+	int	a;
+	int	d;
+	int	s;
+	int	up;
+	int	down;
+	int	left;
+	int	right;
+} t_keys;
 
 enum	e_keys
 {
@@ -151,6 +163,7 @@ typedef struct s_vars
 	int		last_door[2];
 	int		colore_shift;
 	int		mouse;
+	t_keys	keys;
 	t_putin	par;
 }				t_vars;
 
