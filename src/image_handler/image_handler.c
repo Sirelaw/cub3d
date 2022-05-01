@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   image_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:53:35 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/04/28 00:03:37 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/05/01 16:50:23 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ static void	p_img(t_vars *vars)
 	vars->image[FIRE].path = "./img/fire.xpm";
 	vars->image[LOST].path = "./img/game_over.xpm";
 	vars->image[DOOR].path = "./img/door.xpm";
+	vars->image[SIMPLE].path = "./img/simple.xpm";
 }
 
 static void	load_img(t_vars *vars)

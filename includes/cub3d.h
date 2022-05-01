@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 19:02:23 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/05/01 18:17:50 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/05/01 18:27:58 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@
 # define SCALE_TO_MINI 8
 # define TILE_BIT 6
 # define KILL_SHOT 32
-# define WIN_WIDTH 1200
-# define WIN_HEIGHT 700
+# define WIN_WIDTH 1280
+# define WIN_HEIGHT 920
 # define POSITION_PUTIN_Y 445
 # define RELATIVE_SIZE_PUTIN 40
 
@@ -68,6 +68,7 @@ enum e_images
 	LOST,
 	FIRE,
 	DOOR,
+	SIMPLE,
 	IMAGE_COUNT
 };
 
@@ -113,6 +114,11 @@ typedef struct s_putin
 	int		ofset_h;
 	int		offset;
 	int		type;
+	// new version
+	float putin_dist_ii;
+	float line_h_and_w;
+	float max_angle;
+	int		all_in;
 }	t_putin;
 
 typedef struct s_vars
@@ -195,6 +201,8 @@ void	plot_line_angle(int start[2], float theta, float dist, t_vars *vars);
 float	fix_fisheye_get_height(t_vars *vars, float distance, float angle_diff);
 void	define_ray_parameters(t_vars *vars, t_ray *ray, float theta);
 
+// new putin cast
+void	cast_p_rays(t_vars *vars);
 // void ray_maker(t_vars *g);
 // void draw_line_ii(t_vars *g, int i, float line_h);
 // void	vertical_ray_maker(t_vars *g);

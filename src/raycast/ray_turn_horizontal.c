@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_turn_horizontal.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 17:09:18 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/05/01 16:57:13 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/05/01 17:12:06 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ static void	look_up_down(t_vars *vars, t_ray* ray)
 	{
 		ray->mx = (int)(ray->rx) >> TILE_BIT;
 		ray->my = (int)(ray->ry) >> TILE_BIT;
-		putin_ray_h(vars, ray);
 		if (ray->mx >= 0 && ray->my >= 0 && ray->mx < vars->map_width
 			&& ray->my < vars->map_height
 			&& (vars->input[ray->my][ray->mx] == '1'
@@ -53,6 +52,8 @@ static void	look_up_down(t_vars *vars, t_ray* ray)
 			ray->ry += ray->yo;
 			ray->dof++;
 		}
+		if (ray->dof < vars->map_height)
+			putin_ray_h(vars, ray);
 	}
 }
 
@@ -60,7 +61,7 @@ void	init_look_up_down(t_vars *vars, t_ray* ray, float theta)
 {
 	if (theta > M_PI)
 	{
-		ray->ry = (((int)(vars->player[1]) >> TILE_BIT) << TILE_BIT) - 0.00015;
+		ray->ry = (((int)(vars->player[1]) >> TILE_BIT) << TILE_BIT) - 0.00015; //0 . 64 128 ...
 		ray->rx = (vars->player[1] - ray->ry) * ray->aTan + vars->player[0];
 		ray->yo = -TILE_SIZE;
 		ray->xo = -ray->yo * ray->aTan;
