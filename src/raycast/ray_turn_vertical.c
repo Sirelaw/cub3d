@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_turn_vertical.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 17:09:18 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/04/29 14:01:14 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/04/30 19:56:46 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ static void	look_left_right(t_vars *vars, t_ray* ray)
 	{
 		ray->mx = (int)(ray->rx) >> TILE_BIT;
 		ray->my = (int)(ray->ry) >> TILE_BIT;
-		putin_ray_v(vars, ray);
 		if (ray->mx >= 0 && ray->my >= 0 && ray->mx < vars->map_width
 			&& ray->my < vars->map_height
 			&& (vars->input[ray->my][ray->mx] == '1'
@@ -57,6 +56,8 @@ static void	look_left_right(t_vars *vars, t_ray* ray)
 			ray->ry += ray->yo;
 			ray->dof++;
 		}
+		if (ray->dof < vars->map_width)
+			putin_ray_v(vars, ray);
 	}
 }
 
@@ -64,7 +65,7 @@ void	init_look_left_right(t_vars *vars, t_ray* ray, float theta)
 {
 	if (theta > M_PI_2 && theta < 3 * M_PI_2)
 	{
-		ray->rx = (((int)(vars->player[0]) >> TILE_BIT) << TILE_BIT) - 0.00015;
+		ray->rx = (((int)(vars->player[0]) >> TILE_BIT) << TILE_BIT) - 0.00015; //0 64 128 ...
 		ray->ry = (vars->player[0] - ray->rx) * ray->nTan + vars->player[1];
 		ray->xo = -TILE_SIZE;
 		ray->yo = -ray->xo * ray->nTan;

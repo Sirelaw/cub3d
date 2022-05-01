@@ -6,7 +6,7 @@
 /*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 13:01:04 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/29 22:31:09 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/04/30 20:01:20 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,16 @@ static void	cast_ray(t_vars *vars, float theta, int i)
 	plot_line_angle(vars->player, theta, ray.distance / SCALE_TO_MINI, vars);
 	if (vars->par.put_in == 1)
 	{
+		vars->par.all_in = 1;
 		vars->par.putin_img_x = i;
 		vars->par.putin_img_y = vars->win_h / 2 - ray.lineH / 2;
 		if (vars->shoot == 1 && vars->orient - 0.001 < theta && vars->orient + 0.001 > theta)
 			vars->colore_shift++;
 	}
+	// if (theta > vars->par.max_angle && theta < 2 * vars->par.max_angle && ray.lineH < vars->par.line_h_and_w)
+	// {
+
+	// }
 	draw_line(vars, i, &ray);
 }
 
@@ -79,12 +84,13 @@ void	cast_rays(t_vars *vars)
 
 	i = 0;
 	theta = vars->orient - M_PI / 6;
-	dtheta = (M_PI / 3.0) / vars->win_w;
+	dtheta = (M_PI / 3.0) / vars->win_w; //2.4 makes the stretch almsot good
 	vars->door_flag = 0;
 	vars->img = mlx_new_image(vars->mlx, vars->win_w, vars->win_h);
 	vars->addr = mlx_get_data_addr(vars->img, &vars->bits_per_pixel,
 			&vars->line_lenght, &vars->endian);
 	vars->par.one_put = 0;
+	vars->par.all_in = 0;
 	fill_putin_arays(vars);
 	while (i++ < vars->win_w)
 	{
@@ -96,7 +102,9 @@ void	cast_rays(t_vars *vars)
 			theta += 2 * M_PI;
 		cast_ray(vars, theta, i);
 	}
-	draw_putin_arays(vars);
+	// dont call when tehre is none of putin.
+	if (vars->par.all_in == 1)
+		draw_putin_arays(vars);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img, 0, 0);
 	draw_field(vars);
 }

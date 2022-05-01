@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_rays.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 13:06:25 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/29 19:55:49 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/05/01 16:43:52 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,13 +110,13 @@ void	draw_wall(t_vars *vars, int i, int *j, t_ray *ray)
 	{		
 		if (ray->door && vars->door_flag != -1)
 		{
-			printf("reset flag	%d	%d	%d\n", i, ray->point[ray->type], ray->point[ray->type] % vars->image[DOOR].width);
+			// printf("reset flag	%d	%d	%d\n", i, ray->point[ray->type], ray->point[ray->type] % vars->image[DOOR].width);
 			if (vars->door_flag == 0)
 				vars->door_flag = ray->point[ray->type] % vars->image[DOOR].width;
 			if (ray->point[ray->type] % vars->image[DOOR].width == vars->image[DOOR].width - 1 
 				&& ray->point[ray->type] % vars->image[DOOR].width != vars->door_flag)
 			{
-				printf("Here\n");
+				// printf("Here\n");
 				vars->door_flag = -1;
 				// exit(0);
 			}

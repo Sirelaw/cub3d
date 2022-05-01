@@ -24,6 +24,7 @@ static void	init_vars(t_vars *vars)
 	vars->shoot = 0;
 	vars->colore_shift = 0;
 	vars->mouse = 0;
+	// printf("%f\n", ((float)vars->win_w / vars->win_h) - 0.1);
 }
 
 static int	frame_func(t_vars *vars)
@@ -55,6 +56,7 @@ int	main(int argc, char **argv)
 	t_vars	vars;
 	pthread_t sounding;
 
+	ft_bzero(&vars, sizeof(vars));
 	init_vars(&vars);
 	input_rows_init_player(argc, argv, &vars);
 	vars.mlx = mlx_init();
