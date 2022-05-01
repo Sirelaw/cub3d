@@ -21,8 +21,6 @@ int	get_pixel(t_img *image, int x, int y)
 int	render_next_rays(t_vars *vars)
 {
 	mlx_destroy_image(vars->mlx, vars->img);
-	// if (vars->this_ends != -1)
-	// 	end_the_game(vars, vars->this_ends);
 	cast_rays(vars);
 	return (0);
 }
@@ -92,6 +90,7 @@ void	move_image(int keycode, t_vars *vars)
 
 int	key_hook(int keycode, t_vars *vars)
 {
+	printf("%d\n", keycode);
 	if (keycode == 53)
 		clean_destroy(vars);
 	if (keycode == 123 || keycode == 124)
@@ -107,7 +106,7 @@ int	key_hook(int keycode, t_vars *vars)
 			vars->simul_loop += 2;
 		}
 	}
-	else if (keycode == ENTER_KEY)
+	else if (keycode == SPACE_KEY)
 		vars->open_door = 1;
 	return (0);
 }

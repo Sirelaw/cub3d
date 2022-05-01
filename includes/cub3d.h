@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 19:02:23 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/30 02:13:57 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/05/01 17:12:29 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ enum	e_keys
 	S_KEY = 1,
 	D_KEY = 2,
 	W_KEY = 13,
-	ENTER_KEY = 36,
+	SPACE_KEY = 49,
 	LEFT_KEY = 123,
 	RIGHT_KEY = 124,
 	DOWN_KEY = 125,
