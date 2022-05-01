@@ -6,7 +6,7 @@
 /*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 13:01:04 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/05/01 17:12:32 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/05/02 00:12:45 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,9 @@ static void	distance_calculations(t_vars *vars, t_ray *ray)
 	if (vars->par.dist[0] < vars->par.dist[1])
 	{
 		vars->par.putin_dist = vars->par.dist[0];
-		vars->par.type = 1;
 	}
 	else
 	{
-		vars->par.type = 0;
 		vars->par.putin_dist = vars->par.dist[1];
 	}
 }
@@ -52,17 +50,11 @@ static void	cast_ray(t_vars *vars, float theta, int i)
 	plot_line_angle(vars->player, theta, ray.distance / SCALE_TO_MINI, vars);
 	if (vars->par.put_in == 1)
 	{
-		vars->par.all_in = 1;
-		vars->par.putin_img_x = i;
-		vars->par.putin_img_y = WIN_HEIGHT / 2 - ray.lineH / 2;
+		if (vars->par.one_side_flag == -1)
+			vars->par.all_in = 1;
 		if (vars->shoot == 1 && vars->orient - 0.001 < theta && vars->orient + 0.001 > theta)
 			vars->colore_shift++;
 	}
-	// if (i == WIN_WIDTH / 2 && vars->open_door
-	// 	&& vars->input[ray.point[!ray.type] / 8][ray.point[ray.type] / 8] == 'D')
-	// 	printf("Open command given here.\n");
-	// if (i == WIN_WIDTH / 2 && vars->open_door)
-	// 	printf("Open here: %d\n", vars->input[ray.point[!ray.type] / 8][ray.point[ray.type] / 8] == 'D');
 	draw_line(vars, i, &ray);
 }
 
@@ -71,7 +63,7 @@ static void fill_putin_arays(t_vars *vars)
 	int i;
 
 	i = 0;
-	while (i < 64)
+	while (i < 1280)
 	{
 		vars->par.put_point_x[i] = -1;
 		i++;
@@ -94,6 +86,7 @@ void	cast_rays(t_vars *vars)
 			&vars->line_lenght, &vars->endian);
 	vars->par.one_put = 0;
 	vars->par.all_in = 0;
+	vars->par.one_side_flag = -1;
 	fill_putin_arays(vars);
 	while (i++ < WIN_WIDTH)
 	{
@@ -105,7 +98,6 @@ void	cast_rays(t_vars *vars)
 			theta += 2 * M_PI;
 		cast_ray(vars, theta, i);
 	}
-	// dont call when tehre is none of putin.
 	if (vars->par.all_in == 1)
 		draw_putin_arays(vars);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img, 0, 0);

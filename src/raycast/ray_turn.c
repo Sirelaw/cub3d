@@ -6,7 +6,7 @@
 /*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 22:02:17 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/05/01 17:12:25 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/05/01 21:56:17 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,18 @@ void end_the_game(t_vars *vars, int suc)
 	// }
 	// // sleep(10);
 	// // exit(EXIT_SUCCESS);
+}
+
+void	plot_line_angle2(int start[2], float theta, float dist, t_vars *vars)
+{
+	int	point[2];
+	int	new_point[2];
+
+	point[0] = start[0] / SCALE_TO_MINI;
+	point[1] = start[1] / SCALE_TO_MINI;
+	new_point[0] = point[0] + (dist * cosf(theta));
+	new_point[1] = point[1] + (dist * sinf(theta));
+	plotline(point, new_point, vars, RED);
 }
 
 void	plot_line_angle(int start[2], float theta, float dist, t_vars *vars)

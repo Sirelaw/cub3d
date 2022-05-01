@@ -6,7 +6,7 @@
 /*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 17:09:18 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/05/01 17:12:12 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/05/02 00:05:40 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,14 @@ float	get_dist(float ax, float ay, float bx, float by)
 
 static void	putin_ray_v(t_vars *vars, t_ray* ray)
 {
-	if (ray->mx >= 0 && ray->my >= 0 && ray->mx < vars->map_width
+if (ray->mx >= 0 && ray->my >= 0 && ray->mx < vars->map_width
 		&& ray->my < vars->map_height
 		&& (vars->input)[ray->my][ray->mx] == '8')
 	{
-		vars->par.put_in = 1;
-		vars->par.point_v[0] = ray->rx;
-		vars->par.point_v[1] = ray->ry;
 		vars->par.dist[1] = get_dist(vars->player[0], vars->player[1],
 			vars->putin[0], vars->putin[1]);
+		if (ray->dist[1] > vars->par.dist[1])
+			vars->par.put_in = 1;
 	}
 }
 
@@ -57,7 +56,9 @@ static void	look_left_right(t_vars *vars, t_ray* ray)
 			ray->dof++;
 		}
 		if (ray->dof < vars->map_width)
+		{
 			putin_ray_v(vars, ray);
+		}
 	}
 }
 
@@ -65,7 +66,7 @@ void	init_look_left_right(t_vars *vars, t_ray* ray, float theta)
 {
 	if (theta > M_PI_2 && theta < 3 * M_PI_2)
 	{
-		ray->rx = (((int)(vars->player[0]) >> TILE_BIT) << TILE_BIT) - 0.00015; //0 64 128 ...
+		ray->rx = (((int)(vars->player[0]) >> TILE_BIT) << TILE_BIT) - 0.00015;
 		ray->ry = (vars->player[0] - ray->rx) * ray->nTan + vars->player[1];
 		ray->xo = -TILE_SIZE;
 		ray->yo = -ray->xo * ray->nTan;

@@ -6,7 +6,7 @@
 /*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 19:02:23 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/05/01 17:09:08 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/05/02 00:12:28 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # include "ray_cast.h"
 # include <pthread.h>
 
-# define STEP 40
+# define STEP 17
 # define TILE_SIZE 64
 # define MINI_SIZE 8
 # define SCALE_TO_MINI 8
@@ -35,6 +35,7 @@
 # define WIN_HEIGHT 920
 # define POSITION_PUTIN_Y 445
 # define RELATIVE_SIZE_PUTIN 40
+# define SENSIBILITY 16
 
 enum e_images
 {
@@ -100,8 +101,6 @@ typedef struct s_img
 typedef struct s_putin
 {
 	int		put_point_x[1280];
-	int		point_h[2];
-	int		point_v[2];
 	float	dist[2];
 	int		putin_img_x;
 	int		putin_img_y;
@@ -113,11 +112,7 @@ typedef struct s_putin
 	int		hight;
 	int		ofset_h;
 	int		offset;
-	int		type;
-	// new version
-	float putin_dist_ii;
-	float line_h_and_w;
-	float max_angle;
+	int		one_side_flag;
 	int		all_in;
 }	t_putin;
 
@@ -199,14 +194,11 @@ void	draw_wall(t_vars *vars, int i, int *j, t_ray *ray);
 void	draw_field(t_vars *vars);
 void	draw_putin_arays(t_vars *vars);
 void	plot_line_angle(int start[2], float theta, float dist, t_vars *vars);
+void	plot_line_angle2(int start[2], float theta, float dist, t_vars *vars);
 float	fix_fisheye_get_height(t_vars *vars, float distance, float angle_diff);
 void	define_ray_parameters(t_vars *vars, t_ray *ray, float theta);
 
 // new putin cast
 void	cast_p_rays(t_vars *vars);
-// void ray_maker(t_vars *g);
-// void draw_line_ii(t_vars *g, int i, float line_h);
-// void	vertical_ray_maker(t_vars *g);
-// void	horisontal_ray_maker(t_vars *g);
 
 #endif

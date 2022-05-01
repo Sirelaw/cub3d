@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_handling_2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/19 18:51:48 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/28 00:09:02 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/05/01 23:33:43 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,8 @@ void	check_other_line(char *str, char *up, char *down, t_vars *vars)
 			}
 			if (str[i] == '0' && vars->putin[0] == 0)
 			{
-				vars->putin[0] = i * TILE_SIZE;
-				vars->putin[1] = vars->player[1];
+				vars->putin[0] = i * TILE_SIZE + 17;
+				vars->putin[1] = vars->player[1] + 17;
 			}
 		}
 		else if (str[i] != '1' && str[i] != ' ' && str[i] != 'D')
