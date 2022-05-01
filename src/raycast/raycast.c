@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 13:01:04 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/30 02:36:37 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/04/30 16:13:05 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,10 @@ static void	cast_ray(t_vars *vars, float theta, int i)
 			vars->colore_shift++;
 	}
 	// if (i == WIN_WIDTH / 2 && vars->open_door
-	// 	&& vars->input[ray.point[ray.type] / 8][ray.point[!ray.type] / 8] == 'D')
+	// 	&& vars->input[ray.point[!ray.type] / 8][ray.point[ray.type] / 8] == 'D')
 	// 	printf("Open command given here.\n");
+	// if (i == WIN_WIDTH / 2 && vars->open_door)
+	// 	printf("Open here: %d\n", vars->input[ray.point[!ray.type] / 8][ray.point[ray.type] / 8] == 'D');
 	draw_line(vars, i, &ray);
 }
 

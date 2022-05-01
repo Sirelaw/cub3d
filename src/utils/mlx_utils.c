@@ -103,7 +103,6 @@ int	key_hook(int keycode, t_vars *vars)
 	{
 		if (vars->shoot == 0)
 		{
-			
 			vars->shoot = 1;
 			vars->simul_loop += 2;
 		}

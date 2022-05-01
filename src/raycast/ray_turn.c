@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 22:02:17 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/04/29 23:51:32 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/05/01 16:57:42 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ float	fix_fisheye_get_height(t_vars *vars, float distance, float angle_diff)
 	distance = distance * cos(angle_diff);
 	if (distance < 1)
 		distance = 1;
-	lineH = TILE_SIZE * WIN_HEIGHT / distance;
+	lineH = ((float)(TILE_SIZE * WIN_HEIGHT) / distance)
+			* (((float)WIN_WIDTH / WIN_HEIGHT) - 0.11);
 	return (lineH);
 }
 
@@ -77,5 +78,6 @@ void	define_ray_parameters(t_vars *vars, t_ray *ray, float theta)
 	vars->par.dist[1] = 1000000;
 	ray->aTan = -1 / tan(theta);
 	ray->nTan = -tan(theta);
-	ray->door = 0;
+	ray->door[0] = 0;
+	ray->door[1] = 0;
 }

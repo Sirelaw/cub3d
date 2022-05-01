@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 17:09:18 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/04/30 02:24:13 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/05/01 16:57:13 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	look_up_down(t_vars *vars, t_ray* ray)
 			|| vars->input[ray->my][ray->mx] == 'D'))
 		{
 			if (vars->input[ray->my][ray->mx] == 'D')
-				ray->door = 1;
+				ray->door[0] = 1;
 			ray->point_h[0] = ray->rx;
 			ray->point_h[1] = ray->ry;
 			ray->dist[0] = get_dist(vars->player[0], vars->player[1],

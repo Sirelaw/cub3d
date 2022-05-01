@@ -51,8 +51,8 @@ void	*make_sound(void *some)
 
 int	main(int argc, char **argv)
 {
-	t_vars	vars;
-	pthread_t sounding;
+	t_vars		vars;
+	pthread_t	sounding;
 
 	init_vars(&vars);
 	input_rows_init_player(argc, argv, &vars);
