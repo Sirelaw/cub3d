@@ -6,7 +6,7 @@
 /*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 13:01:04 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/05/02 00:12:45 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/05/02 00:14:28 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,9 @@ void	cast_rays(t_vars *vars)
 	i = 0;
 	theta = vars->orient - M_PI / 6;
 	dtheta = (M_PI / 3.0) / WIN_WIDTH;
-	vars->door_flag = 0;
-	vars->door_start = 0;
+	vars->open_door = vars->open_door && vars->simul_loop;
+	if (vars->last_door[0] || vars->last_door[1])
+		vars->input[vars->last_door[1]][vars->last_door[0]] = 'D';
 	vars->img = mlx_new_image(vars->mlx, WIN_WIDTH, WIN_HEIGHT);
 	vars->addr = mlx_get_data_addr(vars->img, &vars->bits_per_pixel,
 			&vars->line_lenght, &vars->endian);

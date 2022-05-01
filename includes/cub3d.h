@@ -6,7 +6,7 @@
 /*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 19:02:23 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/05/02 00:12:28 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/05/02 00:13:53 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ enum	e_keys
 	S_KEY = 1,
 	D_KEY = 2,
 	W_KEY = 13,
-	ENTER_KEY = 36,
+	SPACE_KEY = 49,
 	LEFT_KEY = 123,
 	RIGHT_KEY = 124,
 	DOWN_KEY = 125,
@@ -143,8 +143,7 @@ typedef struct s_vars
 	int		simul_loop;
 	int		shoot;
 	int		open_door;
-	int		door_flag;
-	int		door_start;
+	int		last_door[2];
 	int		colore_shift;
 	int		mouse;
 	t_putin	par;

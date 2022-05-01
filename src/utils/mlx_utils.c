@@ -21,8 +21,6 @@ int	get_pixel(t_img *image, int x, int y)
 int	render_next_rays(t_vars *vars)
 {
 	mlx_destroy_image(vars->mlx, vars->img);
-	// if (vars->this_ends != -1)
-	// 	end_the_game(vars, vars->this_ends);
 	cast_rays(vars);
 	return (0);
 }
@@ -48,10 +46,19 @@ static void	check_valid_position(float temp[2], t_vars *vars)
 	dist = get_dist(vars->player[0], vars->player[1], vars->putin[0], vars->putin[1]);
 	if (dist < 1 * TILE_SIZE)
 		return ;
-	if (((vars->input)[(int)temp[1] >> TILE_BIT][(int)temp[0] >> TILE_BIT]
-		!= '1') && ((vars->input)[(int)temp[1] >> TILE_BIT][(int)temp[0] >> TILE_BIT]
-		!= 'D'))
+	if ((vars->input)[(int)temp[1] >> TILE_BIT][(int)temp[0] >> TILE_BIT]
+		!= '1')
 	{
+		if ((vars->input)[(int)temp[1] >> TILE_BIT][(int)temp[0] >> TILE_BIT]
+		== 'D')
+		{
+			if (!vars->open_door)
+				return ;
+			vars->last_door[0] = (int)temp[0] >> TILE_BIT;
+			vars->last_door[1] = (int)temp[1] >> TILE_BIT;
+			(vars->input)[(int)temp[1] >> TILE_BIT][(int)temp[0] >> TILE_BIT]
+				= '0';
+		}
 		vars->player_f[0] = temp[0];
 		vars->player_f[1] = temp[1];
 		vars->player[0] = temp[0];
@@ -107,7 +114,7 @@ int	key_hook(int keycode, t_vars *vars)
 			vars->simul_loop += 2;
 		}
 	}
-	else if (keycode == ENTER_KEY)
+	else if (keycode == SPACE_KEY)
 		vars->open_door = 1;
 	return (0);
 }
