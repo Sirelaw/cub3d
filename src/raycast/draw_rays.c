@@ -6,7 +6,7 @@
 /*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 13:06:25 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/05/01 16:59:51 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/05/01 17:12:02 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,19 +94,8 @@ static int	draw_wall_norm(t_vars *vars, t_ray *ray)
 		image = WE;
 	else if (ray->type == 1)
 		image = EA;
-	if (ray->door && vars->door_flag != -1)
-	{
-		if (ray->point[ray->type] % vars->image[DOOR].width == 1)
-			vars->door_start = 1;
-		if (vars->door_flag == 0)
-			vars->door_flag = ray->point[ray->type] % vars->image[DOOR].width;
-		if (ray->point[ray->type] % vars->image[DOOR].width == 0
-			&& ray->point[ray->type] % vars->image[DOOR].width != vars->door_flag
-			&& vars->door_start)
-			vars->door_flag = -1;
-		else
-			image = DOOR;
-	}
+	if (ray->door[ray->type])
+		image = DOOR;
 	return (image);
 }
 
@@ -120,6 +109,9 @@ void	draw_wall(t_vars *vars, int i, int *j, t_ray *ray)
 	while(temp-- && *j < WIN_HEIGHT)
 	{		
 		
+		// my_mlx_pixel_put(vars, i, *j, get_pixel(&vars->image[image],
+		// 	ray->point[ray->type],
+		// 	(ray->offset++ * vars->image[image].height) / ray->lineH));
 		my_mlx_pixel_put(vars, i, *j, get_pixel(&vars->image[image],
 			ray->point[ray->type] % vars->image[image].width,
 			(ray->offset++ * vars->image[image].height) / ray->lineH));

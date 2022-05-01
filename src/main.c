@@ -52,8 +52,8 @@ void	*make_sound(void *some)
 
 int	main(int argc, char **argv)
 {
-	t_vars	vars;
-	pthread_t sounding;
+	t_vars		vars;
+	pthread_t	sounding;
 
 	ft_bzero(&vars, sizeof(vars));
 	init_vars(&vars);

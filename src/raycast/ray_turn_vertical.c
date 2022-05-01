@@ -6,7 +6,7 @@
 /*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 17:09:18 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/05/01 16:57:41 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/05/01 17:12:12 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	look_left_right(t_vars *vars, t_ray* ray)
 			|| vars->input[ray->my][ray->mx] == 'D'))
 		{
 			if (vars->input[ray->my][ray->mx] == 'D')
-				ray->door = 1;
+				ray->door[1] = 1;
 			ray->point_v[0] = ray->rx;
 			ray->point_v[1] = ray->ry;
 			ray->dist[1] = get_dist(vars->player[0], vars->player[1], ray->rx, ray->ry);
