@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_handling_4.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 16:44:30 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/05/02 00:37:21 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/05/02 15:55:31 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static int	convert_to_color(char *str)
 	return (temp_color[0] << 16 | temp_color[1] << 8 | temp_color[2]);
 }
 
-void	assign_identifier(t_vars* vars, char **temp)
+void	assign_identifier(t_vars *vars, char **temp)
 {
 	if (temp && temp[0] && !ft_memcmp(temp[0], "NO", 3))
 		vars->image[NO].path = temp[1];

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_handling_3.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 23:13:20 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/24 23:13:21 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/05/02 15:56:00 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,12 @@ void	standardize_input(char **str_ptr, int *max_len)
 		i++;
 	}
 	*max_len = max;
+}
+
+void	ft_error(char *str)
+{
+	write(STDERR_FILENO, "Error\n", 6);
+	write(STDERR_FILENO, str, ft_strlen(str));
+	write(STDERR_FILENO, "\n", 1);
+	exit(1);
 }

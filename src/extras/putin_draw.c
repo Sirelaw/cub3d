@@ -1,39 +1,30 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   putin_draw.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/02 15:57:52 by ttokesi           #+#    #+#             */
+/*   Updated: 2022/05/02 15:59:43 by ttokesi          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/cub3d.h"
 
-void	draw_putin(t_vars *vars, int i, int j, t_ray *ray)
+void	draw_putin(t_vars *vars, int i, t_ray *ray)
 {
-	int		temp;
-	int		hight;
-	int		colore;
-	// int		n;
-	// int		m;
-
-	hight = (vars->image[PUTIN64].height * WIN_HEIGHT) / vars->par.putin_dist;
-	temp = hight;
-	// m = 0;
-	// printf("%d my m:", vars->par.one_put);
-
-	vars->par.put_point_x[vars->par.one_put] = i;
-	// vars->par.put_point_higth[vars->par.one_put] = hight;
-
-	while(temp--)
+	if (vars->par.put_in == 1)
 	{
-		colore = get_pixel(&vars->image[PUTINS],
-				vars->par.one_put, (vars->par.offset++ * 64) / hight);
-		if (colore != 0xFFFFFF)
+		vars->par.hight = (vars->image[PUTINS].height * WIN_HEIGHT)
+			/ vars->par.putin_dist;
+		vars->par.ofset_h = vars->par.hight / TILE_SIZE;
+		if (vars->par.putin_dist < ray->distance)
 		{
-			// vars->par.points_colore[vars->par.one_put][m] = colore;
-			// vars->par.points_x[vars->par.one_put][m] = i;
-			// vars->par.points_y[vars->par.one_put][m] = j;
-			my_mlx_pixel_put(vars, i, j , colore);
+			vars->par.put_point_x[vars->par.one_put] = i;
 		}
-		// else
-		// 	vars->par.points_colore[vars->par.one_put][m] = -1;
-		// printf(" %d", m);
-		// m++;
-		j++;
+		vars->par.one_put++;
 	}
-	// 	printf("\n");
 }
 
 static int	colore_shift(int color, int scale)
@@ -42,20 +33,20 @@ static int	colore_shift(int color, int scale)
 	int		r;
 	int		g;
 	int		b;
-	float	rdecimal; 
+	float	rdecimal;
 
 	a = (color >> 24) & 0xFF;
 	r = (color >> 16) & 0xFF;
 	g = (color >> 8) & 0xFF;
 	b = color & 0xFF;
-	rdecimal = r / 255; 
-	rdecimal = r * scale; 
-	r = (int)(rdecimal * 255); 
+	rdecimal = r / 255;
+	rdecimal = r * scale;
+	r = (int)(rdecimal * 255);
 	color = (a << 24) + (r << 16) + (g << 8) + b;
 	return (color);
 }
 
-static void draw_putin_arays_norm(t_vars *vars, int colore, int i, int j)
+static void	draw_putin_arays_norm(t_vars *vars, int colore, int i, int j)
 {
 	if (vars->colore_shift > 0)
 		colore = colore_shift(colore, vars->colore_shift);
@@ -63,11 +54,11 @@ static void draw_putin_arays_norm(t_vars *vars, int colore, int i, int j)
 		POSITION_PUTIN_Y + j, colore);
 }
 
-void draw_putin_arays(t_vars *vars)
+void	draw_putin_arays(t_vars *vars)
 {
-	int i;
-	int j;
-	int colore;
+	int		i;
+	int		j;
+	int		colore;
 	double	adj;
 
 	i = 0;
@@ -80,9 +71,9 @@ void draw_putin_arays(t_vars *vars)
 			if (vars->par.put_point_x[(int)((i * TILE_SIZE) / adj)] != -1)
 			{
 				colore = get_pixel(&vars->image[PUTINS],
-					(i * TILE_SIZE) / adj, (j * TILE_SIZE) / adj);
+						(i * TILE_SIZE) / adj, (j * TILE_SIZE) / adj);
 				if (colore != 0xFFFFFF)
-					draw_putin_arays_norm(vars, colore, i , j);
+					draw_putin_arays_norm(vars, colore, i, j);
 			}
 			j++;
 		}

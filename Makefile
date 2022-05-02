@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+         #
+#    By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 20:23:06 by oipadeol          #+#    #+#              #
-#    Updated: 2022/04/27 23:00:00 by oipadeol         ###   ########.fr        #
+#    Updated: 2022/05/02 16:00:02 by ttokesi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,10 +34,10 @@ LIBFT_DIR = ./libft/
 # Source files and object files
 SRC_FILES =	main.c get_line/get_line.c input_handling/input_handling.c\
 		input_handling/input_handling_2.c image_handler/image_handler.c\
-		raycast/plotline.c raycast/raycast.c\
+		raycast/plotline.c raycast/raycast.c utils/key_hook.c utils/mouse_hook.c\
 		raycast/ray_turn_horizontal.c raycast/ray_turn_vertical.c raycast/ray_turn.c\
 		raycast/scale_image.c utils/mlx_utils.c raycast/draw_rays.c\
-		dev_utils/dev_utils.c input_handling/input_handling_3.c\
+		input_handling/input_handling_3.c\
 		input_handling/input_handling_4.c\
 		extras/putin_movments.c extras/putin_draw.c\
 
@@ -58,7 +58,6 @@ obj:
 	@mkdir -p $(OBJ_DIR)image_handler
 	@mkdir -p $(OBJ_DIR)raycast
 	@mkdir -p $(OBJ_DIR)utils
-	@mkdir -p $(OBJ_DIR)dev_utils
 	@mkdir -p $(OBJ_DIR)extras
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c $(INC_DIR)/*.h

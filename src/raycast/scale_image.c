@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   scale_image.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/02 15:40:48 by ttokesi           #+#    #+#             */
+/*   Updated: 2022/05/02 15:41:32 by ttokesi          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/cub3d.h"
 
 void	scale_image(t_vars *vars, t_img *image, double scale)
@@ -18,8 +30,8 @@ void	scale_image(t_vars *vars, t_img *image, double scale)
 		while (j < adjusted_lenght)
 		{
 			my_mlx_pixel_put(vars, j, i, get_pixel(image,
-				(j * TILE_SIZE) / adjusted_lenght,
-				(i * TILE_SIZE) / adjusted_lenght));
+					(j * TILE_SIZE) / adjusted_lenght,
+					(i * TILE_SIZE) / adjusted_lenght));
 			j++;
 		}
 		i++;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 19:02:23 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/05/02 00:31:32 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/05/02 16:03:00 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@
 # define KILL_SHOT 32
 # define WIN_WIDTH 1280
 # define WIN_HEIGHT 920
-# define POSITION_PUTIN_Y 445
-# define RELATIVE_SIZE_PUTIN 40
+# define POSITION_PUTIN_Y 430
+# define RELATIVE_SIZE_PUTIN 1
 # define SENSIBILITY 16
 
 enum e_images
@@ -56,24 +56,21 @@ enum e_images
 	NIGERIA_64,
 	HUNGARY_64,
 	GERMANY_64,
-	LOGO_42_64,
 	HAND_GUN,
 	BRICKWALL_DARK,
 	BRICKWALL_GRAY,
 	BRICKWALL_LIGHT,
 	BRICKWALL_RED,
-	PUTIN,
 	PUTIN64,
 	PUTINS,
 	WIN,
 	LOST,
 	FIRE,
 	DOOR,
-	SIMPLE,
 	IMAGE_COUNT
 };
 
-typedef	struct s_keys
+typedef struct s_keys
 {
 	int	w;
 	int	a;
@@ -83,7 +80,7 @@ typedef	struct s_keys
 	int	down;
 	int	left;
 	int	right;
-} t_keys;
+}	t_keys;
 
 enum	e_keys
 {
@@ -184,15 +181,15 @@ void	my_mlx_pixel_put(t_vars *vars, int x, int y, int color);
 void	draw_mini_map(t_vars *vars);
 void	scale_image(t_vars *vars, t_img *image, double scale);
 void	cast_rays(t_vars *vars);
-void	init_look_up_down(t_vars *vars, t_ray* ray, float theta);
-void	init_look_left_right(t_vars *vars, t_ray* ray, float theta);
+void	init_look_up_down(t_vars *vars, t_ray *ray, float theta);
+void	init_look_left_right(t_vars *vars, t_ray *ray, float theta);
 void	get_elements(t_vars *vars, int fd);
 int		render_next_rays(t_vars *vars);
 
 // putin extras
 
 int		putin_run(t_vars *g);
-void	draw_putin(t_vars *vars, int i, int t, t_ray *ray);
+void	draw_putin(t_vars *vars, int i, t_ray *ray);
 float	get_dist(float ax, float ay, float bx, float by);
 void	end_the_game(t_vars *game, int suc);
 
@@ -212,5 +209,6 @@ void	define_ray_parameters(t_vars *vars, t_ray *ray, float theta);
 
 // new putin cast
 void	cast_p_rays(t_vars *vars);
+void	rotate_player(int keycode, t_vars *vars);
 
 #endif

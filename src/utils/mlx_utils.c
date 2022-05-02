@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mlx_utils.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/02 15:37:40 by ttokesi           #+#    #+#             */
+/*   Updated: 2022/05/02 15:40:01 by ttokesi          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/cub3d.h"
 
 void	my_mlx_pixel_put(t_vars *vars, int x, int y, int color)
@@ -6,7 +18,8 @@ void	my_mlx_pixel_put(t_vars *vars, int x, int y, int color)
 
 	if ((x >= WIN_WIDTH) || (y >= WIN_HEIGHT) || (x < 0) || (y < 0))
 		return ;
-	dst = vars->addr + (y * vars->line_lenght + x * (vars->bits_per_pixel / 8));
+	dst = vars->addr + (y * vars->line_lenght
+			+ x * (vars->bits_per_pixel / 8));
 	*(unsigned int *)dst = color;
 }
 
@@ -14,7 +27,8 @@ int	get_pixel(t_img *image, int x, int y)
 {
 	char	*color;
 
-	color = image->addr + (y * image->line_lenght + x * (image->bits_per_pixel / 8));
+	color = image->addr + (y * image->line_lenght
+			+ x * (image->bits_per_pixel / 8));
 	return (*(unsigned int *) color);
 }
 
@@ -22,110 +36,6 @@ int	render_next_rays(t_vars *vars)
 {
 	mlx_destroy_image(vars->mlx, vars->img);
 	cast_rays(vars);
-	return (0);
-}
-
-void	rotate_player(int keycode, t_vars *vars)
-{
-	if (keycode == RIGHT_KEY)
-		vars->orient += 0.2;
-	else if (keycode ==  LEFT_KEY)
-		vars->orient -= 0.2;
-	if (vars->orient > 2 * M_PI)
-		vars->orient -= 2 * M_PI;
-	else if (vars->orient < 0)
-		vars->orient += 2 * M_PI;
-	vars->player_d[0] = cosf(vars->orient);
-	vars->player_d[1] = sinf(vars->orient);
-}
-
-static void	check_valid_position(float temp[2], t_vars *vars)
-{
-	int dist;
-
-	dist = get_dist(vars->player[0], vars->player[1], vars->putin[0], vars->putin[1]);
-	if (dist < 1 * TILE_SIZE)
-		return ;
-	if ((vars->input)[(int)temp[1] >> TILE_BIT][(int)temp[0] >> TILE_BIT]
-		!= '1')
-	{
-		if ((vars->input)[(int)temp[1] >> TILE_BIT][(int)temp[0] >> TILE_BIT]
-		== 'D')
-		{
-			if (!vars->open_door)
-				return ;
-			vars->last_door[0] = (int)temp[0] >> TILE_BIT;
-			vars->last_door[1] = (int)temp[1] >> TILE_BIT;
-			(vars->input)[(int)temp[1] >> TILE_BIT][(int)temp[0] >> TILE_BIT]
-				= '0';
-		}
-		vars->player_f[0] = temp[0];
-		vars->player_f[1] = temp[1];
-		vars->player[0] = temp[0];
-		vars->player[1] = temp[1];
-		vars->simul_loop++;
-		vars->simul_loop = vars->simul_loop & 15;
-	}
-}
-
-void	move_image(int keycode, t_vars *vars)
-{
-	float temp[2];
-
-	temp[0] = vars->player_f[0];
-	temp[1] = vars->player_f[1];
-	if (keycode == A_KEY)
-	{
-		temp[0] += STEP * vars->player_d[1];
-		temp[1] -= STEP * vars->player_d[0];
-	}
-	else if (keycode == D_KEY)
-	{
-		temp[0] -= STEP * vars->player_d[1];
-		temp[1] += STEP * vars->player_d[0];
-	}
-	else if (keycode == S_KEY || keycode == DOWN_KEY)
-	{
-		temp[0] -= STEP * vars->player_d[0];
-		temp[1] -= STEP * vars->player_d[1];
-	}
-	else if (keycode == W_KEY || keycode == UP_KEY)
-	{
-		temp[0] += STEP * vars->player_d[0];
-		temp[1] += STEP * vars->player_d[1];
-	}
-	check_valid_position(temp, vars);
-}
-
-int	key_hook(int keycode, t_vars *vars)
-{
-	if (keycode == 53)
-		clean_destroy(vars);
-	if (keycode == 123 || keycode == 124)
-		rotate_player(keycode, vars);
-	else if (keycode == A_KEY || keycode == D_KEY || keycode == S_KEY
-			|| keycode == W_KEY || keycode == UP_KEY || keycode == DOWN_KEY)
-		move_image(keycode, vars);
-	else if (keycode == 257 || keycode == 258)
-	{
-		if (vars->shoot == 0)
-		{
-			vars->shoot = 1;
-			vars->simul_loop += 2;
-		}
-	}
-	else if (keycode == SPACE_KEY)
-		vars->open_door = 1;
-	return (0);
-}
-
-int	mouse_hook(int x, int y, t_vars *vars)
-{
-	if (vars->mouse < x / STEP)
-		rotate_player(RIGHT_KEY, vars);
-	else if (vars->mouse > x / STEP)
-		rotate_player(LEFT_KEY, vars);
-	vars->mouse = x / STEP;
 	return (0);
 }
 

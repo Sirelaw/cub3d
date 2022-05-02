@@ -6,7 +6,7 @@
 /*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:48:49 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/05/02 00:07:18 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/05/02 15:57:26 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	st_p(t_vars *g, int x, int y)
 {
-	int dist;
+	int	dist;
 
 	if ((g->input[y / TILE_SIZE][x / TILE_SIZE] == '1'
 		|| g->input[(y - 10) / TILE_SIZE][(x - 10) / TILE_SIZE] == '1'
@@ -25,7 +25,6 @@ static int	st_p(t_vars *g, int x, int y)
 	if (dist < 1 * TILE_SIZE)
 	{
 		g->colore_shift = -1;
-		// end_the_game(g, 0);
 		return (0);
 	}
 	return (1);
@@ -34,11 +33,9 @@ static int	st_p(t_vars *g, int x, int y)
 static void	flipper(t_vars *g, int *step, int x, int y)
 {
 	int	sign;
-	int exitcount;
 
 	step[0] = STEP;
 	step[1] = STEP;
-	step[2] = '\0';
 	sign = rand() % 2;
 	if (sign == 0)
 		step[1] = 0;

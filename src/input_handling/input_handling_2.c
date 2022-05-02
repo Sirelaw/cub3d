@@ -6,21 +6,13 @@
 /*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/19 18:51:48 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/05/01 23:33:43 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/05/02 15:56:14 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-void	ft_error(char *str)
-{
-	write(STDERR_FILENO, "Error\n", 6);
-	write(STDERR_FILENO, str, ft_strlen(str));
-	write(STDERR_FILENO, "\n", 1);
-	exit(1);
-}
-
-void	check_first_and_last_line(char *str)
+static void	check_first_and_last_line(char *str)
 {
 	while (*str == ' ')
 		str++;
@@ -32,7 +24,7 @@ void	check_first_and_last_line(char *str)
 	}
 }
 
-void	check_surround(char *str, char *up, char *down, size_t i)
+static void	check_surround(char *str, char *up, char *down, size_t i)
 {
 	char	surround[8];
 
@@ -59,7 +51,23 @@ void	check_surround(char *str, char *up, char *down, size_t i)
 	}
 }
 
-void	check_other_line(char *str, char *up, char *down, t_vars *vars)
+static void	check_other_line_norm(char *str, int i, t_vars *vars)
+{
+	if (ft_strchr("NEWS", str[i]))
+	{
+		if (vars->start_orientation)
+			ft_error("More than one NEWS in map.");
+		vars->start_orientation = str[i];
+		vars->player[0] = i * TILE_SIZE;
+	}
+	if (str[i] == '0' && vars->putin[0] == 0)
+	{
+		vars->putin[0] = i * TILE_SIZE + 17;
+		vars->putin[1] = vars->player[1] + 17;
+	}
+}
+
+static void	check_other_line(char *str, char *up, char *down, t_vars *vars)
 {
 	size_t	i;
 
@@ -73,18 +81,7 @@ void	check_other_line(char *str, char *up, char *down, t_vars *vars)
 		if (str[i] == '0' || ft_strchr("NEWS", str[i]))
 		{
 			check_surround(str, up, down, i);
-			if (ft_strchr("NEWS", str[i]))
-			{
-				if (vars->start_orientation)
-					ft_error("More than one NEWS in map.");
-				vars->start_orientation = str[i];
-				vars->player[0] = i * TILE_SIZE;
-			}
-			if (str[i] == '0' && vars->putin[0] == 0)
-			{
-				vars->putin[0] = i * TILE_SIZE + 17;
-				vars->putin[1] = vars->player[1] + 17;
-			}
+			check_other_line_norm(str, i, vars);
 		}
 		else if (str[i] != '1' && str[i] != ' ' && str[i] != 'D')
 			ft_error("Non 1 or space or 0 in map.");
@@ -92,7 +89,7 @@ void	check_other_line(char *str, char *up, char *down, t_vars *vars)
 	}
 }
 
-int		check_valid(char **input, t_vars *vars)
+int	check_valid(char **input, t_vars *vars)
 {
 	int		i;
 

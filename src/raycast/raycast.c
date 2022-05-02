@@ -6,7 +6,7 @@
 /*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 13:01:04 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/05/02 00:14:28 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/05/02 15:51:42 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,23 +46,31 @@ static void	cast_ray(t_vars *vars, float theta, int i)
 	init_look_up_down(vars, &ray, theta);
 	init_look_left_right(vars, &ray, theta);
 	distance_calculations(vars, &ray);
-	ray.lineH = fix_fisheye_get_height(vars, ray.distance, vars->orient - theta);
+	ray.lineh = fix_fisheye_get_height(vars, ray.distance,
+			vars->orient - theta);
 	plot_line_angle(vars->player, theta, ray.distance / SCALE_TO_MINI, vars);
 	if (vars->par.put_in == 1)
 	{
 		if (vars->par.one_side_flag == -1)
 			vars->par.all_in = 1;
-		if (vars->shoot == 1 && vars->orient - 0.001 < theta && vars->orient + 0.001 > theta)
+		if (vars->shoot == 1 && vars->orient - 0.001 < theta
+			&& vars->orient + 0.001 > theta)
 			vars->colore_shift++;
 	}
 	draw_line(vars, i, &ray);
 }
 
-static void fill_putin_arays(t_vars *vars)
+static void	set_door_fill_putin_arays(t_vars *vars)
 {
-	int i;
+	int	i;
 
 	i = 0;
+	vars->par.one_put = 0;
+	vars->par.all_in = 0;
+	vars->par.one_side_flag = -1;
+	vars->open_door = (vars->open_door && vars->simul_loop);
+	if (vars->last_door[0] || vars->last_door[1])
+		vars->input[vars->last_door[1]][vars->last_door[0]] = 'D';
 	while (i < 1280)
 	{
 		vars->par.put_point_x[i] = -1;
@@ -79,16 +87,10 @@ void	cast_rays(t_vars *vars)
 	i = 0;
 	theta = vars->orient - M_PI / 6;
 	dtheta = (M_PI / 3.0) / WIN_WIDTH;
-	vars->open_door = vars->open_door && vars->simul_loop;
-	if (vars->last_door[0] || vars->last_door[1])
-		vars->input[vars->last_door[1]][vars->last_door[0]] = 'D';
 	vars->img = mlx_new_image(vars->mlx, WIN_WIDTH, WIN_HEIGHT);
 	vars->addr = mlx_get_data_addr(vars->img, &vars->bits_per_pixel,
 			&vars->line_lenght, &vars->endian);
-	vars->par.one_put = 0;
-	vars->par.all_in = 0;
-	vars->par.one_side_flag = -1;
-	fill_putin_arays(vars);
+	set_door_fill_putin_arays(vars);
 	while (i++ < WIN_WIDTH)
 	{
 		vars->par.put_in = 0;

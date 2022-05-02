@@ -6,40 +6,24 @@
 /*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 22:02:17 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/05/01 21:56:17 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/05/02 16:04:42 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-void end_the_game(t_vars *vars, int suc)
+void	end_the_game(t_vars *vars, int suc)
 {
 	if (vars->colore_shift == -1)
 	{
-			// printf("FUCK YOU!!!\n");
-		mlx_put_image_to_window(vars->mlx, vars->win, vars->image[LOST].load, 50, 50);
-		// sleep(10);
-		// exit(EXIT_SUCCESS);
-
+		mlx_put_image_to_window(vars->mlx, vars->win,
+			vars->image[LOST].load, 50, 50);
 	}
 	if (vars->colore_shift > KILL_SHOT)
 	{
-		// printf("FUCK YOU!!!\n");
-		mlx_put_image_to_window(vars->mlx, vars->win, vars->image[WIN].load, 50, 50);
+		mlx_put_image_to_window(vars->mlx, vars->win,
+			vars->image[WIN].load, 50, 50);
 	}
-	// // mlx_destroy_image(game->mlx, game->img);
-	// // mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
-	// // mlx_destroy_image(game->mlx, game->img);
-	// if (suc == 1)
-	// 	mlx_put_image_to_window(game->mlx, game->win, game->image[WIN].load, 50, 50);
-	// if (suc == 0)
-	// {
-
-	// 	// printf("FUCK YOU!!!\n");
-	// 	mlx_put_image_to_window(game->mlx, game->win, game->image[LOST].load, 50, 50);
-	// }
-	// // sleep(10);
-	// // exit(EXIT_SUCCESS);
 }
 
 void	plot_line_angle2(int start[2], float theta, float dist, t_vars *vars)
@@ -68,7 +52,7 @@ void	plot_line_angle(int start[2], float theta, float dist, t_vars *vars)
 
 float	fix_fisheye_get_height(t_vars *vars, float distance, float angle_diff)
 {
-	float	lineH;
+	float	lineh;
 
 	if (angle_diff > 2 * M_PI)
 		angle_diff -= 2 * M_PI;
@@ -77,9 +61,9 @@ float	fix_fisheye_get_height(t_vars *vars, float distance, float angle_diff)
 	distance = distance * cos(angle_diff);
 	if (distance < 1)
 		distance = 1;
-	lineH = ((float)(TILE_SIZE * WIN_HEIGHT) / distance)
-			* (((float)WIN_WIDTH / WIN_HEIGHT) - 0.11);
-	return (lineH);
+	lineh = ((float)(TILE_SIZE * WIN_HEIGHT) / distance)
+		* (((float)WIN_WIDTH / WIN_HEIGHT) - 0.11);
+	return (lineh);
 }
 
 void	define_ray_parameters(t_vars *vars, t_ray *ray, float theta)
@@ -88,8 +72,8 @@ void	define_ray_parameters(t_vars *vars, t_ray *ray, float theta)
 	ray->dist[1] = 1000000;
 	vars->par.dist[0] = 1000000;
 	vars->par.dist[1] = 1000000;
-	ray->aTan = -1 / tan(theta);
-	ray->nTan = -tan(theta);
+	ray->atan = -1 / tan(theta);
+	ray->ntan = -tan(theta);
 	ray->door[0] = 0;
 	ray->door[1] = 0;
 }
