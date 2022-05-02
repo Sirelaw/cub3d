@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 19:02:23 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/05/02 13:43:36 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/05/02 13:44:36 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,6 @@ typedef struct s_vars
 	int		last_door[2];
 	int		colore_shift;
 	int		mouse;
-	t_keys	keys;
 	t_putin	par;
 }				t_vars;
 
