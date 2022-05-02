@@ -6,7 +6,7 @@
 #    By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 20:23:06 by oipadeol          #+#    #+#              #
-#    Updated: 2022/04/27 23:00:00 by oipadeol         ###   ########.fr        #
+#    Updated: 2022/05/02 13:33:26 by oipadeol         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -81,7 +81,7 @@ no: $(OBJ)
 	@echo "$(GREEN)***   Project $(NAME) successfully compiled   ***\n$(RESET)"
 
 1:
-	./$(NAME) "./maps/map18.cub"
+	./$(NAME) "./maps/map_countries.cub"
 2:
 	./$(NAME) "./maps/map17.cub"
 

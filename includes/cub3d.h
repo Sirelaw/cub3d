@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 19:02:23 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/05/02 00:31:32 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/05/02 13:43:36 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,11 @@ enum e_images
 	NONE_32,
 	NONE_8,
 	PLAYER,
-	FLOOR ,
 	WALL ,
 	BLACK,
 	NIGERIA_64,
 	HUNGARY_64,
 	GERMANY_64,
-	LOGO_42_64,
 	HAND_GUN,
 	BRICKWALL_DARK,
 	BRICKWALL_GRAY,
@@ -72,18 +70,6 @@ enum e_images
 	SIMPLE,
 	IMAGE_COUNT
 };
-
-typedef	struct s_keys
-{
-	int	w;
-	int	a;
-	int	d;
-	int	s;
-	int	up;
-	int	down;
-	int	left;
-	int	right;
-} t_keys;
 
 enum	e_keys
 {
