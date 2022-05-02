@@ -6,7 +6,7 @@
 /*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 19:02:23 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/05/02 16:03:00 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/05/02 16:06:23 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ enum e_images
 	NONE_32,
 	NONE_8,
 	PLAYER,
-	FLOOR ,
 	WALL ,
 	BLACK,
 	NIGERIA_64,
@@ -69,18 +68,6 @@ enum e_images
 	DOOR,
 	IMAGE_COUNT
 };
-
-typedef struct s_keys
-{
-	int	w;
-	int	a;
-	int	d;
-	int	s;
-	int	up;
-	int	down;
-	int	left;
-	int	right;
-}	t_keys;
 
 enum	e_keys
 {
@@ -155,7 +142,6 @@ typedef struct s_vars
 	int		last_door[2];
 	int		colore_shift;
 	int		mouse;
-	t_keys	keys;
 	t_putin	par;
 }				t_vars;
 

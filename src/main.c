@@ -6,7 +6,7 @@
 /*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:00:34 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/05/02 16:00:57 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/05/02 16:07:08 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ int	main(int argc, char **argv)
 {
 	t_vars		vars;
 	pthread_t	sounding;
-	t_keys		keys;
 
 	ft_bzero(&vars, sizeof(vars));
 	init_vars(&vars);
