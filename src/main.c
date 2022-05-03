@@ -6,7 +6,7 @@
 /*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:00:34 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/05/02 16:07:08 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/05/03 10:04:47 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,36 @@ void	*make_sound(void *some)
 	return (NULL);
 }
 
+static int check_extention(char **argv)
+{
+	int	i;
+
+	i = 0;
+	while (argv[1][i] != '.')
+		i++;
+	if (argv[1][i + 1] == '/')
+	{
+		i++;
+		while (argv[1][i] != '.')
+			i++;
+	}
+	if (argv[1][i + 1] == 'c' && argv[1][i + 2] == 'u'
+		&& argv[1][i + 3] == 'b' && argv[1][i + 4] == '\0')
+		return (0);
+	else
+	{
+		write(1, "Wrong file format!\n", 19);
+		return (1);
+	}
+}
+
 int	main(int argc, char **argv)
 {
 	t_vars		vars;
 	pthread_t	sounding;
 
+	if (check_extention(argv))
+		return (0);
 	ft_bzero(&vars, sizeof(vars));
 	init_vars(&vars);
 	input_rows_init_player(argc, argv, &vars);

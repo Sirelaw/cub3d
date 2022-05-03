@@ -6,7 +6,7 @@
 /*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 19:02:23 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/05/02 16:06:23 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/05/02 16:24:15 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,7 +189,6 @@ void	draw_wall(t_vars *vars, int i, int *j, t_ray *ray);
 void	draw_field(t_vars *vars);
 void	draw_putin_arays(t_vars *vars);
 void	plot_line_angle(int start[2], float theta, float dist, t_vars *vars);
-void	plot_line_angle2(int start[2], float theta, float dist, t_vars *vars);
 float	fix_fisheye_get_height(t_vars *vars, float distance, float angle_diff);
 void	define_ray_parameters(t_vars *vars, t_ray *ray, float theta);
 

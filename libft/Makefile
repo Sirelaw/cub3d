@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+         #
+#    By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/13 19:02:48 by oipadeol          #+#    #+#              #
-#    Updated: 2022/04/10 11:51:29 by oipadeol         ###   ########.fr        #
+#    Updated: 2022/05/03 09:48:00 by ttokesi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,8 +27,8 @@ SRC = 	ft_atoi.c ft_bzero.c ft_calloc.c ft_isalpha.c ft_isalnum.c ft_isascii.c\
 		ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c\
 		ft_strcmp.c ft_strtol.c ft_bigger.c ft_absolute.c\
 		ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c\
-		ft_lstadd_back.c ft_lstdelone.c ft_lstclear.c ft_lstiter.c\
-		ft_lstmap.c ft_lstelem.c
+		ft_lstadd_back.c\
+
 
 OBJ_FILES = $(SRC:.c=.o)
 

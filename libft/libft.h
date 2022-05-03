@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/05 22:10:30 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/10 22:01:58 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/05/03 09:49:04 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,20 +126,4 @@ int		ft_lstsize(t_list *lst);
 t_list	*ft_lstlast(t_list *lst);
 // Adds the element ’new’ at the end of the list.
 void	ft_lstadd_back(t_list **lst, t_list *new);
-// Takes as a parameter an element and frees the memory of the element’s
-// content using the function ’del’ given as a parameter and free the element.
-void	ft_lstdelone(t_list *lst, void(*del)(void *));
-// Deletes and frees the given element and every successor of that element,
-// using the function ’del’ and free(3).
-void	ft_lstclear(t_list **lst, void (*del)(void *));
-// Iterates the list ’lst’ and applies the function’f’ to the
-// content of each element.
-void	ft_lstiter(t_list *lst, void (*f)(void *));
-// Iterates the list ’lst’ and applies the function ’f’ to the content of each
-// element. Creates a newlist resulting of the successive applications of the
-// func ’f’.  The ’del’ function is used to delete the content of an element.
-t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void(*del)(void *));
-// Returns the nth element of list 'lst'. First element is element 0.
-t_list	*ft_lstelem(t_list *lst, int n);
-
 #endif
