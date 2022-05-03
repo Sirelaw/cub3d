@@ -6,14 +6,20 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/19 13:06:57 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/05 15:40:07 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/05/03 13:35:48 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/get_line.h"
 
-void	free_ret(char **ret)
+void	free_ret_exit(char **ret, int exit_flag)
 {
+	if (exit_flag)
+	{
+		write(STDERR_FILENO, "Error!\n", 7);
+		write(STDERR_FILENO, "Malloc call in get_line returned NULL.\n", 39);
+		exit(1);
+	}
 	free(*ret);
 	*ret = NULL;
 }
@@ -23,6 +29,8 @@ void	join_ret_stat(char **ret, char stat[BUFFER_SIZE + 1], int i, int j)
 	char	*temp;
 
 	temp = malloc(i + j + 1);
+	if (temp == NULL)
+		free_ret_exit(NULL, 1);
 	i = 0;
 	j = 0;
 	while ((*ret)[i])
@@ -46,6 +54,8 @@ void	new_line_found(char **ret, char stat[BUFFER_SIZE + 1], int i, int j)
 	char	*temp;
 
 	temp = malloc(i + j + 2);
+	if (temp == NULL)
+		free_ret_exit(NULL, 1);
 	i = 0;
 	j = 0;
 	while ((*ret)[i])
@@ -99,7 +109,7 @@ char	*get_line(int fd)
 		return (NULL);
 	ret = malloc(1);
 	if (ret == NULL)
-		return (NULL);
+		free_ret_exit(NULL, 1);
 	*ret = '\0';
 	i = 1;
 	while (i)
@@ -112,6 +122,6 @@ char	*get_line(int fd)
 		stat[i] = '\0';
 	}
 	if (*ret == '\0')
-		free_ret(&ret);
+		free_ret_exit(&ret, 0);
 	return (ret);
 }

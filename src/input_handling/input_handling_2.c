@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_handling_2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/19 18:51:48 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/05/02 15:56:14 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/05/03 12:36:49 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,7 @@ static void	check_surround(char *str, char *up, char *down, size_t i)
 	char	surround[8];
 
 	if (i >= ft_strlen(up) - 1 || i >= ft_strlen(down) - 1)
-	{
-		write(STDOUT_FILENO, "Check len of line ", 18);
-		ft_putnbr_fd(i, STDOUT_FILENO);
-		ft_error(" ");
-	}
+		ft_error("0 found after a shorter neighbouring line.");
 	surround[0] = up[i - 1];
 	surround[1] = up[i];
 	surround[2] = up[i + 1];

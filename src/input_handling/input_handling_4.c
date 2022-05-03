@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_handling_4.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 16:44:30 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/05/02 15:55:31 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/05/03 13:23:30 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ static int	convert_to_color(char *str)
 
 	i = 0;
 	temp = ft_split(str, ',');
+	if (temp == NULL)
+		ft_error("Split call returned NULL in convert_to_color function.");
 	while (temp && str)
 	{
 		str = temp[i++];
@@ -98,7 +100,6 @@ void	get_elements(t_vars *vars, int fd)
 	int		count;
 
 	skip = 20;
-	elem = NULL;
 	count = 0;
 	while (skip-- && count < 6)
 	{
@@ -106,6 +107,8 @@ void	get_elements(t_vars *vars, int fd)
 		if (elem)
 		{
 			temp = ft_split(elem, ' ');
+			if (temp == NULL)
+				ft_error("Split call returned NULL in get_elememts");
 			count++;
 			assign_identifier(vars, temp);
 			if (!ft_memcmp(temp[0], "F", 1) || !ft_memcmp(temp[0], "C", 1))

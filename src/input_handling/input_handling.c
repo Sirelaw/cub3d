@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/18 06:25:49 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/04/25 01:06:06 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/05/03 13:37:35 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static void	init_orient(double	*orient, char start_orientation)
 static int	check_input_get_fd(int argc, char **argv)
 {
 	int	fd;
+	int	len;
 
 	if (argc != 2)
 	{
@@ -37,6 +38,9 @@ static int	check_input_get_fd(int argc, char **argv)
 		write(1, "*****************************************\n", 42);
 		exit(1);
 	}
+	len = ft_strlen(argv[1]);
+	if (len < 4 || ft_memcmp(argv[1] + len - 4, ".cub\0", 5))
+		ft_error("Wrong file extension.");
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 	{
@@ -50,7 +54,7 @@ static char	**init_arr(char ***arr, char *s)
 {
 	*arr = malloc(sizeof(char *) * 2);
 	if (*arr == NULL)
-		return (NULL);
+		ft_error("Malloc returned NULL in init_arr");
 	(*arr)[0] = s;
 	(*arr)[1] = NULL;
 	return (*arr);
@@ -68,7 +72,7 @@ static char	**add_to_arr(char ***arr, char *s)
 		i++;
 	temp = malloc(sizeof(char *) * (i + 2));
 	if (!temp)
-		return (NULL);
+		ft_error("Malloc returned NULL in add_to_arr");
 	i = 0;
 	while ((*arr)[i++])
 		temp[i - 1] = (*arr)[i - 1];
