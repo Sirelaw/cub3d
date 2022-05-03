@@ -6,7 +6,7 @@
 /*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:00:34 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/05/03 10:04:47 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/05/03 10:07:07 by ttokesi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	*make_sound(void *some)
 	return (NULL);
 }
 
-static int check_extention(char **argv)
+static int	check_extention(char **argv)
 {
 	int	i;
 
