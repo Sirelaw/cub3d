@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 19:02:23 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/05/02 16:24:15 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/05/04 18:51:53 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@
 # define POSITION_PUTIN_Y 430
 # define RELATIVE_SIZE_PUTIN 1
 # define SENSIBILITY 16
+# define MINI_MAP_RAY_LEN 20
 
 enum e_images
 {
@@ -50,6 +51,7 @@ enum e_images
 	NONE_32,
 	NONE_8,
 	PLAYER,
+	ENEMY,
 	WALL ,
 	BLACK,
 	NIGERIA_64,
@@ -162,6 +164,7 @@ void	ft_error(char *str);
 
 // ------ ray --------
 
+int		smaller(int a, int b);
 void	plotline(int x0_y0[2], int x1_y1[2], t_vars *vars, int color);
 void	my_mlx_pixel_put(t_vars *vars, int x, int y, int color);
 void	draw_mini_map(t_vars *vars);
@@ -183,7 +186,7 @@ void	end_the_game(t_vars *game, int suc);
 
 void	print_str_arr(char **input);
 
-// ray teh II 
+// ray the II 
 void	draw_line(t_vars *vars, int i, t_ray *ray);
 void	draw_wall(t_vars *vars, int i, int *j, t_ray *ray);
 void	draw_field(t_vars *vars);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_turn.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 22:02:17 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/05/03 10:07:35 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/05/04 17:22:06 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	plot_line_angle(int start[2], float theta, float dist, t_vars *vars)
 	point[1] = start[1] / SCALE_TO_MINI;
 	new_point[0] = point[0] + (dist * cosf(theta));
 	new_point[1] = point[1] + (dist * sinf(theta));
+	plotline(point, new_point, vars, WHITE);
 }
 
 float	fix_fisheye_get_height(t_vars *vars, float distance, float angle_diff)

@@ -3,14 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 13:01:04 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/05/02 15:51:42 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/05/04 18:51:03 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
+
+int	smaller(int a, int b)
+{
+	if (a <= b)
+		return (a);
+	else
+		return (b);
+}
 
 static void	distance_calculations(t_vars *vars, t_ray *ray)
 {
@@ -48,7 +56,8 @@ static void	cast_ray(t_vars *vars, float theta, int i)
 	distance_calculations(vars, &ray);
 	ray.lineh = fix_fisheye_get_height(vars, ray.distance,
 			vars->orient - theta);
-	plot_line_angle(vars->player, theta, ray.distance / SCALE_TO_MINI, vars);
+	plot_line_angle(vars->player, theta,
+		smaller(MINI_MAP_RAY_LEN, ray.distance / SCALE_TO_MINI), vars);
 	if (vars->par.put_in == 1)
 	{
 		if (vars->par.one_side_flag == -1)
@@ -71,7 +80,7 @@ static void	set_door_fill_putin_arays(t_vars *vars)
 	vars->open_door = (vars->open_door && vars->simul_loop);
 	if (vars->last_door[0] || vars->last_door[1])
 		vars->input[vars->last_door[1]][vars->last_door[0]] = 'D';
-	while (i < 1280)
+	while (i < WIN_WIDTH)
 	{
 		vars->par.put_point_x[i] = -1;
 		i++;

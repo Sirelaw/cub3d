@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_rays.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 13:06:25 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/05/02 15:54:48 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/05/04 18:37:03 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	draw_field(t_vars *vars)
 	draw_field_norm(vars);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->image[PLAYER].load,
 		vars->player[0] / SCALE_TO_MINI, vars->player[1] / SCALE_TO_MINI);
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->image[PLAYER].load,
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->image[ENEMY].load,
 		vars->putin[0] / SCALE_TO_MINI, vars->putin[1] / SCALE_TO_MINI);
 	if (vars->shoot == 1)
 		mlx_put_image_to_window(vars->mlx, vars->win, vars->image[FIRE].load,

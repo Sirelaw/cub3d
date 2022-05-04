@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   image_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttokesi <ttokesi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:53:35 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/05/02 16:06:43 by ttokesi          ###   ########.fr       */
+/*   Updated: 2022/05/04 18:35:18 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static void	p_img(t_vars *vars)
 	vars->image[NONE_32].path = "./img/none_32.xpm";
 	vars->image[NONE_8].path = "./img/none_8.xpm";
 	vars->image[PLAYER].path = "./img/player_4.xpm";
+	vars->image[ENEMY].path = "./img/enemy_4.xpm";
 	vars->image[WALL].path = "./img/wall.xpm";
 	vars->image[BLACK].path = "./img/black.xpm";
 	vars->image[NIGERIA_64].path = "./img/Nigeria_64.xpm";
