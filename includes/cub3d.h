@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 19:02:23 by oipadeol          #+#    #+#             */
-/*   Updated: 2022/05/04 18:51:53 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/05/04 19:01:30 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,39 +38,6 @@
 # define SENSIBILITY 16
 # define MINI_MAP_RAY_LEN 20
 
-enum e_images
-{
-	NO,
-	SO,
-	WE,
-	EA,
-	FIG1 ,
-	NONE ,
-	WHITE_32 ,
-	WHITE_8 ,
-	NONE_32,
-	NONE_8,
-	PLAYER,
-	ENEMY,
-	WALL ,
-	BLACK,
-	NIGERIA_64,
-	HUNGARY_64,
-	GERMANY_64,
-	HAND_GUN,
-	BRICKWALL_DARK,
-	BRICKWALL_GRAY,
-	BRICKWALL_LIGHT,
-	BRICKWALL_RED,
-	PUTIN64,
-	PUTINS,
-	WIN,
-	LOST,
-	FIRE,
-	DOOR,
-	IMAGE_COUNT
-};
-
 enum	e_keys
 {
 	A_KEY = 0,
@@ -83,36 +50,6 @@ enum	e_keys
 	DOWN_KEY = 125,
 	UP_KEY = 126
 };
-
-typedef struct s_img
-{
-	void			*load;
-	char			*path;
-	int				width;
-	int				height;
-	char			*addr;
-	int				bits_per_pixel;
-	int				line_lenght;
-	int				endian;
-}	t_img;
-
-typedef struct s_putin
-{
-	int		put_point_x[1280];
-	float	dist[2];
-	int		putin_img_x;
-	int		putin_img_y;
-	float	putin_dist;
-	int		putin_step;
-	int		put_in;
-	int		one_put;
-	int		putin_time;
-	int		hight;
-	int		ofset_h;
-	int		offset;
-	int		one_side_flag;
-	int		all_in;
-}	t_putin;
 
 typedef struct s_vars
 {
@@ -151,7 +88,6 @@ void	img_handler(t_vars *vars);
 
 // ------- mlx  ----------
 void	my_mlx_pixel_put(t_vars *vars, int x, int y, int color);
-int		get_pixel(t_img *image, int x, int y);
 int		key_hook(int keycode, t_vars *vars);
 int		mouse_hook(int x, int y, t_vars *vars);
 int		clean_destroy(t_vars *vars);
@@ -164,7 +100,6 @@ void	ft_error(char *str);
 
 // ------ ray --------
 
-int		smaller(int a, int b);
 void	plotline(int x0_y0[2], int x1_y1[2], t_vars *vars, int color);
 void	my_mlx_pixel_put(t_vars *vars, int x, int y, int color);
 void	draw_mini_map(t_vars *vars);
@@ -179,8 +114,7 @@ int		render_next_rays(t_vars *vars);
 
 int		putin_run(t_vars *g);
 void	draw_putin(t_vars *vars, int i, t_ray *ray);
-float	get_dist(float ax, float ay, float bx, float by);
-void	end_the_game(t_vars *game, int suc);
+void	end_the_game(t_vars *vars, int suc);
 
 // -------- dev -------
 
