@@ -6,7 +6,7 @@
 /*   By: oipadeol <oipadeol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:01:59 by ttokesi           #+#    #+#             */
-/*   Updated: 2022/05/04 19:01:23 by oipadeol         ###   ########.fr       */
+/*   Updated: 2022/05/04 19:05:00 by oipadeol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,11 +104,8 @@ typedef struct s_putin
 	int		all_in;
 }	t_putin;
 
-
 int		smaller(int a, int b);
 int		get_pixel(t_img *image, int x, int y);
 float	get_dist(float ax, float ay, float bx, float by);
-
-
 
 #endif
