@@ -41,10 +41,10 @@ To visualize more maps like the one below.<br>
 - Shoot with ```
  left shift ```
 
-## visualizing two maps from the maps/ folder.
-more maps can be found in this folder.
 
 ### useful resource
 ![3DSage](https://www.youtube.com/watch?v=gYRrGTC7GtA)
+
+more maps can be found in /maps
 
 ![visualizer](https://github.com/Sirelaw/cub3d/blob/master/readme_addons/sample1.gif)
