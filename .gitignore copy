@@ -1,0 +1,8 @@
+# VSCode user setup files
+.vscode
+
+# Object files
+*.o
+
+# macOS user view preference
+.DS_Store
