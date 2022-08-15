@@ -26,13 +26,11 @@ This will compile my code into an executable called `cub3d` and delete all unnec
 ```
 make
 ```
-
 To visualize more maps like the one below.<br>
 
 ```
 ./cub3d maps/[other_map]
 ```
-
 ### movement
 - Move with ```
  WASD ```
