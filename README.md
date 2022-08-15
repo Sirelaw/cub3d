@@ -49,4 +49,4 @@ more maps can be found in this folder.
 ### useful resource
 ![3DSage](https://www.youtube.com/watch?v=gYRrGTC7GtA)
 
-![visualizer](https://github.com/Sirelaw/cub3d/blob/master/readme_addons/sample.gif)
+![visualizer](https://github.com/Sirelaw/cub3d/blob/master/readme_addons/sample1.gif)
