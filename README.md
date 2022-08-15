@@ -1,5 +1,5 @@
 # cub3d 125/100 
-### Done in colaboration with @ttokesi (@tomah56 on github).
+### Done in colaboration with @ttokesi (![tomah56](https://github.com/tomah56) on github).
 
 This is our solution to the cub3d project of 42 school.<br>
 
