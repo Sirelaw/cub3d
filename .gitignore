@@ -1,5 +1,8 @@
-cub3D
+# VSCode user setup files
+.vscode
+
+# Object files
 *.o
-*.out
-fdf_oipadeol
-check
+
+# macOS user view preference
+.DS_Store
