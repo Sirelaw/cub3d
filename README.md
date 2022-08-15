@@ -8,12 +8,12 @@ This is our solution to the cub3d project of 42 school.<br>
 ## Input file must meet the following criteria
 - file extension must be .cub
 - file must contain paths to textures for <br>
- East wall (EA)<br>
- West wall (WE)<br>
- North wall (NO)<br>
- South wall (SO)<br>
- Floor      (F)<br>
- Ceiling    (C)<br>
+ - East wall (EA)<br>
+ - West wall (WE)<br>
+ - North wall (NO)<br>
+ - South wall (SO)<br>
+ - Floor      (F)<br>
+ - Ceiling    (C)<br>
 - Included map must contain one character from NEWS. This states where the player is spun and which direction the character faces.
 - The map must be bounded by 1s on all sides.
 
