@@ -17,11 +17,11 @@ This is our solution to the cub3d project of 42 school.<br>
 - Included map must contain one character from NEWS. This states where the player is spun and which direction the character faces.
 - The map must be bounded by 1s on all sides.
 
-## raycasting
+## Raycasting
 - ![Ray casting](https://en.wikipedia.org/wiki/Ray_casting) is the most basic of many computer graphics rendering algorithms that use the geometric algorithm of ray tracing. Ray tracing-based rendering algorithms operate in image order to render three-dimensional scenes to two-dimensional images. Geometric rays are traced from the eye of the observer to sample the light (radiance) travelling toward the observer from the ray direction. The speed and simplicity of ray casting comes from computing the color of the light without recursively tracing additional rays that sample the radiance incident on the point that the ray hit. The idea behind ray casting is to trace rays from the eye, one per pixel, and find the closest object blocking the path of that ray. The high speed of calculation made ray casting a handy rendering method in early real-time 3D video games.
 
-## how to use the program
-This will compile my code into an executable called `cub3d` and delete all unnecesarry files that were created during compilation.<br>
+## How to use the program
+This will compile the code into an executable called `cub3d` and delete all unnecesarry files that were created during compilation.<br>
 
 ```
 make
@@ -31,7 +31,7 @@ To visualize more maps like the one below.<br>
 ```
 ./cub3d maps/[other_map]
 ```
-### movement
+### Movement
 - Move with ```
  WASD ```
 - Scan environment with ```
