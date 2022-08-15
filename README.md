@@ -1,6 +1,4 @@
-Project in progress...
-
-Done in colaboration with ttokesi (tomah56 on here).
+Done in colaboration with ttokesi (@tomah56 on here).
 
 This project’s objectives are: Rigor, use of C, use
 of basic algorithms, information research etc.
