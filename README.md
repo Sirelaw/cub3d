@@ -3,7 +3,7 @@
 
 This is our solution to the cub3d project of 42 school.<br>
 
-![result](https://github.com/Sirelaw/fdf/blob/master/readme_addons/Screen%20Shot%202022-08-14%20at%202.54.19%20AM.png)
+![result](https://github.com/Sirelaw/cub3d/blob/master/readme_addons/Screen%20Shot%202022-08-15%20at%203.25.33%20PM.png)
 
 ## Input file must meet the following criteria
 - file extension must be .cub
@@ -49,4 +49,4 @@ more maps can be found in this folder.
 ### useful resource
 ![3DSage](https://www.youtube.com/watch?v=gYRrGTC7GtA)
 
-![visualizer](https://github.com/Sirelaw/fdf/blob/master/readme_addons/sample.gif)
+![visualizer](https://github.com/Sirelaw/cub3d/blob/master/readme_addons/sample.gif)
